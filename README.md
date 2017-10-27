@@ -8,7 +8,7 @@ $ npm install
 
 To develop:
 
-```bash
+```bash 生产模式
 $ npm run dev
 ```
 
