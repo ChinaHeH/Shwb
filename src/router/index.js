@@ -1,0 +1,126 @@
+import Vue from 'vue';
+import Router from 'vue-router';
+import Home from './Home/index.vue';
+import Test from './Home/test.vue';
+import Index from './Index/index.vue';
+import Login from './Login/index.vue';
+import PersonInfo from './Self/info.vue';
+import PersonUpdate from './Self/update.vue';
+import SliderAdd from './Slider/add.vue';
+import SliderList from './Slider/list.vue';
+import SliderInfo from './Slider/info.vue';
+import SliderEdit from './Slider/edit.vue';
+import companyEdit from './Index/edit.vue';
+import companyInfo from './Index/info.vue';
+import UserList from './User/list.vue';
+import UserAdd from './User/add.vue';
+import UserInfo from './User/info.vue';
+import UserEdit from './User/edit.vue';
+import CustomerList from './Customer/list.vue';
+import CustomerAdd from './Customer/add.vue';
+import CustomerInfo from './Customer/info.vue';
+import CustomerEdit from './Customer/edit.vue';
+
+
+Vue.use(Router);
+
+export default new Router({
+  mode: 'hash',
+  routes: [
+    {
+      name: 'Home',
+      path: '/',
+      component: Home
+    },
+    {
+      name: 'Test',
+      path: '/home',
+      component: Test
+    },
+    {
+      name: 'Index',
+      path: '/index',
+      component: Index
+    },
+    {
+      name: 'Login',
+      path: '/login',
+      component: Login
+    },
+    {
+      name: 'PersonInfo',
+      path: '/personinfo',
+      component: PersonInfo
+    },
+    {
+      name: 'PersonUpdate',
+      path: '/personupdate',
+      component: PersonUpdate
+    },
+    {
+      name: 'SliderAdd',
+      path: '/slideradd',
+      component: SliderAdd
+    },
+    {
+      name: 'SliderList',
+      path: '/sliderlist',
+      component: SliderList
+    },
+    {
+      name: 'SliderInfo',
+      path: '/sliderinfo/:id',
+      component: SliderInfo
+    },
+    {
+      name: 'SliderEdit',
+      path: '/slideredit/:id',
+      component: SliderEdit
+    },
+    {
+      name: 'companyEdit',
+      path: '/companyedit',
+      component: companyEdit
+    },
+    {
+      name: 'companyInfo',
+      path: '/companyinfo',
+      component: companyInfo
+    },
+    {
+      name: 'UserList',
+      path: '/userlist',
+      component: UserList
+    },
+    {
+      name: 'UserAdd',
+      path: '/useradd',
+      component: UserAdd
+    },
+    {
+      name: 'UserInfo',
+      path: '/userinfo/:id',
+      component: UserInfo
+    },
+    {
+      name: 'UserEdit',
+      path: '/useredit/:id',
+      component: UserEdit
+    },
+    {
+      name: 'CustomerList',
+      path: '/customerlist',
+      component: CustomerList
+    },
+    {
+      name: 'CustomerAdd',
+      path: '/customeradd',
+      component: CustomerAdd
+    },
+    {
+      name: 'CustomerEdit',
+      path: '/customeredit/:id',
+      component: CustomerEdit
+    }
+  ]
+});

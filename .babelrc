@@ -1,0 +1,6 @@
+{
+  "plugins": [["component", [
+    { "libraryName": "element-ui", "styleLibraryName": "theme-default" }
+  ]]],
+  "presets": ["es2015", "stage-0"]
+}

@@ -1,0 +1,144 @@
+{
+  "msg": 200,
+  "userinfo": {
+    "role": "超级管理员2",
+    "name": "admin2"
+  },
+  "menu": [
+    {
+      "show": true,
+      "href": "/home",
+      "name": "首页"
+    },
+    {
+      "show": false,
+      "href": "/personinfo",
+      "name": "查看个人信息"
+    },
+    {
+      "show": false,
+      "href": "/personupdate",
+      "name": "修改个人信息"
+    },
+    {
+      "show": true,
+      "href": "/order",
+      "name": "首页模块",
+      "expansion": false,
+      "children": [
+        {
+          "show": true,
+          "href": "/companyinfo",
+          "name": "公司简介"
+        },
+        {
+          "show": false,
+          "href": "/companyedit",
+          "name": "编辑公司简介"
+        },
+        {
+          "show": true,
+          "href": "/sliderlist",
+          "name": "轮播图一览"
+        },
+        {
+          "show": false,
+          "href": "/slideradd",
+          "name": "新增轮播图"
+        },
+        {
+          "show": false,
+          "href": "/sliderinfo",
+          "name": "查看轮播图信息"
+        },
+        {
+          "show": false,
+          "href": "/slideredit",
+          "name": "编辑轮播图"
+        }
+      ]
+    },
+    {
+      "show": true,
+      "href": "/order",
+      "name": "用户管理",
+      "expansion": false,
+      "children": [
+        {
+          "show": true,
+          "href": "/userlist",
+          "name": "用户一览"
+        },
+        {
+          "show": false,
+          "href": "/useradd",
+          "name": "新增用户"
+        },
+        {
+          "show": false,
+          "href": "/userinfo",
+          "name": "查看用户信息"
+        },
+        {
+          "show": false,
+          "href": "/useredit",
+          "name": "编辑用户信息"
+        }
+      ]
+    },
+    {
+      "show": true,
+      "href": "/order",
+      "name": "客户管理",
+      "expansion": false,
+      "children": [
+        {
+          "show": true,
+          "href": "/customerlist",
+          "name": "客户一览"
+        },
+        {
+          "show": false,
+          "href": "/customeradd",
+          "name": "新增客户"
+        },
+        {
+          "show": false,
+          "href": "/customerinfo",
+          "name": "查看客户信息"
+        },
+        {
+          "show": false,
+          "href": "/customeredit",
+          "name": "编辑客户信息"
+        }
+      ]
+    },
+    {
+      "show": true,
+      "href": "/order",
+      "name": "订单管理",
+      "expansion": false,
+      "children": [
+        {
+          "show": true,
+          "href": "/orderList",
+          "name": "订单一览"
+        }
+      ]
+    },
+    {
+      "show": true,
+      "href": "/order",
+      "name": "系统设置",
+      "expansion": false,
+      "children": [
+        {
+          "show": true,
+          "href": "/priceSet",
+          "name": "加工价格设置"
+        }
+      ]
+    }
+  ]
+}

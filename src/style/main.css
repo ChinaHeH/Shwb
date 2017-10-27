@@ -1,0 +1,23 @@
+@import "normalize/normalize.css";
+
+
+html,body{ font-family: "Microsoft Yahei";-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;height:100%;width:100%;font-size: 14px;overflow: hidden;}
+body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,form,fieldset,legend,button,input,textarea,th,td{margin:0;padding:0;}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:   rgb(179,179,179);
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    rgb(179,179,179);
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    rgb(179,179,179);
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    rgb(179,179,179);
+}
+#app{
+  height: 100%;
+  overflow: hidden;
+  background-color: #eee;
+}
