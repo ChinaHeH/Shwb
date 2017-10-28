@@ -130,13 +130,46 @@
     {
       "show": true,
       "href": "/order",
-      "name": "系统设置",
+      "name": "加工价格 ",
       "expansion": false,
       "children": [
         {
           "show": true,
           "href": "/priceSet",
           "name": "加工价格设置"
+        },
+        {
+          "show": true,
+          "href": "/priceList",
+          "name": "价格一览"
+        },
+        {
+          "show": false,
+          "href": "/priceSet",
+          "name": "加工价格设置"
+        }
+      ]
+    },
+    {
+      "show": true,
+      "href": "/order",
+      "name": "结算设置",
+      "expansion": false,
+      "children": [
+        {
+          "show": true,
+          "href": "/accountsList",
+          "name": "结算"
+        },
+        {
+          "show": true,
+          "href": "/accountsDetial",
+          "name": "结算一览"
+        },
+        {
+          "show": false,
+          "href": "/accounts",
+          "name": "结算"
         }
       ]
     }

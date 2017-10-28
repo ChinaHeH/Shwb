@@ -750,8 +750,9 @@ export function _testJava () {
 }
 
 
+
 //忘记密码发送邮件
-export function _forgetPassword (user){
+export function _forgetPassword (user) {
 
   return new Promise(function (resolve, reject) {
     axios({
@@ -761,7 +762,32 @@ export function _forgetPassword (user){
         params: user
       },
       headers: {
-        'Content-type': application/json
+        'Content-type': application / json
+      }
+    }).then(function (response) {
+      resolve(response);
+    }).catch(function (response) {
+      reject(response);
+    })
+  });
+}
+
+// 获取结算一览
+export function _Getbalancelist (params) {
+  var jwtToken = localStorage.getItem('jwtToken');
+
+  if (!jwtToken) {
+    location.href = location.origin + '/#/login'
+  }
+  return new Promise(function (resolve, reject) {
+    axios({
+      method: 'post',
+      url: CONSTANT.api.Getbalancelist,
+      data: {
+        params: params
+      },
+      headers: {
+        'Authorization': jwtToken
       }
     }).then(function (response) {
       resolve(response);

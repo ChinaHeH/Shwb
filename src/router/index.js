@@ -22,7 +22,10 @@ import CustomerInfo from './Customer/info.vue';
 import CustomerEdit from './Customer/edit.vue';
 //*******************忘记密码*****************************
 import ForgetPassword from './Login/forgetPassword.vue';
-import OrderList from './Login/forgetPassword.vue';
+import OrderList from './dingdan/dingdanList.vue';
+
+//结算路由
+import accountsDetial from './accounts/list.vue';
 
 
 Vue.use(Router);
@@ -142,6 +145,12 @@ export default new Router({
       name: 'OrderList',
       path: '/orderList',
       component: OrderList
+    },
+    //结算一览页面
+    {
+    	name:'accountsDetial',
+    	path:'/accountsDetial',
+    	component: accountsDetial
     }
   ]
 });
