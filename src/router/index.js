@@ -21,6 +21,9 @@ import CustomerAdd from './Customer/add.vue';
 import CustomerInfo from './Customer/info.vue';
 import CustomerEdit from './Customer/edit.vue';
 
+//结算路由
+import accountsDetial from './accounts/list.vue';
+
 
 Vue.use(Router);
 
@@ -127,6 +130,12 @@ export default new Router({
       name: 'CustomerInfo',
       path: '/CustomerInfo/:id',
       component: CustomerInfo
+    },
+    //结算一览页面
+    {
+    	name:'accountsDetial',
+    	path:'/accountsDetial',
+    	component: accountsDetial
     }
   ]
 });

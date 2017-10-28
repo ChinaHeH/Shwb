@@ -32,6 +32,9 @@ export var CONSTANT = {
    DISABLECUSTOMER : location.origin + '/baite/web/disableCustomer',
    ENABLECUSTOMER : location.origin + '/baite/web/enableCustomer',
    DELETECUSTOMER : location.origin + '/baite/web/deleteCustomer',
+   
+   //结算一览
+   Getbalancelist : location.origin + '/baite/web/getBalanceList',
 
   },
   methods: {

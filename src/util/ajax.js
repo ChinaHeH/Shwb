@@ -747,3 +747,30 @@ export function _testJava () {
   });
 
 }
+
+
+// 获取结算一览
+export function _Getbalancelist (params) {
+  var jwtToken = localStorage.getItem('jwtToken');
+
+  if (!jwtToken) {
+    location.href = location.origin + '/#/login'
+  }
+  return new Promise(function (resolve, reject) {
+    axios({
+      method: 'post',
+      url: CONSTANT.api.Getbalancelist,
+      data: {
+        params: params
+      },
+      headers: {
+        'Authorization': jwtToken
+      }
+    }).then(function (response) {
+      resolve(response);
+    }).catch(function (response) {
+      reject(response);
+    })
+  });
+
+}
