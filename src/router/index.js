@@ -121,6 +121,12 @@ export default new Router({
       name: 'CustomerEdit',
       path: '/customeredit/:id',
       component: CustomerEdit
+    },
+    //客户查看页面
+    { 
+      name: 'CustomerInfo',
+      path: '/CustomerInfo/:id',
+      component: CustomerInfo
     }
   ]
 });

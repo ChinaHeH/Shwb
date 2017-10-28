@@ -21,14 +21,13 @@
     methods: {
       getCustomer () {
         var _this = this;
-
         var params = {
           id: _this.$route.params.id
         };
 
         _getCustomer(params).then(function (response) {
           var data = response.data;
-
+          console.log(data);
           if (data.status) {
             _this.dealData(data.data);
           } else {
