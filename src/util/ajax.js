@@ -796,3 +796,52 @@ export function _Getbalancelist (params) {
     })
   });
 }
+//获取价格一览 
+export function _Getpricelist(params) {
+  var jwtToken = localStorage.getItem('jwtToken');
+
+  if (!jwtToken) {
+    location.href = location.origin + '/#/login'
+  }
+  return new Promise(function (resolve, reject) {
+    axios({
+      method: 'post',
+      url: CONSTANT.api.Getpricelist,
+      data: {
+        params: params
+      },
+      headers: {
+        'Authorization': jwtToken
+      }
+    }).then(function (response) {
+      resolve(response);
+    }).catch(function (response) {
+      reject(response);
+    })
+  });
+}
+
+//添加价格 _addPrice
+export function _addPrice(params) {
+  var jwtToken = localStorage.getItem('jwtToken');
+
+  if (!jwtToken) {
+    location.href = location.origin + '/#/login'
+  }
+  return new Promise(function (resolve, reject) {
+    axios({
+      method: 'post',
+      url: CONSTANT.api.Addprice,
+      data: {
+        params: params
+      },
+      headers: {
+        'Authorization': jwtToken
+      }
+    }).then(function (response) {
+      resolve(response);
+    }).catch(function (response) {
+      reject(response);
+    })
+  });
+}

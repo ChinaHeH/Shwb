@@ -35,6 +35,11 @@ export var CONSTANT = {
    
    //结算一览
    Getbalancelist : location.origin + '/baite/web/getBalanceList',
+   
+   //价格一览
+   Getpricelist : location.origin + '/baite/web/getPriceList',
+   //添加价格
+   Addprice : location.origin + '/baite/web/addPrice',
 
     //*******************找回密码************************
     //发送邮件

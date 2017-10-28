@@ -27,6 +27,10 @@ import OrderList from './dingdan/dingdanList.vue';
 //结算路由
 import accountsDetial from './accounts/list.vue';
 
+//价格路由
+import priceList from './price/priceList.vue';
+import addPrice from './price/addPrice.vue';
+
 
 Vue.use(Router);
 
@@ -151,6 +155,20 @@ export default new Router({
     	name:'accountsDetial',
     	path:'/accountsDetial',
     	component: accountsDetial
+    },
+    //价格一览
+    {
+    	name:'priceList',
+    	path:'/priceList',
+    	component: priceList
+    },
+    //添加价格
+    {
+    	name:'addPrice',
+    	path:'/addPrice',
+    	component: addPrice
     }
+    
+    
   ]
 });
