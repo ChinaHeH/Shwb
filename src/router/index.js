@@ -20,7 +20,6 @@ import CustomerList from './Customer/list.vue';
 import CustomerAdd from './Customer/add.vue';
 import CustomerInfo from './Customer/info.vue';
 import CustomerEdit from './Customer/edit.vue';
-import ForgetPassword from './Login/forgetPassword.vue'
 
 
 Vue.use(Router);
@@ -122,11 +121,6 @@ export default new Router({
       name: 'CustomerEdit',
       path: '/customeredit/:id',
       component: CustomerEdit
-    },
-    {
-      name: 'ForgetPassword',
-      path: '/ForgetPassword/:id',
-      component: ForgetPassword
     }
   ]
 });

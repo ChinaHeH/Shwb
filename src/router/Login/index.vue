@@ -3,9 +3,7 @@
     <div>
       <header>上海百特后台管理</header>
       <uc-form class="form" :rForm="rForm" :dForm="dForm" :rrules="rules" ref="form1"></uc-form>
-      <p>
-        <router-link to="/ForgetPassword">忘记密码？</router-link>
-      </p>
+      <p>忘记密码？</p>
       <el-button type="primary" class="btn" @click="formSubmit()">登录</el-button>
     </div>
 
