@@ -28,7 +28,6 @@
 
         _getUser(params).then(function (response) {
           var data = response.data;
-
           if (data.status) {
             _this.dealData(data.data);
           } else {

@@ -26,6 +26,7 @@ export var CONSTANT = {
    DELETEUSER : location.origin + '/baite/web/deleteUser',
    GETCUSTOMERLIST : location.origin + '/baite/web/getCustomerList',
    ADDCUSTOMER : location.origin + '/baite/web/addCustomer',
+   //客户信息
    GETCUSTOMER : location.origin + '/baite/web/getCustomer',
    UPDATECUSTOMER : location.origin + '/baite/web/updateCustomer',
    DISABLECUSTOMER : location.origin + '/baite/web/disableCustomer',

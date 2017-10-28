@@ -14,6 +14,6 @@ $ npm run dev
 
 To build for production:
 
-```bash dabao
+```bash dabao2
 $ npm run build
 ```

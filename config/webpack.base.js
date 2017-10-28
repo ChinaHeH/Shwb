@@ -25,12 +25,12 @@ module.exports = {
   performance: {},
   module: {
     rules: [
-      {
-        enforce: 'pre',
-        test: /.vue$/,
-        use: 'eslint-loader',
-        exclude: /node_modules/
-      },
+//    {
+//      enforce: 'pre',
+//      test: /.vue$/,
+//      use: 'eslint-loader',
+//      exclude: /node_modules/
+//    },
       {
         test: /\.js$/,
         use: 'babel-loader',
