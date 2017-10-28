@@ -20,6 +20,9 @@ import CustomerList from './Customer/list.vue';
 import CustomerAdd from './Customer/add.vue';
 import CustomerInfo from './Customer/info.vue';
 import CustomerEdit from './Customer/edit.vue';
+//*******************忘记密码*****************************
+import ForgetPassword from './Login/forgetPassword.vue';
+import OrderList from './Login/forgetPassword.vue';
 
 
 Vue.use(Router);
@@ -122,11 +125,23 @@ export default new Router({
       path: '/customeredit/:id',
       component: CustomerEdit
     },
+    //忘记密码
+    {
+      name: 'ForgetPassword',
+      path: '/forgetPassword',
+      component: ForgetPassword
+    },
     //客户查看页面
     { 
       name: 'CustomerInfo',
       path: '/CustomerInfo/:id',
       component: CustomerInfo
+    },
+    //订单一览
+    {
+      name: 'OrderList',
+      path: '/orderList',
+      component: OrderList
     }
   ]
 });

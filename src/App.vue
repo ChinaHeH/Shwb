@@ -1,7 +1,7 @@
 <template>
   <div id="app" >
-    <uc-header :name="name" :userinfo="userinfo" v-if="$route.path != '/index' && $route.path != '/login'"></uc-header>
-    <div v-if="$route.path != '/index' && $route.path != '/login'">
+    <uc-header :name="name" :userinfo="userinfo" v-if="$route.path != '/index' && $route.path != '/login' && $route.path != '/forgetPassword'"></uc-header>
+    <div v-if="$route.path != '/index' && $route.path != '/login' && $route.path != '/forgetPassword'">
       <uc-slider :menu="menu"></uc-slider>
       <div>
         <router-view></router-view>

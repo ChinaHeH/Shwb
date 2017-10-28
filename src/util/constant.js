@@ -33,6 +33,10 @@ export var CONSTANT = {
    ENABLECUSTOMER : location.origin + '/baite/web/enableCustomer',
    DELETECUSTOMER : location.origin + '/baite/web/deleteCustomer',
 
+    //*******************找回密码************************
+    //发送邮件
+   SENDEMAIL : location.origin + '/baite/web/sendResetPwdMail',
+
   },
   methods: {
     MD5Methods (user) {

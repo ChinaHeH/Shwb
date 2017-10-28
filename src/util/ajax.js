@@ -60,6 +60,7 @@ export function _logout () {
   });
 
 }
+
 //  获取个人信息
 export function _getUserInfo () {
   var jwtToken = localStorage.getItem('jwtToken');
@@ -746,4 +747,26 @@ export function _testJava () {
     })
   });
 
+}
+
+
+//忘记密码发送邮件
+export function _forgetPassword (user){
+
+  return new Promise(function (resolve, reject) {
+    axios({
+      method: 'post',
+      url: CONSTANT.api.SENDEMAIL,
+      data: {
+        params: user
+      },
+      headers: {
+        'Content-type': application/json
+      }
+    }).then(function (response) {
+      resolve(response);
+    }).catch(function (response) {
+      reject(response);
+    })
+  });
 }
