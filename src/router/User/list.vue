@@ -43,10 +43,11 @@
           show: true,
           total: 0,
           currentPage: 1,
+          size:5,
           click: page => {
             this.getUserList({
               page_now: page,
-              limit: 10
+              limit: 5
             });
           }
         }

@@ -28,6 +28,7 @@
       @current-change="pagination.click"
       :current-page="pagination.currentPage"
       layout="total, prev, pager, next"
+      :page-size="pagination.size"
       :total="pagination.total"
     ></el-pagination>
     <footer v-if="scale.show">

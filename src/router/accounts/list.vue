@@ -39,7 +39,7 @@
 					</template>
 				</el-table-column>
 			</el-table>
-			<el-pagination class="uc-pagination" v-if="pagination.show" @current-change="pagination.click" :current-page="pagination.currentPage" layout="total, prev, pager, next" :total="pagination.total"></el-pagination>
+			<el-pagination class="uc-pagination" v-if="pagination.show" @current-change="pagination.click" :page-size="pagination.size"  :current-page="pagination.currentPage" layout="total, prev, pager, next" :total="pagination.total"></el-pagination>
 		</div>
 		<footer v-if="scale.show">
 			<div @click="scaleImg('1')"></div>
@@ -77,6 +77,7 @@
 						show: true,
 						total: 0,
 						currentPage: 1,
+						size:10,
 						click: page => {
 							this.Getbalancelist({
 								page_now: page,

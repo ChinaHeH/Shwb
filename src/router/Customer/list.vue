@@ -47,6 +47,7 @@
           show: true,
           total: 0,
           currentPage: 1,
+          size:10,
           click: page => {
             this.getCustomerList({
               page_now: page,
