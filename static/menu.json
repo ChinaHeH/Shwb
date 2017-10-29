@@ -134,7 +134,7 @@
       "expansion": false,
       "children": [
         {
-          "show": false,
+          "show": true,
           "href": "/priceSet",
           "name": "加工价格设置"
         },
@@ -157,6 +157,11 @@
         	"show": false,
           "href": "/priceInfo",
           "name": "价格设定信息"
+        },
+        {
+        	"show": false,
+          "href": "/editPrice",
+          "name": "更新价格设定"
         }
       ]
     },

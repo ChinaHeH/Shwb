@@ -32,10 +32,10 @@
           if (data.status) {
             _this.dealData(data.data);
           } else {
-            CONSTANT.methods.tips(data.error_msg || '获取用户信息失败!', '提示');
+            CONSTANT.methods.tips(data.error_msg || '获取价格设定异常!', '提示');
           }
         }).catch(function (res) {
-          CONSTANT.methods.tips(res || '获取用户信息异常!', '提示');
+          CONSTANT.methods.tips(res || '获取价格设定异常!', '提示');
         });
       },
       dealData (data) {

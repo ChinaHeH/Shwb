@@ -31,7 +31,7 @@
 		</div>
 		<div class="body">
 			<el-table :data="tableData" stripe style="width: 100%">
-				<el-table-column type="index" label="编号" width="180">
+				<el-table-column type="index" label="编号" width="145">
 				</el-table-column>
 				<el-table-column prop="processName" label="工艺名称" width="180">
 				</el-table-column>
@@ -50,10 +50,10 @@
 						￥{{scope.row.price}}
 					</template>
 				</el-table-column>
-				<el-table-column label="操作" >
+				<el-table-column label="操作" width="250" >
         <template scope="scope">
         	<el-button size="small" type="primary" @click="detail(scope.row.id)">查看</el-button>
-        	<el-button size="small" type="warning" @click="edit(scope.$index, scope.row.id)">编辑</el-button>
+        	<el-button size="small" type="warning" @click="edit(scope.row.id)">编辑</el-button>
         	<el-button size="small" type="danger" @click="del(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
@@ -134,6 +134,9 @@
 				detail(id) { //查看
 					location.href = location.origin + '/#/priceInfo/' + id;
 				},
+				edit(id){ //编辑
+					location.href = location.origin + '/#/editPrice/' + id;
+				},
 				Deleteprice(params){//删除请求
 					var _this = this;
 					_Deleteprice(params).then(function(response) {
@@ -141,17 +144,19 @@
 						console.log(data);
 						if(data.status) {
 							 CONSTANT.methods.tips('删除成功!', '确定', function(){
-					              _this.Getpricelist({
-									page_now: 1,
-									limit: 5,
-									search_by:_this.formInline
-								});
+							 	window.location.reload();
+//							 	_this.tableData = [];
+//					              _this.Getpricelist({
+//									page_now: 1,
+//									limit: 5,
+//									search_by:_this.formInline
+//								});
 				            });
 						} else {
-							CONSTANT.methods.tips(data.error_msg || '获取客户一览失败!', '提示');
+							CONSTANT.methods.tips(data.error_msg || '删除价格设定异常!', '提示');
 						}
 					}).catch(function(res) {
-						CONSTANT.methods.tips(res || '获取客户一览异常!', '提示');
+						CONSTANT.methods.tips(res || '删除价格设定异常!', '提示');
 					});
 				},
 				Getpricelist(params) {//获取价格列表
@@ -163,10 +168,10 @@
 							_this.tableData = data.data.list;
 							_this.pagination.total = data.data.total_num;
 						} else {
-							CONSTANT.methods.tips(data.error_msg || '获取客户一览失败!', '提示');
+							CONSTANT.methods.tips(data.error_msg || '获取价格一览失败!', '提示');
 						}
 					}).catch(function(res) {
-						CONSTANT.methods.tips(res || '获取客户一览异常!', '提示');
+						CONSTANT.methods.tips(res || '获取价格一览失败!', '提示');
 					});
 				},
 				goAdd() {

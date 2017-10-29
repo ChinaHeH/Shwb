@@ -33,7 +33,8 @@ import accountsDetial from './accounts/list.vue';
 import priceList from './price/priceList.vue';
 import addPrice from './price/addPrice.vue';
 import priceInfo from './price/priceInfo.vue';
-
+import editPrice from './price/editPrice.vue';
+import priceSet from './price/priceSet.vue';
 
 Vue.use(Router);
 
@@ -182,7 +183,18 @@ export default new Router({
     	name:'priceInfo',
     	path:'/priceInfo/:id',
     	component: priceInfo
+    },
+    //更新价格设定
+    {
+    	name:'editPrice',
+    	path:'/editPrice/:id',
+    	component: editPrice
+    },
+    //加工价格设置 
+    {
+    	name:'priceSet',
+    	path:'/priceSet',
+    	component: priceSet
     }
-    
   ]
 });

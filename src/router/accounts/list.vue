@@ -115,10 +115,10 @@
 						if(data.status) {
 							_this.tableData = data.data.list;
 						} else {
-							CONSTANT.methods.tips(data.error_msg || '获取客户一览失败!', '提示');
+							CONSTANT.methods.tips(data.error_msg || '获取结算一览失败!', '提示');
 						}
 					}).catch(function(res) {
-						CONSTANT.methods.tips(res || '获取客户一览异常!', '提示');
+						CONSTANT.methods.tips(res || '获取结算一览失败!', '提示');
 					});
 				},
 				goAdd() {
