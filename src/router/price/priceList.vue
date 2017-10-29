@@ -1,15 +1,33 @@
 <template>
 	<div>
 		<div class="header">
-			<!--<lebal>
-				客户名称:
-			</lebal>
-			<el-select v-model="value" placeholder="请选择">
-				<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-				</el-option>
-			</el-select>
-			<el-button type="primary" @click="check">检索</el-button>-->
-			<el-button type="primary" @click="addPrice">新增</el-button>
+			<el-form :inline="true" :model="formInline" class="demo-form-inline">
+			  <el-form-item label="工艺名称">
+			    <el-input v-model="formInline.processName" placeholder="请输入工艺名称"></el-input>
+			  </el-form-item>
+			  <el-form-item label="石料类别">
+			    <el-select v-model="formInline.stoneType" placeholder="请选择石料类别">
+			      <el-option label="微晶石" value="1"></el-option>
+			      <el-option label="全抛釉" value="2"></el-option>
+			      <el-option label="玻化砖" value="3"></el-option>
+			      <el-option label="特殊砖" value="4"></el-option>
+			    </el-select>
+			  </el-form-item>
+			  <el-form-item label="规格类别">
+			    <el-select v-model="formInline.sizeType" placeholder="请选择规格类别">
+			      <el-option label="600*600" value="1"></el-option>
+			      <el-option label="800*800" value="2"></el-option>
+			      <el-option label="600*900" value="3"></el-option>
+			      <el-option label="600*1200" value="4"></el-option>
+			    </el-select>
+			  </el-form-item>
+			  <el-form-item>
+			    <el-button type="primary" @click="onSubmit">查询</el-button>
+			  </el-form-item><el-form-item>
+			    <el-button type="primary" @click="addPrice">新增</el-button>
+			  </el-form-item>
+			</el-form>
+			
 		</div>
 		<div class="body">
 			<el-table :data="tableData" stripe style="width: 100%">
@@ -36,7 +54,7 @@
         <template scope="scope">
         	<el-button size="small" type="primary" @click="detail(scope.$index, scope.row.id)">查看</el-button>
         	<el-button size="small" type="warning" @click="edit(scope.$index, scope.row.id)">编辑</el-button>
-        	<el-button size="small" type="danger" @click="del(scope.$index, scope.row.id)">删除</el-button>
+        	<el-button size="small" type="danger" @click="del(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
 			</el-table>
@@ -51,13 +69,18 @@
 	} from '../../util/constant';
 	import {
 		_Getpricelist,
+		_Deleteprice,
 	} from '../../util/ajax';
 	import {
 		Select,
 		Button,
 		Table,
+		Input,
 		TableColumn,
-		Pagination
+		Pagination,
+		Form,
+		FormItem,
+		Option
 	} from 'element-ui';
 
 	export default {
@@ -68,15 +91,21 @@
 						show: false,
 						src: require('../../../src/images/default.png')
 					},
+					 formInline: {
+			          processName: '',
+			          stoneType: '',
+			          sizeType:'',
+			       },
 					pagination: {
 						show: true,
 						total: 0,
 						currentPage: 1,
-						size:10,
+						size:5,
 						click: page => {
 							this.Getpricelist({
 								page_now: page,
-								limit: 10,
+								limit: 5,
+								search_by:this.formInline
 							});
 						}
 					},
@@ -87,24 +116,46 @@
 				ElButton: Button,
 				ElTable: Table,
 				ElTableColumn: TableColumn,
-				ElPagination: Pagination
+				ElPagination: Pagination,
+				ElInput : Input,
+				ElForm:Form,
+				ElFormItem :FormItem,
+				ElOption:Option
 			},
 			methods: {
 				addPrice () {
-	        location.href = location.origin + '/#/addPrice';
-	      },
-				check() { //检索
-					alert(1);
-				},
-				donwLoad(index, id) { //下载
-					alert(index);
-					alert(id);
+		        location.href = location.origin + '/#/addPrice';
+		      	},
+				del(id) { //删除价格设定
+					this.Deleteprice({
+						id: id,
+					});
 				},
 				save(index, id) { //保存
 					alert(index);
 					alert(id);
 				},
-				Getpricelist(params) {
+				Deleteprice(params){//删除请求
+					var _this = this;
+					_Deleteprice(params).then(function(response) {
+						var data = response.data;
+						console.log(data);
+						if(data.status) {
+							 CONSTANT.methods.tips('删除成功!', '确定', function(){
+					              _this.Getpricelist({
+									page_now: 1,
+									limit: 5,
+									search_by:_this.formInline
+								});
+				            });
+						} else {
+							CONSTANT.methods.tips(data.error_msg || '获取客户一览失败!', '提示');
+						}
+					}).catch(function(res) {
+						CONSTANT.methods.tips(res || '获取客户一览异常!', '提示');
+					});
+				},
+				Getpricelist(params) {//获取价格列表
 					var _this = this;
 					_Getpricelist(params).then(function(response) {
 						var data = response.data;
@@ -121,12 +172,22 @@
 				},
 				goAdd() {
 					location.href = location.origin + '/#/customeradd';
-				}
+				},
+				onSubmit(){ //检索
+			        console.log(this.formInline);
+			        this.Getpricelist({
+						page_now: 1,
+						limit: 5,
+						search_by:this.formInline
+					});
+			   }
 			},
 			mounted() {
+				 
 				this.Getpricelist({
 					page_now: 1,
-					limit: 10,
+					limit: 5,
+					search_by:this.formInline
 				});
 			},
 			filters: {
