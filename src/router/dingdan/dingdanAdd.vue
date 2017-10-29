@@ -48,11 +48,11 @@
 
     <h3>加工信息-基本信息</h3>
     <el-button type="primary" @click="addBasicInfo()">添加基本信息</el-button>
-    <el-button type="primary">删除基本信息</el-button>
+    <el-button type="primary" @click="removeArr">删除基本信息</el-button>
     <div style="margin-top: 20px;"></div>
 
-    <el-table stripe :data="tableData1" tooltip-effect="dark" style="width: 100%">
-      <el-table-column type="selection" width="55"></el-table-column>
+    <el-table stripe ref="multipleTable" :data="tableData1"  @selection-change="handleSelectionChange"  tooltip-effect="dark" style="width：100%">
+      <el-table-column  type="selection" width="50"></el-table-column>
       <el-table-column label="名称">
         <template slot-scope="scope">
           <el-select v-model="scope.row.name" placeholder="单长边外倒45度" @change = "changePrice(priceList,scope.row.name,scope.$index)">
@@ -87,7 +87,7 @@
       </el-table-column>
       <el-table-column label="成品数量／片">
         <template slot-scope="scope">
-          <el-input type="number" v-model="scope.row.productNumber" placeholder="成品数量"></el-input>
+          <el-input type="number" @blur="productNumberCount" v-model="scope.row.productNumber" placeholder="成品数量"></el-input>
         </template>
       </el-table-column>
       <el-table-column label="备注">
@@ -97,29 +97,22 @@
       </el-table-column>
       <el-table-column label="报价">
         <template slot-scope="scope">
-          <el-select v-model="scope.row.priceConfigId" :disabled="true" placeholder="报价">
-            <el-option v-for="item in priceList" :key="item.id" :label="item.price" :value="item.id"></el-option>
-          </el-select>
+        	￥ <span>{{scope.row.price}}</span> 元
         </template>
       </el-table-column>
-      <el-table-column label="加工示意图">
-        <template scope="scope">
-          <el-upload class="upload-demo" action="https://jsonplaceholder.typicode.com/posts/"
-            :on-preview="handlePreview" :on-remove="handleRemove" :file-list="fileList2" list-type="picture">
-            <el-button size="small" type="primary">上传图片</el-button>
-            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-          </el-upload>
-          <el-input v-model="scope.row.picture" placeholder="img" hidden></el-input>
+      <el-table-column label="加工示意图" width="200">
+        <template slot-scope="scope">
+	        	<uc-upload :uploaderFilesObj="uploaderFilesObj" ref="uploadfile"></uc-upload>
         </template>
       </el-table-column>
     </el-table>
-
+		<p class="count">合计：￥{{count}} 元</p>
     <h3>加工信息-自定义信息</h3>
     <el-button type="primary" @click="addZidingyiTable()">添加自定义信息</el-button>
     <el-button type="primary">删除自定义信息</el-button>
     <div style="margin-top: 20px;"></div>
 
-    <el-table ref="multipleTable" stripe :data="tableData2" tooltip-effect="dark" style="width: 100%">
+    <el-table ref="multipleTable" stripe :data="tableData2" tooltip-effect="dark">
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column label="型号">
         <template slot-scope="scope">
@@ -147,11 +140,8 @@
         </template>
       </el-table-column>
       <el-table-column label="加工示意图">
-        <template scope="scope">
-          <el-button @click.native.prevent="addPic(scope.$index, tableData)" type="danger" size="small">
-            上传加工示意图
-          </el-button>
-          <el-input v-model="scope.row.picture" placeholder="img" hidden></el-input>
+       <template slot-scope="scope">
+	        	<uc-upload :uploaderFilesObj="aaa" ref="uploadfile"></uc-upload>
         </template>
       </el-table-column>
     </el-table>
@@ -164,10 +154,12 @@
 
 <script>
   import {CONSTANT} from '../../util/constant';
+  import Upload from '~packages/form/upload.vue';
   import { _Getpricelist,_addDingdanForm} from '../../util/ajax';
   export default {
     data() {
       return {
+      	multipleTable:[],//选中的值
         priceList:[],                               //价格列表
         priceParams:{
           page_now:1,
@@ -180,7 +172,31 @@
             sizeType:"1"          //规格类别
           }
         },
-
+        uploaderFilesObj: {//上传图片
+		          label: '上传图片',
+		          required: true,
+		          selectId: 'qiniu_uploader',
+          		dropId: 'qiniu_container',
+		          total: 9999999999,
+		          mimeTypes: [{title: 'Image files', extensions: 'jpg, jpeg, gif, png'}],
+		          multiSelection: false,
+		          files: [],
+		          showTip: false,
+		          tips: '请选择上传图片'
+        },
+        aaa: {//上传图片
+		          label: '上传图片',
+		          required: true,
+		          selectId: 'qiniu_uploader',
+          		dropId: 'qiniu_container',
+		          total: 9999999999,
+		          mimeTypes: [{title: 'Image files', extensions: 'jpg, jpeg, gif, png'}],
+		          multiSelection: false,
+		          files: [],
+		          showTip: false,
+		          tips: '请选择上传图片'
+        },
+				count:0,//合计
         //提交订单的时候传给后台的参数
         params: {
           basicInfo:{
@@ -208,8 +224,10 @@
             productWidth:"0",                 //成品宽，单位：mm
             productNumber:"0",                //成品数量，单位片
             remark:"备注",                     //备注
-            picture:[]                        //图片
-          }],
+            picture:[],                        //图片
+            price:25, 												 //价格
+          },
+         ],
 
         tableData2:[
           {
@@ -224,7 +242,30 @@
         multipleSelection: []
       }
     },
+    components: {
+      UcUpload: Upload
+    },
     methods: {
+    	handleSelectionChange(val) {//获取选择
+    		console.log(this.uploaderFilesObj.files);
+    		this.multipleSelection = val;
+    		if(val.length!=0){
+    			for(var i = 0;i<this.multipleSelection.length;i++){
+    			this.count+=this.multipleSelection[i].price*this.multipleSelection[i].productNumber;
+    		}
+    		}
+    		console.log(this.multipleSelection);
+      },
+      productNumberCount(){ //数量失去交点计算合计价格
+      	for(var i = 0;i<this.multipleSelection.length;i++){
+    			this.count+=this.multipleSelection[i].price*this.multipleSelection[i].productNumber;
+    		}
+      },
+      removeArr(){//删除元素
+      	this.tableData1=this.multipleSelection;
+      	console.log(this.tableData1);
+      	console.log(this.multipleSelection);
+      },
       submitFun(params) {
         var _this = this;
 
@@ -335,5 +376,12 @@
   h3{
     padding: 20px 0;
     color: #48576a;
+  }
+  .count{
+  	height: 40px;
+  	line-height: 40px;
+  	text-align: right;
+  	background: #62B9FF;
+  	padding-right: 130px;
   }
 </style>
