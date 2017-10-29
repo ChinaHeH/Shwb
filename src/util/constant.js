@@ -46,6 +46,9 @@ export var CONSTANT = {
     //*******************找回密码************************
     //发送邮件
    SENDEMAIL : location.origin + '/baite/web/sendResetPwdMail',
+   GETDINGDANLIST : location.origin + '/baite/web/getOrderList',
+
+
 
   },
   methods: {
