@@ -22,7 +22,9 @@ import CustomerInfo from './Customer/info.vue';
 import CustomerEdit from './Customer/edit.vue';
 //*******************忘记密码*****************************
 import ForgetPassword from './Login/forgetPassword.vue';
+//*******************订单管理*****************************
 import OrderList from './dingdan/dingdanList.vue';
+import OrderAdd from './dingdan/dingdanAdd.vue';
 
 //结算路由
 import accountsDetial from './accounts/list.vue';
@@ -150,6 +152,12 @@ export default new Router({
       name: 'OrderList',
       path: '/orderList',
       component: OrderList
+    },
+    //添加订单
+    {
+      name: 'OrderAdd',
+      path: '/orderAdd',
+      component: OrderAdd
     },
     //结算一览页面
     {
