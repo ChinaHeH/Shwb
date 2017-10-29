@@ -248,7 +248,7 @@
           this.params.routineInfo = this.tableData1;
           this.params.customInfo = this.tableData2;
 
-         
+
 
           console.log(this.params);
           return;
