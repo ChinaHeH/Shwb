@@ -152,6 +152,11 @@
           "show": false,
           "href": "/addPrice",
           "name": "新增价格"
+        },
+        {
+        	"show": false,
+          "href": "/priceInfo",
+          "name": "价格设定信息"
         }
       ]
     },

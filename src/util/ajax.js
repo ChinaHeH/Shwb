@@ -870,3 +870,28 @@ export function _Deleteprice(params) {
     })
   });
 }
+
+//获取价格设定信息
+export function _Getprice(params) {
+  var jwtToken = localStorage.getItem('jwtToken');
+
+  if (!jwtToken) {
+    location.href = location.origin + '/#/login'
+  }
+  return new Promise(function (resolve, reject) {
+    axios({
+      method: 'post',
+      url: CONSTANT.api.Deleteprice,
+      data: {
+        params: params
+      },
+      headers: {
+        'Authorization': jwtToken
+      }
+    }).then(function (response) {
+      resolve(response);
+    }).catch(function (response) {
+      reject(response);
+    })
+  });
+}

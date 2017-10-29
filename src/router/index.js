@@ -30,6 +30,7 @@ import accountsDetial from './accounts/list.vue';
 //价格路由
 import priceList from './price/priceList.vue';
 import addPrice from './price/addPrice.vue';
+import priceInfo from './price/priceInfo.vue';
 
 
 Vue.use(Router);
@@ -167,8 +168,13 @@ export default new Router({
     	name:'addPrice',
     	path:'/addPrice',
     	component: addPrice
+    },
+    //价格设定信息
+    {
+    	name:'priceInfo',
+    	path:'/priceInfo/:id',
+    	component: priceInfo
     }
-    
     
   ]
 });

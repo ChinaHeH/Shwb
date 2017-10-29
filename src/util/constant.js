@@ -42,7 +42,8 @@ export var CONSTANT = {
    Addprice : location.origin + '/baite/web/addPrice',
    //删除价格
    Deleteprice : location.origin + '/baite/web/deletePrice',
-
+	 //获取价格设定信息
+	 Getprice : location.origin + '/baite/web/getPrice',
     //*******************找回密码************************
     //发送邮件
    SENDEMAIL : location.origin + '/baite/web/sendResetPwdMail',

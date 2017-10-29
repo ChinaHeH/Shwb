@@ -52,7 +52,7 @@
 				</el-table-column>
 				<el-table-column label="操作" >
         <template scope="scope">
-        	<el-button size="small" type="primary" @click="detail(scope.$index, scope.row.id)">查看</el-button>
+        	<el-button size="small" type="primary" @click="detail(scope.row.id)">查看</el-button>
         	<el-button size="small" type="warning" @click="edit(scope.$index, scope.row.id)">编辑</el-button>
         	<el-button size="small" type="danger" @click="del(scope.row.id)">删除</el-button>
         </template>
@@ -131,9 +131,8 @@
 						id: id,
 					});
 				},
-				save(index, id) { //保存
-					alert(index);
-					alert(id);
+				detail(id) { //查看
+					location.href = location.origin + '/#/priceInfo/' + id;
 				},
 				Deleteprice(params){//删除请求
 					var _this = this;
