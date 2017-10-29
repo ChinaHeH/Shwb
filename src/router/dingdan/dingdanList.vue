@@ -48,7 +48,7 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">检索</el-button>
+        <el-button type="primary" @click="checkout()">检索</el-button>
       </el-form-item>
 
     </el-form>
@@ -59,7 +59,7 @@
 
 <script>
   import {CONSTANT} from '../../util/constant';
-  import { _GetDingdanList,_getCustomerList, _disableCustomer, _enableCustomer, _deleteCustomer } from '../../util/ajax';
+  import { _GetDingdanList,_deletedingdan} from '../../util/ajax';
   import Table from '~packages/table/table.vue';
   import { Button } from 'element-ui';
 
@@ -134,10 +134,12 @@
       UcTable: Table
     },
     methods: {
-      onSubmit() {
-        console.log('submit!');
+        //筛选
+      checkout() {
+        this.getDingdanList (this.params);
       },
 
+      //获取订单列表
       getDingdanList (params){
         var _this = this;
         _GetDingdanList(params).then(function (response) {
@@ -168,9 +170,8 @@
                 click: function (index, row) {
                   CONSTANT.methods.confirm('是否删除该客户？', '确定', function (value) {
                     if (value === 'confirm') {
-                      _this.deleteCustomer(row.id);
+                      _this.deletedingdan(row.id);
                     }
-
                   });
                 }
               });
@@ -183,137 +184,36 @@
         }).catch(function (res) {
           CONSTANT.methods.tips(res || '获取订单一览异常!', '提示');
         });
-
       },
 
-      getCustomerList (params) {
+      //删除订单
+      deletedingdan (id){
         var _this = this;
-
-        _getCustomerList(params).then(function (response) {
-          var data = response.data;
-          if (data.status) {
-            data.data.list.forEach(function (element) {
-              element.btns = [];
-              element.btns.push({
-                type: 'info',
-                label: '查看',
-                click: function (index, row) {
-                  location.href = location.origin + '/#/customerinfo/' + row.id;
-                }
-              });
-              element.btns.push({
-                type: 'warning',
-                label: '编辑',
-                click: function (index, row) {
-                  location.href = location.origin + '/#/customeredit/' + row.id;
-                }
-              });
-              element.btns.push({
-                type: 'danger',
-                label: '删除',
-                click: function (index, row) {
-                  CONSTANT.methods.confirm('是否删除该客户？', '确定', function (value) {
-                    if (value === 'confirm') {
-                      _this.deleteCustomer(row.id);
-                    }
-
-                  });
-                }
-              });
-            });
-            _this.tData = data.data.list;
-            _this.pagination.total = data.data.total_num;
-          } else {
-            CONSTANT.methods.tips(data.error_msg || '获取客户一览失败!', '提示');
-          }
-        }).catch(function (res) {
-          CONSTANT.methods.tips(res || '获取客户一览异常!', '提示');
-        });
-      },
-
-
-      disableCustomer (id) {
-        var _this = this;
-        var params = {
+        var delparams = {
           id: id
         };
 
-        _disableCustomer(params).then(function (response) {
-          var data = response.data;
-
-          if (data.status) {
-            CONSTANT.methods.tips('禁用成功!', '确定', function () {
-              _this.getCustomerList({
-                page_now: 1,
-                limit: 10
-              });
-            });
-          } else {
-            CONSTANT.methods.tips(data.error_msg || '禁用失败!', '提示');
-          }
-        }).catch(function (response) {
-          CONSTANT.methods.tips(response || '禁用异常!', '提示');
-        });
-      },
-
-      enableCustomer (id) {
-        var _this = this;
-        var params = {
-          id: id
-        };
-
-        _enableCustomer(params).then(function (response) {
-          var data = response.data;
-
-          if (data.status) {
-            CONSTANT.methods.tips('启用成功!', '确定', function () {
-              _this.getCustomerList({
-                page_now: 1,
-                limit: 10
-              });
-            });
-          } else {
-            CONSTANT.methods.tips(data.error_msg || '启用失败!', '提示');
-          }
-        }).catch(function (response) {
-          CONSTANT.methods.tips(response || '启用异常!', '提示');
-        });
-      },
-
-      deleteCustomer (id) {
-        var _this = this;
-        var params = {
-          id: id
-        };
-
-        _deleteCustomer(params).then(function (response) {
+        _deletedingdan(delparams).then(function (response) {
           var data = response.data;
 
           if (data.status) {
             CONSTANT.methods.tips('删除成功!', '确定', function () {
-              _this.getCustomerList({
-                page_now: 1,
-                limit: 10
-              });
+              _this.getCustomerList(_this.params);
             });
           } else {
-            CONSTANT.methods.tips(data.error_msg || '删除轮播图失败!', '提示');
+            CONSTANT.methods.tips(data.error_msg || '删除订单失败!', '提示');
           }
         }).catch(function (response) {
-          CONSTANT.methods.tips(response || '删除轮播图异常!', '提示');
+          CONSTANT.methods.tips(response || '删除订单异常!', '提示');
         });
       },
 
+      //到添加订单页面
       goAdd () {
         location.href = location.origin + '/#/orderAdd';
       }
     },
     mounted () {
-//      this.getCustomerList({
-//        page_now: 1,
-//        limit: 10
-//      });
-
       this.getDingdanList(this.params);
     }
   };

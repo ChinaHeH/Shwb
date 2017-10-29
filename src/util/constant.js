@@ -51,7 +51,9 @@ export var CONSTANT = {
     //*******************找回密码************************
     //发送邮件
    SENDEMAIL : location.origin + '/baite/web/sendResetPwdMail',
-   GETDINGDANLIST : location.origin + '/baite/web/getOrderList',
+   GETDINGDANLIST : location.origin + '/baite/web/getOrderList',   //订单列表
+   DELETEORDER : location.origin + '/baite/web/deleteOrder',       //删除订单
+   ADDORDER : location.origin + '/baite/web/addOrder',       //删除订单
 
 
 

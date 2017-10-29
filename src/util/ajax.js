@@ -771,6 +771,8 @@ export function _forgetPassword (user) {
     })
   });
 }
+
+
 //订单一览的列表页
 export function _GetDingdanList (params){
   var jwtToken = localStorage.getItem('jwtToken');
@@ -795,6 +797,59 @@ export function _GetDingdanList (params){
       reject(response);
     })
   });
+}
+
+//添加订单一览
+export function _addDingdanForm (params){
+  var jwtToken = localStorage.getItem('jwtToken');
+
+  if (!jwtToken) {
+    location.href = location.origin + '/#/login'
+  }
+  return new Promise(function (resolve, reject) {
+    axios({
+      method: 'post',
+      url: CONSTANT.api.ADDORDER,
+      data: {
+        params: params
+      },
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': jwtToken
+      }
+    }).then(function (response) {
+      resolve(response);
+    }).catch(function (response) {
+      reject(response);
+    })
+  });
+}
+
+//删除订单一览中列表
+export function _deletedingdan (params) {
+  var jwtToken = localStorage.getItem('jwtToken');
+
+  if (!jwtToken) {
+    location.href = location.origin + '/#/login'
+  }
+  return new Promise(function (resolve, reject) {
+    axios({
+      method: 'post',
+      url: CONSTANT.api.DELETEORDER,
+      data: {
+        params: params
+      },
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': jwtToken
+      }
+    }).then(function (response) {
+      resolve(response);
+    }).catch(function (response) {
+      reject(response);
+    })
+  });
+
 }
 
 // 获取结算一览
