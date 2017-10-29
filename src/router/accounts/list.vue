@@ -1,14 +1,16 @@
 <template>
 	<div>
 		<div class="header">
-			<lebal>
-				客户名称:
-			</lebal>
-			<el-select v-model="value" placeholder="请选择">
-				<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-				</el-option>
-			</el-select>
-			<el-button type="primary" @click="check">检索</el-button>
+			<el-form :inline="true" :model="formInline" class="demo-form-inline">
+			  <el-form-item label="客户名称">
+			    <el-select v-model="formInline.customerName" placeholder="请选择客户名称">
+			      <el-option v-for="item in customerList" :label="item.customerName" :value="item.customerName"></el-option>
+			    </el-select>
+			  </el-form-item>
+			 <el-form-item>
+			    <el-button type="primary" @click="check">检索</el-button>
+			  </el-form-item>
+			</el-form>
 		</div>
 		<div class="body">
 			<el-table :data="tableData" stripe style="width: 100%">
@@ -41,10 +43,6 @@
 			</el-table>
 			<el-pagination class="uc-pagination" v-if="pagination.show" @current-change="pagination.click" :page-size="pagination.size"  :current-page="pagination.currentPage" layout="total, prev, pager, next" :total="pagination.total"></el-pagination>
 		</div>
-		<footer v-if="scale.show">
-			<div @click="scaleImg('1')"></div>
-			<img :src="scale.src">
-		</footer>
 	</div>
 </template>
 
@@ -53,14 +51,19 @@
 		CONSTANT
 	} from '../../util/constant';
 	import {
+		_getCustomerList,
 		_Getbalancelist,
 	} from '../../util/ajax';
 	import {
 		Select,
 		Button,
 		Table,
+		Input,
 		TableColumn,
-		Pagination
+		Pagination,
+		Form,
+		FormItem,
+		Option
 	} from 'element-ui';
 
 	export default {
@@ -69,10 +72,10 @@
 					value: "",
 					//					cData: cData,
 					tableData: [],//结算一览数据
-					scale: {
-						show: false,
-						src: require('../../../src/images/default.png')
-					},
+					customerList:[],//客户名称列表
+					formInline: {
+			          customerName: '',
+			       },
 					pagination: {
 						show: true,
 						total: 0,
@@ -93,11 +96,21 @@
 				ElButton: Button,
 				ElTable: Table,
 				ElTableColumn: TableColumn,
-				ElPagination: Pagination
+				ElPagination: Pagination,
+				ElInput : Input,
+				ElForm:Form,
+				ElFormItem :FormItem,
+				ElOption:Option
 			},
 			methods: {
 				check() { //检索
-					alert(1);
+					this.Getbalancelist({
+						page_now: 1,
+						limit: 10,
+						search_by:{
+				            customerName:this.formInline.customerName
+				        }
+					});
 				},
 				donwLoad(index, id) { //下载
 					alert(index);
@@ -106,6 +119,20 @@
 				save(index, id) { //保存
 					alert(index);
 					alert(id);
+				},
+				getCustomerList(params){//获取客户名称列表
+					var _this = this;
+					_getCustomerList(params).then(function(response) {
+						var data = response.data;
+						if(data.status) {
+							console.log(data);
+							_this.customerList=data.data.list;
+						} else {
+							CONSTANT.methods.tips(data.error_msg || '获取客户名称失败!', '提示');
+						}
+					}).catch(function(res) {
+						CONSTANT.methods.tips(res || '获取客户名称失败!', '提示');
+					});
 				},
 				Getbalancelist(params) {
 					var _this = this;
@@ -126,10 +153,22 @@
 				}
 			},
 			mounted() {
+				this.getCustomerList({//获取客户列表不做任何限制
+					page_now:"",
+					limit:"",
+					search_by:{            //搜索条件
+			            status:"",         //状态:1=启用、2=禁用
+			            customerName:"",  //客户名（模糊）
+			            address:""        //地址（模糊）
+			        }
+
+				});
 				this.Getbalancelist({
-					page_now: 1,
-					limit: 10,
-					value:this.value,
+						page_now: 1,
+						limit: 10,
+						search_by:{
+				            customerName:this.formInline.customerName
+				        }
 				});
 			},
 			filters: {

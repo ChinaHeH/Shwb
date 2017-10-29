@@ -21,7 +21,7 @@
 		    </el-radio-group>
 		  </el-form-item>
 		  <el-form-item label="价格" prop="price">
-		    <el-input  v-model.number="ruleForm.price"></el-input>
+		    <el-input type="number" v-model.number="ruleForm.price"></el-input>
 		  </el-form-item>
 		  <el-form-item>
 		    <el-button type="primary" @click="submitForm('ruleForm')">新增价格</el-button>
@@ -68,8 +68,8 @@
             { required: true, message: '请选择规格类别', trigger: 'change' }
           ],
           price:[
-//        	{ required: true, message: '请输入价格', trigger: 'blur' },
-            { type: 'number', message: '价格必须为数字值', trigger: 'blur' }
+//        	{ required: true, message: '请输入价格并且为数字值', trigger: 'blur' },
+            { type: 'number', message: '请输入价格并且为数字值', trigger: 'blur' }
           ],
         }
       };

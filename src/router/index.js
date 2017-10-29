@@ -28,6 +28,8 @@ import OrderAdd from './dingdan/dingdanAdd.vue';
 
 //结算路由
 import accountsDetial from './accounts/list.vue';
+import accountsOrder from './accounts/accountsOrder.vue';
+
 
 //价格路由
 import priceList from './price/priceList.vue';
@@ -165,6 +167,12 @@ export default new Router({
     	name:'accountsDetial',
     	path:'/accountsDetial',
     	component: accountsDetial
+    },
+    {//结算页面
+    	name:'accountsOrder',
+    	path:'/accountsOrder',
+    	component: accountsOrder
+    	
     },
     //价格一览
     {
