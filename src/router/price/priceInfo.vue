@@ -23,7 +23,7 @@
         var _this = this;
 
         var params = {
-          id: _this.$route.params.id
+          id: Number(_this.$route.params.id)
         };
 
         _Getprice(params).then(function (response) {
@@ -40,17 +40,17 @@
       },
       dealData (data) {
         this.cData = [{
-          label: '用户名',
-          value: data.userName
+          label: '工艺名称',
+          value: data.processName
         }, {
-          label: '账户类型',
-          value: data.roleName
+          label: '石料类别',
+          value: data.stoneTypeName
         }, {
-          label: '账号状态',
-          value: data.statusName
+          label: '规格类别',
+          value: data.sizeTypeName
         }, {
-          label: '邮箱地址',
-          value: data.email
+          label: '价格',
+          value: '¥'+data.price
         }, {
           label: '创建时间',
           value: data.createTime

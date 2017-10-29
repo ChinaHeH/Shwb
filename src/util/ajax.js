@@ -906,7 +906,7 @@ export function _Getprice(params) {
   return new Promise(function (resolve, reject) {
     axios({
       method: 'post',
-      url: CONSTANT.api.Deleteprice,
+      url: CONSTANT.api.Getprice,
       data: {
         params: params
       },
