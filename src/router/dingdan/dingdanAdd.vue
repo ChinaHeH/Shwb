@@ -51,7 +51,7 @@
     <!--<el-button type="primary" @click="removeArr">删除基本信息</el-button>-->
     <div style="margin-top: 20px;"></div>
 
-    <el-table stripe ref="multipleTable" :data="tableData1"  @selection-change="handleSelectionChange"  tooltip-effect="dark" style="width：100%">
+    <el-table stripe ref="multipleTable" :data="tableData1"  @selection-change="handleSelectionChange"  tooltip-effect="dark" style="width:100%">
       <!--<el-table-column  type="selection" width="50"></el-table-column>-->
       <el-table-column label="名称">
         <template slot-scope="scope">
@@ -328,8 +328,6 @@
                for(let j = 0;j < _this.tableData1.length;j++){
                  _this.count = _this.count + parseFloat(_this.tableData1[j].price);
                }
-             }else {
-               _this.tableData1[index].priceConfigId = 0;
              }
           }
       },
