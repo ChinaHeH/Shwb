@@ -13,7 +13,7 @@
 
       <el-form-item label="交货时间">
         <el-col :span="11">
-          <el-date-picker type="date" id="aaa" placeholder="截止交货日期" v-model="params.basicInfo.processDeadline" @change="dateChange"></el-date-picker>
+          <el-date-picker type="date" placeholder="截止交货日期" v-model="params.basicInfo.processDeadline" @change="dateChange"></el-date-picker>
         </el-col>
       </el-form-item>
 
@@ -56,7 +56,7 @@
       <el-table-column label="名称">
         <template slot-scope="scope">
           <el-select v-model="scope.row.name" placeholder="单长边外倒45度" @change = "changePrice(priceList,scope.row.name,scope.$index)">
-            <el-option v-for="item in priceList" :key="item.name" :label="item.name" :value="item.name"></el-option>
+            <el-option v-for="item in priceList" :key="item.processName" :label="item.name" :value="item.processName"></el-option>
           </el-select>
         </template>
       </el-table-column>
@@ -222,7 +222,7 @@
            getGoodsAddress:"",                       //取货地址
            receiveGoodsType:"",                      //送货方式：1=本方自提、2=厂家送货
            receiveGoodsAddress:"",                   //送货地址
-           processDeadline:"2",                      //交货时间
+           processDeadline:"",                       //交货时间
            remark:""                                 //备注
           },
           routineInfo:'',               //表格1里边的数据
@@ -313,7 +313,7 @@
           var value = val;
           var index = index;
           for(let i = 0;i < arrList.length;i++){
-             if(arrList[i].name == value){
+             if(arrList[i].processName == value){
                 console.log(arrList[i].id);
                _this.tableData1[index].priceConfigId = arrList[i].id;
                _this.tableData1[index].price = arrList[i].price;
