@@ -62,11 +62,8 @@
       </el-table-column>
       <el-table-column label="材料规格／mm">
         <template slot-scope="scope">
-          <el-select v-model="scope.row.rawSizeType" placeholder="请选择材料规格">
-            <el-option label="600*600" value="1"></el-option>
-            <el-option label="800*800" value="2"></el-option>
-            <el-option label="600*900" value="3"></el-option>
-            <el-option label="600*1200" value="4"></el-option>
+          <el-select v-model="scope.row.rawSizeType" placeholder="请选择材料规格" :disabled="true">
+            <el-option v-for="item in priceList" :key="item.sizeType" :label="item.sizeTypeName" :value="item.sizeType"></el-option>
           </el-select>
         </template>
       </el-table-column>
@@ -320,6 +317,7 @@
                 console.log(arrList[i].id);
                _this.tableData1[index].priceConfigId = arrList[i].id;
                _this.tableData1[index].price = arrList[i].price;
+               _this.tableData1[index].rawSizeType = arrList[i].sizeType;
                console.log(_this.tableData1[index].priceConfigId);
                console.log(_this.tableData1[index]);
 
