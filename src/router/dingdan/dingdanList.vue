@@ -66,14 +66,14 @@
   export default {
     data () {
       var cData = [{
-        label: '标记',
-        key: 'customerName'
+        label: '名称',
+        key: 'contactName'
       },{
         label: '订单编号',
-        key: 'phone'
+        key: 'orderNo'
       },{
         label: '客户名称',
-        key: 'address'
+        key: 'customerName'
       },{
         label: '联系人',
         key: 'contactName'
@@ -82,16 +82,16 @@
         key: 'contactPhone'
       },{
         label: '下单时间',
-        key: 'showFlgName'
+        key: 'createTime'
       },{
         label: '交货时间',
-        key: 'showFlgName'
+        key: 'processDeadline'
       },{
         label: '订单状态',
-        key: 'showFlgName'
+        key: 'goodsStatusName'
       },{
         label: '订单金额',
-        key: 'showFlgName'
+        key: 'orderSum'
       }];
 
       return {
