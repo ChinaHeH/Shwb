@@ -68,7 +68,7 @@
                 window.EVENTVUE.$emit('userMenu', data.data);
                 localStorage.setItem('menu', JSON.stringify(data.data.navigation));
                 localStorage.setItem('jwtToken', data.data.jwtToken);
-                location.href = location.origin + '/#/home';
+                location.href = location.origin + '/#/orderList';
               } else {
                 CONSTANT.methods.tips(data.error_msg || '登录失败!', '提示');
               }

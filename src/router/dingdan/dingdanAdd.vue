@@ -56,11 +56,7 @@
       <el-table-column label="名称">
         <template slot-scope="scope">
           <el-select v-model="scope.row.name" placeholder="单长边外倒45度" @change = "changePrice(priceList,scope.row.name,scope.$index)">
-<<<<<<< HEAD
-            <el-option v-for="item in priceList" :key="item.processName" :label="item.name" :value="item.processName"></el-option>
-=======
             <el-option v-for="item in priceList" :key="item.processName" :label="item.processName" :value="item.processName"></el-option>
->>>>>>> 98466e474bcc0913d9caf38f2f5e9c5f372040b2
           </el-select>
         </template>
       </el-table-column>
