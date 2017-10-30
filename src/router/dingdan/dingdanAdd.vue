@@ -51,7 +51,7 @@
     <!--<el-button type="primary" @click="removeArr">删除基本信息</el-button>-->
     <div style="margin-top: 20px;"></div>
 
-    <el-table stripe ref="multipleTable" :data="tableData1"  @selection-change="handleSelectionChange"  tooltip-effect="dark" style="width:100%">
+    <el-table stripe ref="multipleTable" :data="tableData1"  @selection-change="handleSelectionChange"  tooltip-effect="dark" :fit="true" style="width:100%">
       <!--<el-table-column  type="selection" width="50"></el-table-column>-->
       <el-table-column label="名称">
         <template slot-scope="scope">
@@ -72,7 +72,7 @@
       </el-table-column>
       <el-table-column label="材料数量／片">
         <template slot-scope="scope">
-          <el-input type="number" v-model="scope.row.rawNumber" placeholder="材料数量"></el-input>
+          <el-input type="number" v-model="scope.row.rawNumber" placeholder="材料数量" @change="totleEMB()"></el-input>
         </template>
       </el-table-column>
       <el-table-column label="成品长度／mm">
@@ -313,6 +313,15 @@
           console.log(this.params);
           this.submitFun(this.params);
       },
+
+      //改变数量的时候价格改变
+      totleEMB(){
+        this.count = 0;
+          for(let i = 0;i < this.tableData1.length;i++){
+            this.count = this.count+parseFloat(this.tableData1[i].rawNumber)*parseFloat(this.tableData1[i].price);
+          }
+
+      },
       //选中name的时候price也跟着改变
       changePrice(arr,val,index){
           var _this = this;
@@ -332,7 +341,7 @@
                //循环计总价
                _this.count = 0;
                for(let j = 0;j < _this.tableData1.length;j++){
-                 _this.count = _this.count + parseFloat(_this.tableData1[j].price);
+                 _this.count = _this.count+parseFloat(_this.tableData1[i].rawNumber)*parseFloat(_this.tableData1[i].price);
                }
              }
           }
