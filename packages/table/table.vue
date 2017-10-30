@@ -2,7 +2,7 @@
 <template>
   <section class="uc-table-scale">
     <el-table :data="tableData" ref="ruleForm" class="uc-table" style="width: 100%">
-      <el-table-column v-for="item in columnData" :label="item.label" :prop="item.key"></el-table-column>
+      <el-table-column width="180" v-for="item in columnData" :label="item.label" :prop="item.key"></el-table-column>
       <el-table-column v-if="type === 'img'" label="缩略图">
         <template  scope="scope">
           <img :src="scope.row.picture" class="uc-table-thumbnails" @click="scaleImg('2', scope.row.picture)">
@@ -13,7 +13,7 @@
           <img :src="scope.row.logo" class="uc-table-thumbnails" @click="scaleImg('2', scope.row.logo)">
         </template>
       </el-table-column>
-      <el-table-column label="操作" v-if="operation" :width="300">
+      <el-table-column label="操作" v-if="operation" :width="260">
         <template scope="scope">
           <el-button
             size="small"

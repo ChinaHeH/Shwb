@@ -53,14 +53,14 @@
 
     <el-table stripe ref="multipleTable" :data="tableData1"  @selection-change="handleSelectionChange"  tooltip-effect="dark" :fit="true" style="width:100%">
       <!--<el-table-column  type="selection" width="50"></el-table-column>-->
-      <el-table-column label="名称">
+      <el-table-column label="名称" width="150">
         <template slot-scope="scope">
           <el-select v-model="scope.row.name" placeholder="单长边外倒45度" @change = "changePrice(priceList,scope.row.name,scope.$index)">
             <el-option v-for="item in priceList" :key="item.processName" :label="item.processName" :value="item.processName"></el-option>
           </el-select>
         </template>
       </el-table-column>
-      <el-table-column label="材料规格／mm">
+      <el-table-column label="材料规格／mm" width="150">
         <template slot-scope="scope">
           <el-select v-model="scope.row.rawSizeType" :disabled="true" placeholder="">
             <el-option label="600*600" value="1"></el-option>
@@ -70,32 +70,32 @@
           </el-select>
         </template>
       </el-table-column>
-      <el-table-column label="材料数量／片">
+      <el-table-column label="材料数量／片" width="150">
         <template slot-scope="scope">
           <el-input type="number" v-model="scope.row.rawNumber" placeholder="材料数量" @change="totleEMB()"></el-input>
         </template>
       </el-table-column>
-      <el-table-column label="成品长度／mm">
+      <el-table-column label="成品长度／mm" width="150">
         <template slot-scope="scope">
           <el-input type="number" v-model="scope.row.productLength" placeholder="长度"></el-input>
         </template>
       </el-table-column>
-      <el-table-column label="成品宽度／mm">
+      <el-table-column label="成品宽度／mm" width="150">
         <template slot-scope="scope">
           <el-input type="number" v-model="scope.row.productWidth" placeholder="宽度"></el-input>
         </template>
       </el-table-column>
-      <el-table-column label="成品数量／片">
+      <el-table-column label="成品数量／片" width="150">
         <template slot-scope="scope">
           <el-input type="number" @blur="productNumberCount" v-model="scope.row.productNumber" placeholder="成品数量"></el-input>
         </template>
       </el-table-column>
-      <el-table-column label="备注">
+      <el-table-column label="备注" width="150">
         <template slot-scope="scope">
           <el-input v-model="scope.row.remark" placeholder="备注"></el-input>
         </template>
       </el-table-column>
-      <el-table-column label="报价/元">
+      <el-table-column label="报价/元" width="150">
         <template slot-scope="scope">
           <el-select v-model="scope.row.price" placeholder="报价" :disabled="true">
             <el-option v-for="item in priceList" :key="item.id" :label="item.price" :value="item.id"></el-option>
@@ -108,7 +108,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="操作">
+      <el-table-column label="操作" width="100">
         <template slot-scope="scope">
           <el-button type="danger" @click="delTab1(scope.$index)">删除</el-button>
         </template>
@@ -129,7 +129,7 @@
           <el-input v-model="scope.row.name" placeholder="请输入型号"></el-input>
         </template>
       </el-table-column>
-      <el-table-column label="材料规格／mm">
+      <el-table-column label="材料规格／mm" width="200">
         <template slot-scope="scope">
           <el-select v-model="scope.row.rawSizeType" placeholder="请选择材料规格">
             <el-option label="600*600" value="1"></el-option>
@@ -140,7 +140,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="材料数量／片">
+      <el-table-column label="材料数量／片" width="200">
         <template slot-scope="scope">
           <el-input type="number" v-model="scope.row.rawNumber" placeholder="材料数量"></el-input>
         </template>
@@ -152,7 +152,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="加工示意图">
+      <el-table-column label="加工示意图" width="200">
        <template slot-scope="scope">
 	        	<uc-upload :uploaderFilesObj="aaa" ref="uploadfile"></uc-upload>
         </template>
