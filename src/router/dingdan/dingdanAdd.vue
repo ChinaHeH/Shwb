@@ -98,8 +98,7 @@
       <el-table-column label="报价/元">
         <template slot-scope="scope">
           <el-select v-model="scope.row.price" placeholder="报价" :disabled="true">
-            <el-option :key="0" :label="0" :value="0"></el-option>
-            <el-option v-for="item in priceList" :key="item.price" :label="item.price" :value="item.id"></el-option>
+            <el-option v-for="item in priceList" :key="item.id" :label="item.price" :value="item.id"></el-option>
           </el-select>
         </template>
       </el-table-column>
@@ -236,7 +235,7 @@
 
         tableData1: [
           {
-            priceConfigId:"23",               //价格设定ID
+            priceConfigId:"0",               //价格设定ID
             name:"",                          //名称
             rawSizeType:"2",                   //原材料规格:1=600*600、2=800*800、3=600*900、4=600*1200
             rawNumber:"0",                    //原材料片数，单位：片
@@ -308,7 +307,6 @@
           this.params.routineInfo = this.tableData1;
           this.params.customInfo = this.tableData2;
           console.log(this.params);
-          return;
           this.submitFun(this.params);
       },
       //选中name的时候price也跟着改变
@@ -319,10 +317,11 @@
           var index = index;
           for(let i = 0;i < arrList.length;i++){
              if(arrList[i].name == value){
-//                 console.log(arrList[i].id);
+                console.log(arrList[i].id);
                _this.tableData1[index].priceConfigId = arrList[i].id;
                _this.tableData1[index].price = arrList[i].price;
-//               console.log(_this.tableData1[index]);
+               console.log(_this.tableData1[index].priceConfigId);
+               console.log(_this.tableData1[index]);
 
                //循环计总价
                _this.count = 0;
