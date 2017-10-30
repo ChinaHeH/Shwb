@@ -8,12 +8,12 @@ $ npm install
 
 To develop:
 
-```bash 生产模式
+```bash 
 $ npm run dev
 ```
 
 To build for production:
 
-```bash dabao2
+```bash
 $ npm run build
 ```

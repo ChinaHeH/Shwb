@@ -56,13 +56,13 @@
       <el-table-column label="名称">
         <template slot-scope="scope">
           <el-select v-model="scope.row.name" placeholder="单长边外倒45度" @change = "changePrice(priceList,scope.row.name,scope.$index)">
-            <el-option v-for="item in priceList" :key="item.name" :label="item.name" :value="item.name"></el-option>
+            <el-option v-for="item in priceList" :key="item.processName" :label="item.processName" :value="item.processName"></el-option>
           </el-select>
         </template>
       </el-table-column>
       <el-table-column label="材料规格／mm">
         <template slot-scope="scope">
-          <el-select v-model="scope.row.rawSizeType" placeholder="请选择材料规格">
+          <el-select v-model="scope.row.rawSizeType" :disabled="true" placeholder="">
             <el-option label="600*600" value="1"></el-option>
             <el-option label="800*800" value="2"></el-option>
             <el-option label="600*900" value="3"></el-option>
@@ -180,15 +180,15 @@
       return {
       	multipleTable:[],//选中的值
         priceList:[],                               //价格列表
-        priceParams:{
-          page_now:1,
+        priceParams:{ //传空拿送油的
+          page_now:"",
           limit:'',
           sort_by:"",
           sort_type:"desc",
           search_by:{
             processName:"",       //工艺名称(模糊)
             stoneType:"",         //石料类别
-            sizeType:"1"          //规格类别
+            sizeType:""          //规格类别
           }
         },
         uploaderFilesObj: {//上传图片
@@ -225,7 +225,7 @@
            getGoodsAddress:"",                       //取货地址
            receiveGoodsType:"",                      //送货方式：1=本方自提、2=厂家送货
            receiveGoodsAddress:"",                   //送货地址
-           processDeadline:"2",                      //交货时间
+           processDeadline:"",                      //交货时间
            remark:""                                 //备注
           },
           routineInfo:'',               //表格1里边的数据
@@ -237,7 +237,7 @@
           {
             priceConfigId:"0",               //价格设定ID
             name:"",                          //名称
-            rawSizeType:"2",                   //原材料规格:1=600*600、2=800*800、3=600*900、4=600*1200
+            rawSizeType:"",                   //原材料规格:1=600*600、2=800*800、3=600*900、4=600*1200
             rawNumber:"0",                    //原材料片数，单位：片
             productLength:"0",                //成品长，单位：mm
             productWidth:"0",                 //成品宽，单位：mm
@@ -304,6 +304,9 @@
         location.href = location.origin + '/#/orderList';
       },
       submit(){
+      	for(var i=0;i<this.tableData1.length;i++){
+      		delete this.tableData1[i].price;
+      	}
           this.params.routineInfo = this.tableData1;
           this.params.customInfo = this.tableData2;
           console.log(this.params);
@@ -315,11 +318,13 @@
           var arrList = arr;
           var value = val;
           var index = index;
+          console.log(arrList)
           for(let i = 0;i < arrList.length;i++){
-             if(arrList[i].name == value){
+             if(arrList[i].processName == value){
                 console.log(arrList[i].id);
                _this.tableData1[index].priceConfigId = arrList[i].id;
                _this.tableData1[index].price = arrList[i].price;
+               _this.tableData1[index].rawSizeType = arrList[i].sizeType;
                console.log(_this.tableData1[index].priceConfigId);
                console.log(_this.tableData1[index]);
 
