@@ -13,7 +13,7 @@
 
       <el-form-item label="交货时间">
         <el-col :span="11">
-          <el-date-picker type="date" id="aaa" placeholder="截止交货日期" v-model="params.basicInfo.processDeadline" @change="dateChange"></el-date-picker>
+          <el-date-picker type="date" placeholder="截止交货日期" v-model="params.basicInfo.processDeadline" @change="dateChange"></el-date-picker>
         </el-col>
       </el-form-item>
 
@@ -56,7 +56,11 @@
       <el-table-column label="名称">
         <template slot-scope="scope">
           <el-select v-model="scope.row.name" placeholder="单长边外倒45度" @change = "changePrice(priceList,scope.row.name,scope.$index)">
+<<<<<<< HEAD
+            <el-option v-for="item in priceList" :key="item.processName" :label="item.name" :value="item.processName"></el-option>
+=======
             <el-option v-for="item in priceList" :key="item.processName" :label="item.processName" :value="item.processName"></el-option>
+>>>>>>> 98466e474bcc0913d9caf38f2f5e9c5f372040b2
           </el-select>
         </template>
       </el-table-column>
@@ -225,6 +229,7 @@
            getGoodsAddress:"",                       //取货地址
            receiveGoodsType:"",                      //送货方式：1=本方自提、2=厂家送货
            receiveGoodsAddress:"",                   //送货地址
+           processDeadline:"",                       //交货时间
            processDeadline:"",                      //交货时间
            remark:""                                 //备注
           },
