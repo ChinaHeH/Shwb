@@ -6,7 +6,7 @@
   "scripts": {
     "prebuild": "rimraf ./dist",
     "build": "webpack --config build/webpack.prod.js",
-    "dev": "nodemon build/server.js"
+    "dev": "node build/server.js"
   },
   "author": "'JacksonTxl' <'172004133@qq.com'>",
   "dependencies": {

@@ -13,7 +13,7 @@
 
       <el-form-item label="交货时间">
         <el-col :span="11">
-          <el-date-picker type="date" id="aaa" placeholder="截止交货日期" v-model="params.basicInfo.processDeadline"></el-date-picker>
+          <el-date-picker type="date" id="aaa" placeholder="截止交货日期" v-model="params.basicInfo.processDeadline" @change="dateChange"></el-date-picker>
         </el-col>
       </el-form-item>
 
@@ -48,15 +48,15 @@
 
     <h3>加工信息-基本信息</h3>
     <el-button type="primary" @click="addBasicInfo()">添加基本信息</el-button>
-    <el-button type="primary" @click="removeArr">删除基本信息</el-button>
+    <!--<el-button type="primary" @click="removeArr">删除基本信息</el-button>-->
     <div style="margin-top: 20px;"></div>
 
     <el-table stripe ref="multipleTable" :data="tableData1"  @selection-change="handleSelectionChange"  tooltip-effect="dark" style="width：100%">
-      <el-table-column  type="selection" width="50"></el-table-column>
+      <!--<el-table-column  type="selection" width="50"></el-table-column>-->
       <el-table-column label="名称">
         <template slot-scope="scope">
           <el-select v-model="scope.row.name" placeholder="单长边外倒45度" @change = "changePrice(priceList,scope.row.name,scope.$index)">
-            <el-option v-for="item in priceList" :key="item.processName" :label="item.processName" :value="item.processName"></el-option>
+            <el-option v-for="item in priceList" :key="item.name" :label="item.name" :value="item.name"></el-option>
           </el-select>
         </template>
       </el-table-column>
@@ -95,9 +95,12 @@
           <el-input v-model="scope.row.remark" placeholder="备注"></el-input>
         </template>
       </el-table-column>
-      <el-table-column label="报价">
+      <el-table-column label="报价/元">
         <template slot-scope="scope">
-        	￥ <span>{{scope.row.price}}</span> 元
+          <el-select v-model="scope.row.price" placeholder="报价" :disabled="true">
+            <el-option :key="0" :label="0" :value="0"></el-option>
+            <el-option v-for="item in priceList" :key="item.price" :label="item.price" :value="item.id"></el-option>
+          </el-select>
         </template>
       </el-table-column>
       <el-table-column label="加工示意图" width="200">
@@ -105,15 +108,23 @@
 	        	<uc-upload :uploaderFilesObj="uploaderFilesObj" ref="uploadfile"></uc-upload>
         </template>
       </el-table-column>
+
+      <el-table-column label="操作">
+        <template slot-scope="scope">
+          <el-button type="danger" @click="delTab1(scope.$index)">删除</el-button>
+        </template>
+      </el-table-column>
     </el-table>
 		<p class="count">合计：￥{{count}} 元</p>
+
+
     <h3>加工信息-自定义信息</h3>
     <el-button type="primary" @click="addZidingyiTable()">添加自定义信息</el-button>
-    <el-button type="primary">删除自定义信息</el-button>
+    <!--<el-button type="primary">删除自定义信息</el-button>-->
     <div style="margin-top: 20px;"></div>
 
     <el-table ref="multipleTable" stripe :data="tableData2" tooltip-effect="dark">
-      <el-table-column type="selection" width="55"></el-table-column>
+      <!--<el-table-column type="selection" width="55"></el-table-column>-->
       <el-table-column label="型号">
         <template slot-scope="scope">
           <el-input v-model="scope.row.name" placeholder="请输入型号"></el-input>
@@ -129,19 +140,28 @@
           </el-select>
         </template>
       </el-table-column>
+
       <el-table-column label="材料数量／片">
         <template slot-scope="scope">
           <el-input type="number" v-model="scope.row.rawNumber" placeholder="材料数量"></el-input>
         </template>
       </el-table-column>
+
       <el-table-column label="备注">
         <template slot-scope="scope">
           <el-input v-model="scope.row.remark" placeholder="备注"></el-input>
         </template>
       </el-table-column>
+
       <el-table-column label="加工示意图">
        <template slot-scope="scope">
 	        	<uc-upload :uploaderFilesObj="aaa" ref="uploadfile"></uc-upload>
+        </template>
+      </el-table-column>
+
+      <el-table-column label="操作">
+        <template slot-scope="scope">
+          <el-button type="danger" @click="delTab2(scope.$index)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -225,7 +245,7 @@
             productNumber:"0",                //成品数量，单位片
             remark:"备注",                     //备注
             picture:[],                        //图片
-            price:25, 												 //价格
+            price:0, 												 //价格
           },
          ],
 
@@ -268,7 +288,6 @@
       },
       submitFun(params) {
         var _this = this;
-
         _addDingdanForm(params).then(function (response) {
           console.log(response);
           var data = response.data;
@@ -288,9 +307,6 @@
       submit(){
           this.params.routineInfo = this.tableData1;
           this.params.customInfo = this.tableData2;
-
-
-
           console.log(this.params);
           return;
           this.submitFun(this.params);
@@ -298,19 +314,23 @@
       //选中name的时候price也跟着改变
       changePrice(arr,val,index){
           var _this = this;
-          console.log(arr);
-          console.log(val);
-          console.log(index);
           var arrList = arr;
           var value = val;
           var index = index;
           for(let i = 0;i < arrList.length;i++){
-             if(arrList[i].processName == value){
-                 console.log(arrList[i].id);
+             if(arrList[i].name == value){
+//                 console.log(arrList[i].id);
                _this.tableData1[index].priceConfigId = arrList[i].id;
-               console.log(_this.tableData1[index])
+               _this.tableData1[index].price = arrList[i].price;
+//               console.log(_this.tableData1[index]);
+
+               //循环计总价
+               _this.count = 0;
+               for(let j = 0;j < _this.tableData1.length;j++){
+                 _this.count = _this.count + parseFloat(_this.tableData1[j].price);
+               }
              }else {
-               _this.tableData1[index].priceConfigId = '';
+               _this.tableData1[index].priceConfigId = 0;
              }
           }
       },
@@ -348,7 +368,8 @@
               productWidth:"0",                 //成品宽，单位：mm
               productNumber:"0",                //成品数量，单位片
               remark:"备注",                     //备注
-              picture:[]                        //图片
+              picture:[],                        //图片
+              price:0, 												 //价格
             }
           )
       },
@@ -365,6 +386,23 @@
 
           },
         )
+      },
+
+      //删除table1
+      delTab1(index){
+        console.log(index);
+        this.tableData1.splice(index,1)
+      },
+
+      //删除table2
+      delTab2(index){
+        console.log(index);
+        this.tableData2.splice(index,1)
+      },
+
+      //格式化日期
+      dateChange(val) {
+        this.params.basicInfo.processDeadline = val;
       }
     },
     mounted (){
