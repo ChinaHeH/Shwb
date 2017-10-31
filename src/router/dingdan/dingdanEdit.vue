@@ -1,51 +1,5 @@
 <template>
   <div>
-    <el-form :inline="true" :model="params" class="demo-ruleForm" label-width="100px">
-      <h3>订单基本信息</h3>
-
-      <el-form-item label="联系人">
-        <el-input v-model="params.basicInfo.contactName" placeholder="联系人"></el-input>
-      </el-form-item>
-
-      <el-form-item label="联系电话">
-        <el-input v-model="params.basicInfo.contactPhone" placeholder="联系电话"></el-input>
-      </el-form-item>
-
-      <el-form-item label="交货时间">
-        <el-col :span="11">
-          <el-date-picker type="date" placeholder="截止交货日期" v-model="params.basicInfo.processDeadline" @change="dateChange"></el-date-picker>
-        </el-col>
-      </el-form-item>
-
-      <el-form-item label="取货地址">
-        <el-input v-model="params.basicInfo.getGoodsAddress" placeholder="取货地址"></el-input>
-      </el-form-item>
-
-      <el-form-item label="收货地址">
-        <el-input v-model="params.basicInfo.receiveGoodsAddress" placeholder="收货地址"></el-input>
-      </el-form-item>
-
-      <el-form-item label="取货方式">
-        <el-select v-model="params.basicInfo.getGoodsType" placeholder="取货方式">
-          <el-option label="本方送货" value="1"></el-option>
-          <el-option label="厂家取货" value="2"></el-option>
-        </el-select>
-      </el-form-item>
-
-      <el-form-item label="送货方式">
-        <el-select v-model="params.basicInfo.receiveGoodsType" placeholder="送货方式">
-          <el-option label="本方自提" value="1"></el-option>
-          <el-option label="厂家送货" value="2"></el-option>
-        </el-select>
-      </el-form-item>
-
-      <div style="clear: both;"></div>
-
-      <el-form-item label="留言">
-        <el-input type="textarea" v-model="params.basicInfo.remark" placeholder="留言" style="width:100%"></el-input>
-      </el-form-item>
-    </el-form>
-
     <h3>加工信息-基本信息</h3>
     <el-button type="primary" @click="addBasicInfo()">添加基本信息</el-button>
     <!--<el-button type="primary" @click="removeArr">删除基本信息</el-button>-->
@@ -162,22 +116,8 @@
       </el-table-column>
     </el-table>
 
-    <h3 v-show="quanxian ==1 || quanxian ==2">订单状态</h3>
-    <div style="margin-top: 20px;" v-show="quanxian ==1 || quanxian ==2"></div>
-
-    <el-form :inline="true" :model="slectParams" class="demo-ruleForm" label-width="100px" v-show="quanxian ==1 || quanxian ==2">
-      <el-form-item label="订单状态">
-        <el-select v-model="slectParams.getStatus" placeholder="运送状态" @change="updateStatue()">
-          <el-option label="待取货" value="1"></el-option>
-          <el-option label="生产中" value="2"></el-option>
-          <el-option label="待送货" value="3"></el-option>
-          <el-option label="已签收" value="4"></el-option>
-        </el-select>
-      </el-form-item>
-    </el-form>
-
     <div style="margin-top: 20px;"></div>
-    <el-button type="primary" @click="submit()" v-if="quanxian == 3">确认</el-button>
+    <el-button type="primary" @click="submit()">确认</el-button>
     <el-button type="primary" @click="cancel()">返回</el-button>
   </div>
 </template>
@@ -189,7 +129,6 @@
   export default {
     data() {
       return {
-        multipleTable:[],//选中的值
         priceList:[],                               //价格列表
         priceParams:{ //传空拿送油的
           page_now:"",
@@ -201,30 +140,6 @@
             stoneType:"",         //石料类别
             sizeType:""          //规格类别
           }
-        },
-        uploaderFilesObj: {//上传图片
-          label: '上传图片',
-          required: true,
-          selectId: 'qiniu_uploader',
-          dropId: 'qiniu_container',
-          total: 9999999999,
-          mimeTypes: [{title: 'Image files', extensions: 'jpg, jpeg, gif, png'}],
-          multiSelection: false,
-          files: [],
-          showTip: false,
-          tips: '请选择上传图片'
-        },
-        aaa: {//上传图片
-          label: '上传图片',
-          required: true,
-          selectId: 'qiniu_uploader',
-          dropId: 'qiniu_container',
-          total: 9999999999,
-          mimeTypes: [{title: 'Image files', extensions: 'jpg, jpeg, gif, png'}],
-          multiSelection: false,
-          files: [],
-          showTip: false,
-          tips: '请选择上传图片'
         },
         count:0,//合计
         //提交订单的时候传给后台的参数
@@ -248,15 +163,6 @@
         tableData1: [],
 
         tableData2:[],
-        multipleSelection: [],
-        basicSuccess : false,
-        listSuccess : false,
-        slectParams:{                       //筛选信息
-          checkStatus:'',                   //审核状态verifyStatusName
-          payStatus:'',                     //支付状态 payStatusName
-          getStatus:''                      //取货状态 goodsStatusName
-        },
-        quanxian:'',                        //权限
       }
     },
     components: {
@@ -276,13 +182,9 @@
           var data = response.data;               //拿到返回数据
 
           if (data.status) {
-
-            _this.params.basicInfo = data.data.basicInfo;   //基本信息获取
             _this.tableData1 = data.data.processInfo;       //加工基本信息获取
             _this.tableData2 = [];                          //加工基本信息获取,现在接口没有，给个空，有了再填上
-//            _this.slectParams.checkStatus = data.data.basicInfo.verifyStatus;
-//            _this.slectParams.payStatus = data.data.basicInfo.payStatus;
-            _this.slectParams.getStatus = data.data.basicInfo.goodsStatus;
+
             setTimeout(function () {
               for(let j = 0;j < _this.tableData1.length;j++){
                 _this.count = _this.count + parseFloat(_this.tableData1[j].rawNumber) * parseFloat(_this.tableData1[j].price);
@@ -295,45 +197,14 @@
           CONSTANT.methods.tips(''+ res || '获取订单一览异常!', '提示');
         });
       },
-      removeArr(){//删除元素
-        this.tableData1=this.multipleSelection;
-        console.log(this.tableData1);
-        console.log(this.multipleSelection);
-      },
-      submitFun(params) {
-        var _this = this;
-        _addDingdanForm(params).then(function (response) {
-          console.log(response);
-          var data = response.data;
-
-          if (data.status) {
-            location.href = location.origin + '/#/orderList';
-          }else {
-            CONSTANT.methods.tips(data.error_msg || '添加订单失败!', '提示');
-          }
-        }).catch(function (res) {
-          CONSTANT.methods.tips(res || '添加订单异常!', '提示');
-        });
-      },
+      
+      //返回
       cancel(){
         location.href = location.origin + '/#/orderList';
       },
+
       submit(){
-//        for(var i=0;i<this.tableData1.length;i++){
-//          delete this.tableData1[i].price;
-//        }
-//        this.params.routineInfo = this.tableData1;
-//        this.params.customInfo = this.tableData2;
-//        console.log(this.params);
-//        this.submitFun(this.params);
-        this.updateBasicInfo();
         this.updataListInfo();
-        let that = this;
-        setTimeout(function () {
-          if(  that.basicSuccess && that.listSuccess){
-            location.href = location.origin + '/#/orderList';
-          }
-        },1000)
       },
 
       //改变数量的时候价格改变
@@ -344,6 +215,7 @@
         }
 
       },
+
       //选中name的时候price也跟着改变
       changePrice(arr,val,index){
         var _this = this;
@@ -364,6 +236,7 @@
           }
         }
       },
+
       //获取price列表
       getPriceList(priceParams){
         var _this = this;
@@ -425,64 +298,6 @@
         this.tableData2.splice(index,1)
       },
 
-      //格式化日期
-      dateChange(val) {
-        this.params.basicInfo.processDeadline = val;
-      },
-
-//      更新货物状态
-//      运送状态
-      updateStatue(){
-        var _this = this;
-        var StateParams = {
-          id: _this.$route.params.id,
-          goodsStatus:_this.slectParams.getStatus       //货物状态：1=待取货、2=生产中、3=待送货、4=已签收
-        };
-        console.log(StateParams);
-        _getdingdanStatus(StateParams).then(function (response) {
-          console.log(response);
-          var data = response.data;
-
-          if (data.status) {
-            CONSTANT.methods.tips(data.error_msg || '订单状态已更新!', '提示');
-          }else {
-            CONSTANT.methods.tips(data.error_msg || '更新订单状态失败!', '提示');
-          }
-        }).catch(function (res) {
-          CONSTANT.methods.tips(res || '更新订单状态异常!', '提示');
-        });
-      },
-
-      //更新表单中的基本信息
-      updateBasicInfo(){
-        var _this = this;
-        var BasicParams = {
-           orderId:parseInt(_this.$route.params.id),                               //订单id
-           contactName:_this.params.basicInfo.contactName,                      //联系人
-           contactPhone:_this.params.basicInfo.contactPhone,              //联系电话
-           getGoodsType:_this.params.basicInfo.getGoodsType,                        //取货方式
-           getGoodsAddress:_this.params.basicInfo.getGoodsAddress,   //取货地址
-           receiveGoodsType:_this.params.basicInfo.receiveGoodsType,                      //送货方式
-           receiveGoodsAddress:_this.params.basicInfo.receiveGoodsAddress, //送货地址
-           processDeadline:_this.params.basicInfo.processDeadline,               //交货时间
-           remark:_this.params.basicInfo.remark                       //备注
-        };
-
-        console.log(BasicParams);
-        _UpdataBasicInfo(BasicParams).then(function (response) {
-          console.log(response);
-          var data = response.data;               //拿到返回数据
-
-          if (data.status) {
-            console.log("提交基本信息成功");
-            _this.basicSuccess = true;
-          }else {
-            CONSTANT.methods.tips(''+ data.error_msg || '获取订单一览失败!', '提示');
-          }
-        }).catch(function (res) {
-          CONSTANT.methods.tips(''+ res || '获取订单一览异常!', '提示');
-        });
-      },
 
       //更新表单中的加工信息
       updataListInfo(){
@@ -530,7 +345,7 @@
 
           if (data.status) {
             console.log("提交订单成功");
-            _this.listSuccess = true;
+            location.href = location.origin + '/#/orderList';
           }else {
             CONSTANT.methods.tips(''+ data.error_msg || '获取订单一览失败!', '提示');
           }
@@ -539,23 +354,10 @@
         });
       },
 
-      //getUser
-      getUser(){
-        var quanxianleibie = window.localStorage.roleName;
-        var _this = this;
-        if(quanxianleibie == '"百特admin"'){
-          _this.quanxian = 1;
-        }else if(quanxianleibie == '"百特user"'){
-          _this.quanxian = 2;
-        }else if(quanxianleibie == '"客户admin"'){
-          _this.quanxian = 3;
-        }
-      }
     },
     mounted (){
       this.getPriceList(this.priceParams);             //获取订单价格列表
       this.getOederList();                             //获取订单列表
-      this.getUser();
     }
   }
 </script>

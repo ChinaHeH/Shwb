@@ -27,6 +27,9 @@ import OrderList from './dingdan/dingdanList.vue';
 import OrderAdd from './dingdan/dingdanAdd.vue';
 import OrderCheck from './dingdan/dingdanCheck.vue';
 import OrderEdit from './dingdan/dingdanEdit.vue';
+import OrderBasicEdit from './dingdan/editBasicInfo.vue';
+import UPDATESTATUS from './dingdan/updataStatus.vue';
+import UPDATEPRICE from './dingdan/updatePrice.vue';
 
 //结算路由
 import accountsDetial from './accounts/list.vue';
@@ -176,6 +179,24 @@ export default new Router({
       name: 'orderEdit',
       path: '/orderEdit/:id',
       component: OrderEdit
+    },
+    //订单基本信息编辑
+    {
+      name: 'orderBasicEdit',
+      path: '/orderBasicEdit/:id',
+      component: OrderBasicEdit
+    },
+    //更新货物状态
+    {
+      name: 'orderUpdateStatus',
+      path: '/orderUpdateStatus/:id',
+      component: UPDATESTATUS
+    },
+    //订单价格
+    {
+      name: 'orderUpdatePrice',
+      path: '/orderUpdatePrice/:id',
+      component: UPDATEPRICE
     },
 
 

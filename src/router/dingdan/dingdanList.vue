@@ -158,15 +158,22 @@
                   location.href = location.origin + '/#/orderCheck/' + row.id;
                 }
               });
-              element.btns.push({
-                type: 'warning',
-                label: '编辑',
-                click: function (index, row) {
-                  location.href = location.origin + '/#/orderEdit/' + row.id;
-                }
-              });
 
               if(_this.quanxian == 3){
+                element.btns.push({
+                  type: 'warning',
+                  label: '编辑订单信息',
+                  click: function (index, row) {
+                    location.href = location.origin + '/#/orderEdit/' + row.id;
+                  }
+                });
+                element.btns.push({
+                  type: 'warning',
+                  label: '编辑基本信息',
+                  click: function (index, row) {
+                    location.href = location.origin + '/#/orderBasicEdit/' + row.id;
+                  }
+                });
                 element.btns.push({
                   type: 'danger',
                   label: '删除',
@@ -201,7 +208,27 @@
                     });
                   }
                 });
+
+                element.btns.push({
+                  type: 'warning',
+                  label: '更新状态',
+                  click: function (index, row) {
+                    location.href = location.origin + '/#/orderUpdateStatus/' + row.id;
+                  }
+                });
               }
+
+
+              if(_this.quanxian == 1 || _this.quanxian == 2){
+                element.btns.push({
+                  type: 'warning',
+                  label: '更新订单价格',
+                  click: function (index, row) {
+                    location.href = location.origin + '/#/orderUpdatePrice/' + row.id;
+                  }
+                });
+              }
+
             });
             _this.tData = data.data.list;
             _this.pagination.total = data.data.total_num;
