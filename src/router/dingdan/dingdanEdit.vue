@@ -162,38 +162,23 @@
       </el-table-column>
     </el-table>
 
-    <!--<h3>订单状态</h3>-->
-    <!--&lt;!&ndash;<el-button type="primary">删除自定义信息</el-button>&ndash;&gt;-->
-    <!--<div style="margin-top: 20px;"></div>-->
+    <h3 v-show="quanxian ==1 || quanxian ==2">订单状态</h3>
+    <div style="margin-top: 20px;" v-show="quanxian ==1 || quanxian ==2"></div>
 
-    <!--<el-form :inline="true" :model="slectParams" class="demo-ruleForm" label-width="100px">-->
-      <!--<el-form-item label="订单状态">-->
-        <!--<el-select v-model="slectParams.checkStatus" placeholder="审核状态">-->
-          <!--<el-option label="未审核" value="1"></el-option>-->
-          <!--<el-option label="已审核" value="2"></el-option>-->
-        <!--</el-select>-->
-      <!--</el-form-item>-->
-
-      <!--<el-form-item label="">-->
-        <!--<el-select v-model="slectParams.payStatus" placeholder="支付状态">-->
-          <!--<el-option label="未支付" value="1"></el-option>-->
-          <!--<el-option label="已支付" value="2"></el-option>-->
-        <!--</el-select>-->
-      <!--</el-form-item>-->
-
-      <!--<el-form-item label="">-->
-        <!--<el-select v-model="slectParams.getStatus" placeholder="运送状态" @change="updateStatue()">-->
-          <!--<el-option label="待取货" value="1"></el-option>-->
-          <!--<el-option label="生产中" value="2"></el-option>-->
-          <!--<el-option label="待送货" value="3"></el-option>-->
-          <!--<el-option label="已签收" value="4"></el-option>-->
-        <!--</el-select>-->
-      <!--</el-form-item>-->
-    <!--</el-form>-->
+    <el-form :inline="true" :model="slectParams" class="demo-ruleForm" label-width="100px" v-show="quanxian ==1 || quanxian ==2">
+      <el-form-item label="订单状态">
+        <el-select v-model="slectParams.getStatus" placeholder="运送状态" @change="updateStatue()">
+          <el-option label="待取货" value="1"></el-option>
+          <el-option label="生产中" value="2"></el-option>
+          <el-option label="待送货" value="3"></el-option>
+          <el-option label="已签收" value="4"></el-option>
+        </el-select>
+      </el-form-item>
+    </el-form>
 
     <div style="margin-top: 20px;"></div>
-    <el-button type="primary" @click="submit()">确认</el-button>
-    <el-button type="primary" @click="cancel()">取消</el-button>
+    <el-button type="primary" @click="submit()" v-if="quanxian == 3">确认</el-button>
+    <el-button type="primary" @click="cancel()">返回</el-button>
   </div>
 </template>
 
@@ -270,7 +255,8 @@
           checkStatus:'',                   //审核状态verifyStatusName
           payStatus:'',                     //支付状态 payStatusName
           getStatus:''                      //取货状态 goodsStatusName
-        }
+        },
+        quanxian:'',                        //权限
       }
     },
     components: {
@@ -296,7 +282,7 @@
             _this.tableData2 = [];                          //加工基本信息获取,现在接口没有，给个空，有了再填上
 //            _this.slectParams.checkStatus = data.data.basicInfo.verifyStatus;
 //            _this.slectParams.payStatus = data.data.basicInfo.payStatus;
-//            _this.slectParams.getStatus = data.data.basicInfo.goodsStatus;
+            _this.slectParams.getStatus = data.data.basicInfo.goodsStatus;
             setTimeout(function () {
               for(let j = 0;j < _this.tableData1.length;j++){
                 _this.count = _this.count + parseFloat(_this.tableData1[j].rawNumber) * parseFloat(_this.tableData1[j].price);
@@ -444,28 +430,28 @@
         this.params.basicInfo.processDeadline = val;
       },
 
-      //更新货物状态
-      //运送状态
-//      updateStatue(){
-//        var _this = this;
-//        var StateParams = {
-//          id: _this.$route.params.id,
-//          goodsStatus:_this.slectParams.getStatus       //货物状态：1=待取货、2=生产中、3=待送货、4=已签收
-//        };
-//        console.log(StateParams);
-//        _getdingdanStatus(StateParams).then(function (response) {
-//          console.log(response);
-//          var data = response.data;
-//
-//          if (data.status) {
-//            CONSTANT.methods.tips(data.error_msg || '订单状态已更新!', '提示');
-//          }else {
-//            CONSTANT.methods.tips(data.error_msg || '更新订单状态失败!', '提示');
-//          }
-//        }).catch(function (res) {
-//          CONSTANT.methods.tips(res || '更新订单状态异常!', '提示');
-//        });
-//      },
+//      更新货物状态
+//      运送状态
+      updateStatue(){
+        var _this = this;
+        var StateParams = {
+          id: _this.$route.params.id,
+          goodsStatus:_this.slectParams.getStatus       //货物状态：1=待取货、2=生产中、3=待送货、4=已签收
+        };
+        console.log(StateParams);
+        _getdingdanStatus(StateParams).then(function (response) {
+          console.log(response);
+          var data = response.data;
+
+          if (data.status) {
+            CONSTANT.methods.tips(data.error_msg || '订单状态已更新!', '提示');
+          }else {
+            CONSTANT.methods.tips(data.error_msg || '更新订单状态失败!', '提示');
+          }
+        }).catch(function (res) {
+          CONSTANT.methods.tips(res || '更新订单状态异常!', '提示');
+        });
+      },
 
       //更新表单中的基本信息
       updateBasicInfo(){
@@ -551,11 +537,25 @@
         }).catch(function (res) {
           CONSTANT.methods.tips(''+ res || '获取订单一览异常!', '提示');
         });
+      },
+
+      //getUser
+      getUser(){
+        var quanxianleibie = window.localStorage.roleName;
+        var _this = this;
+        if(quanxianleibie == '"百特admin"'){
+          _this.quanxian = 1;
+        }else if(quanxianleibie == '"百特user"'){
+          _this.quanxian = 2;
+        }else if(quanxianleibie == '"客户admin"'){
+          _this.quanxian = 3;
+        }
       }
     },
     mounted (){
       this.getPriceList(this.priceParams);             //获取订单价格列表
       this.getOederList();                             //获取订单列表
+      this.getUser();
     }
   }
 </script>

@@ -59,6 +59,8 @@ export var CONSTANT = {
    SENDEMAIL : location.origin + '/baite/web/sendResetPwdMail',
    GETDINGDANLIST : location.origin + '/baite/web/getOrderList',   //订单列表
    DELETEORDER : location.origin + '/baite/web/deleteOrder',       //删除订单
+   CHECHORDER : location.origin + '/baite/web/approveOrder',       //审核订单
+   RETURNORDER : location.origin + '/baite/web/returnOrder',       //退回订单
    ADDORDER : location.origin + '/baite/web/addOrder',            //添加订单
    GRTORDERINFO : location.origin + '/baite/web/getOrder',            //获取查看获取订单信息
    UPDATESTATE : location.origin + '/baite/web/updateGoodsStatus',            //订单编辑》》更新订单状态
