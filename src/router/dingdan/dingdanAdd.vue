@@ -340,11 +340,6 @@
         });
       },
 
-      //添加图片
-      addPic(index,data){
-
-      },
-
       //添加table1
       addBasicInfo(){
           this.tableData1.push(
