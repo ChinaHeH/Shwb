@@ -59,7 +59,7 @@
 
 <script>
   import {CONSTANT} from '../../util/constant';
-  import { _GetDingdanList,_deletedingdan} from '../../util/ajax';
+  import { _GetDingdanList,_deletedingdan,_checkdingdan} from '../../util/ajax';
   import Table from '~packages/table/table.vue';
   import { Button } from 'element-ui';
 
@@ -175,6 +175,13 @@
                   });
                 }
               });
+              element.btns.push({
+                type: 'primary',
+                label: '审核',
+                click: function (index, row) {
+                  _this.Checkdingdan(row.id);
+                }
+              });
             });
             _this.tData = data.data.list;
             _this.pagination.total = data.data.total_num;
@@ -198,13 +205,35 @@
 
           if (data.status) {
             CONSTANT.methods.tips('删除成功!', '确定', function () {
-              _this.getDingdanList (this.params);
+              _this.getDingdanList (_this.params);
             });
           } else {
             CONSTANT.methods.tips(data.error_msg || '删除订单失败!', '提示');
           }
         }).catch(function (response) {
           CONSTANT.methods.tips(response || '删除订单异常!', '提示');
+        });
+      },
+
+      //审核订单
+      Checkdingdan (id){
+        var _this = this;
+        var checkparams = {
+          id: id
+        };
+
+        _checkdingdan(checkparams).then(function (response) {
+          var data = response.data;
+
+          if (data.status) {
+            CONSTANT.methods.tips('审查成功!', '确定', function () {
+              _this.getDingdanList (_this.params);
+            });
+          } else {
+            CONSTANT.methods.tips(data.error_msg || '审查订单失败!', '提示');
+          }
+        }).catch(function (response) {
+          CONSTANT.methods.tips(response || '审查订单异常!', '提示');
         });
       },
 

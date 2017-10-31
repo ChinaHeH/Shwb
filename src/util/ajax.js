@@ -851,6 +851,32 @@ export function _deletedingdan (params) {
   });
 }
 
+//审核订单
+export function _checkdingdan (params) {
+  var jwtToken = localStorage.getItem('jwtToken');
+
+  if (!jwtToken) {
+    location.href = location.origin + '/#/login'
+  }
+  return new Promise(function (resolve, reject) {
+    axios({
+      method: 'post',
+      url: CONSTANT.api.CHECHORDER,
+      data: {
+        params: params
+      },
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': jwtToken
+      }
+    }).then(function (response) {
+      resolve(response);
+    }).catch(function (response) {
+      reject(response);
+    })
+  });
+}
+
 //订单查看获取订单信息
 export function _getDingdanInfo (params) {
   var jwtToken = localStorage.getItem('jwtToken');
