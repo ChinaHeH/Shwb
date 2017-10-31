@@ -56,7 +56,7 @@
       <el-table-column label="名称" width="150">
         <template slot-scope="scope">
           <el-select v-model="scope.row.name" placeholder="单长边外倒45度" @change = "changePrice(priceList,scope.row.name,scope.$index)">
-            <el-option v-for="item in priceList" :key="item.processName" :label="item.processName" :value="item.processName"></el-option>
+            <el-option v-for="item in priceList" :key="item.processName" :label="item.name" :value="item.processName"></el-option>
           </el-select>
         </template>
       </el-table-column>
@@ -226,7 +226,6 @@
            receiveGoodsType:"",                      //送货方式：1=本方自提、2=厂家送货
            receiveGoodsAddress:"",                   //送货地址
            processDeadline:"",                       //交货时间
-           processDeadline:"",                      //交货时间
            remark:""                                 //备注
           },
           routineInfo:'',               //表格1里边的数据
@@ -239,10 +238,10 @@
             priceConfigId:"0",               //价格设定ID
             name:"",                          //名称
             rawSizeType:"",                   //原材料规格:1=600*600、2=800*800、3=600*900、4=600*1200
-            rawNumber:"0",                    //原材料片数，单位：片
-            productLength:"0",                //成品长，单位：mm
-            productWidth:"0",                 //成品宽，单位：mm
-            productNumber:"0",                //成品数量，单位片
+            rawNumber:0,                     //原材料片数，单位：片
+            productLength:0,                //成品长，单位：mm
+            productWidth:0,                 //成品宽，单位：mm
+            productNumber:0,                //成品数量，单位片
             remark:"备注",                     //备注
             picture:[],                        //图片
             price:0, 												 //价格
@@ -278,7 +277,7 @@
       },
       productNumberCount(){ //数量失去交点计算合计价格
       	for(var i = 0;i<this.multipleSelection.length;i++){
-    			this.count+=this.multipleSelection[i].price*this.multipleSelection[i].productNumber;
+    			this.count += this.multipleSelection[i].price*this.multipleSelection[i].productNumber;
     		}
       },
       removeArr(){//删除元素
@@ -341,7 +340,7 @@
                //循环计总价
                _this.count = 0;
                for(let j = 0;j < _this.tableData1.length;j++){
-                 _this.count = _this.count+parseFloat(_this.tableData1[i].rawNumber)*parseFloat(_this.tableData1[i].price);
+                 _this.count = _this.count + parseFloat(_this.tableData1[i].rawNumber) * parseFloat(_this.tableData1[i].price);
                }
              }
           }
