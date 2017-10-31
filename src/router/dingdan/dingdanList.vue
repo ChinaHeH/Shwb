@@ -154,21 +154,21 @@
                 type: 'info',
                 label: '查看',
                 click: function (index, row) {
-                  location.href = location.origin + '/#/customerinfo/' + row.id;
+                  location.href = location.origin + '/#/orderCheck/' + row.id;
                 }
               });
               element.btns.push({
                 type: 'warning',
                 label: '编辑',
                 click: function (index, row) {
-                  location.href = location.origin + '/#/customeredit/' + row.id;
+                  location.href = location.origin + '/#/orderEdit/' + row.id;
                 }
               });
               element.btns.push({
                 type: 'danger',
                 label: '删除',
                 click: function (index, row) {
-                  CONSTANT.methods.confirm('是否删除该客户？', '确定', function (value) {
+                  CONSTANT.methods.confirm('是否删除该订单？', '确定', function (value) {
                     if (value === 'confirm') {
                       _this.deletedingdan(row.id);
                     }
@@ -198,7 +198,7 @@
 
           if (data.status) {
             CONSTANT.methods.tips('删除成功!', '确定', function () {
-              _this.getCustomerList(_this.params);
+              _this.getDingdanList (this.params);
             });
           } else {
             CONSTANT.methods.tips(data.error_msg || '删除订单失败!', '提示');

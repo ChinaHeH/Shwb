@@ -849,8 +849,34 @@ export function _deletedingdan (params) {
       reject(response);
     })
   });
-
 }
+
+//订单查看获取订单信息
+export function _getDingdanInfo (params) {
+  var jwtToken = localStorage.getItem('jwtToken');
+
+  if (!jwtToken) {
+    location.href = location.origin + '/#/login'
+  }
+  return new Promise(function (resolve, reject) {
+    axios({
+      method: 'post',
+      url: CONSTANT.api.GRTORDERINFO,
+      data: {
+        params: params
+      },
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': jwtToken
+      }
+    }).then(function (response) {
+      resolve(response);
+    }).catch(function (response) {
+      reject(response);
+    })
+  });
+}
+
 
 // 获取结算一览
 export function _Getbalancelist (params) {

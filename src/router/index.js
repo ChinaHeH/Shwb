@@ -25,6 +25,8 @@ import ForgetPassword from './Login/forgetPassword.vue';
 //*******************订单管理*****************************
 import OrderList from './dingdan/dingdanList.vue';
 import OrderAdd from './dingdan/dingdanAdd.vue';
+import OrderCheck from './dingdan/dingdanCheck.vue';
+import OrderEdit from './dingdan/dingdanEdit.vue';
 
 //结算路由
 import accountsDetial from './accounts/list.vue';
@@ -150,6 +152,7 @@ export default new Router({
       path: '/CustomerInfo/:id',
       component: CustomerInfo
     },
+
     //订单一览
     {
       name: 'OrderList',
@@ -162,6 +165,20 @@ export default new Router({
       path: '/orderAdd',
       component: OrderAdd
     },
+    //订单查看
+    {
+      name: 'orderCheck',
+      path: '/orderCheck/:id',
+      component: OrderCheck
+    },
+    //订单编辑
+    {
+      name: 'orderEdit',
+      path: '/orderEdit/:id',
+      component: OrderEdit
+    },
+
+
     //结算一览页面
     {
     	name:'accountsDetial',

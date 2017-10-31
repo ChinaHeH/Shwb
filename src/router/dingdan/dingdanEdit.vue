@@ -51,7 +51,7 @@
     <!--<el-button type="primary" @click="removeArr">删除基本信息</el-button>-->
     <div style="margin-top: 20px;"></div>
 
-    <el-table stripe ref="multipleTable" :data="tableData1"  tooltip-effect="dark" :fit="true" style="width:100%">
+    <el-table stripe ref="multipleTable" :data="tableData1"  @selection-change="handleSelectionChange"  tooltip-effect="dark" :fit="true" style="width:100%">
       <!--<el-table-column  type="selection" width="50"></el-table-column>-->
       <el-table-column label="名称" width="150">
         <template slot-scope="scope">
@@ -87,7 +87,7 @@
       </el-table-column>
       <el-table-column label="成品数量／片" width="150">
         <template slot-scope="scope">
-          <el-input type="number" v-model="scope.row.productNumber" placeholder="成品数量"></el-input>
+          <el-input type="number" @blur="productNumberCount" v-model="scope.row.productNumber" placeholder="成品数量"></el-input>
         </template>
       </el-table-column>
       <el-table-column label="备注" width="150">
@@ -104,7 +104,7 @@
       </el-table-column>
       <el-table-column label="加工示意图" width="200">
         <template slot-scope="scope">
-	        	<uc-upload :uploaderFilesObj="uploaderFilesObj" ref="uploadfile"></uc-upload>
+          <uc-upload :uploaderFilesObj="uploaderFilesObj" ref="uploadfile"></uc-upload>
         </template>
       </el-table-column>
 
@@ -114,7 +114,7 @@
         </template>
       </el-table-column>
     </el-table>
-		<p class="count">合计：￥{{count}} 元</p>
+    <p class="count">合计：￥{{count}} 元</p>
 
 
     <h3>加工信息-自定义信息</h3>
@@ -131,8 +131,11 @@
       </el-table-column>
       <el-table-column label="材料规格／mm" width="200">
         <template slot-scope="scope">
-          <el-select v-model="scope.row.rawSizeType" placeholder="材料规格">
-            <el-option v-for="item in priceList" :key="item.sizeType" :label="item.sizeTypeName" :value="item.sizeType"></el-option>
+          <el-select v-model="scope.row.rawSizeType" placeholder="请选择材料规格">
+            <el-option label="600*600" value="1"></el-option>
+            <el-option label="800*800" value="2"></el-option>
+            <el-option label="600*900" value="3"></el-option>
+            <el-option label="600*1200" value="4"></el-option>
           </el-select>
         </template>
       </el-table-column>
@@ -150,8 +153,8 @@
       </el-table-column>
 
       <el-table-column label="加工示意图" width="200">
-       <template slot-scope="scope">
-	        	<uc-upload :uploaderFilesObj="aaa" ref="uploadfile"></uc-upload>
+        <template slot-scope="scope">
+          <uc-upload :uploaderFilesObj="aaa" ref="uploadfile"></uc-upload>
         </template>
       </el-table-column>
 
@@ -175,7 +178,7 @@
   export default {
     data() {
       return {
-      	multipleTable:[],//选中的值
+        multipleTable:[],//选中的值
         priceList:[],                               //价格列表
         priceParams:{ //传空拿送油的
           page_now:"",
@@ -189,41 +192,41 @@
           }
         },
         uploaderFilesObj: {//上传图片
-		          label: '上传图片',
-		          required: true,
-		          selectId: 'qiniu_uploader',
-          		dropId: 'qiniu_container',
-		          total: 9999999999,
-		          mimeTypes: [{title: 'Image files', extensions: 'jpg, jpeg, gif, png'}],
-		          multiSelection: false,
-		          files: [],
-		          showTip: false,
-		          tips: '请选择上传图片'
+          label: '上传图片',
+          required: true,
+          selectId: 'qiniu_uploader',
+          dropId: 'qiniu_container',
+          total: 9999999999,
+          mimeTypes: [{title: 'Image files', extensions: 'jpg, jpeg, gif, png'}],
+          multiSelection: false,
+          files: [],
+          showTip: false,
+          tips: '请选择上传图片'
         },
         aaa: {//上传图片
-		          label: '上传图片',
-		          required: true,
-		          selectId: 'qiniu_uploader',
-          		dropId: 'qiniu_container',
-		          total: 9999999999,
-		          mimeTypes: [{title: 'Image files', extensions: 'jpg, jpeg, gif, png'}],
-		          multiSelection: false,
-		          files: [],
-		          showTip: false,
-		          tips: '请选择上传图片'
+          label: '上传图片',
+          required: true,
+          selectId: 'qiniu_uploader',
+          dropId: 'qiniu_container',
+          total: 9999999999,
+          mimeTypes: [{title: 'Image files', extensions: 'jpg, jpeg, gif, png'}],
+          multiSelection: false,
+          files: [],
+          showTip: false,
+          tips: '请选择上传图片'
         },
-				count:0,//合计
+        count:0,//合计
         //提交订单的时候传给后台的参数
         params: {
           basicInfo:{
-           contactName:"",                           //联系人
-           contactPhone:"",                          //联系电话
-           getGoodsType:"",                          //取货方式：1=本方送货、2=厂家取货
-           getGoodsAddress:"",                       //取货地址
-           receiveGoodsType:"",                      //送货方式：1=本方自提、2=厂家送货
-           receiveGoodsAddress:"",                   //送货地址
-           processDeadline:"",                       //交货时间
-           remark:""                                 //备注
+            contactName:"",                           //联系人
+            contactPhone:"",                          //联系电话
+            getGoodsType:"",                          //取货方式：1=本方送货、2=厂家取货
+            getGoodsAddress:"",                       //取货地址
+            receiveGoodsType:"",                      //送货方式：1=本方自提、2=厂家送货
+            receiveGoodsAddress:"",                   //送货地址
+            processDeadline:"",                       //交货时间
+            remark:""                                 //备注
           },
           routineInfo:'',               //表格1里边的数据
           customInfo:'',                //表格2里边的数据
@@ -243,7 +246,7 @@
             picture:[],                        //图片
             price:0, 												 //价格
           },
-         ],
+        ],
 
         tableData2:[
           {
@@ -262,10 +265,57 @@
       UcUpload: Upload
     },
     methods: {
+      //拿到请求的数据
+      getOederList(){
+        var _this = this;
+        var params = {
+          id: _this.$route.params.id
+        };
+        _getDingdanInfo(params).then(function (response) {
+          console.log("**************************");
+          console.log(response);
+
+          var data = response.data;               //拿到返回数据
+
+          if (data.status) {
+
+            _this.params.basicInfo = data.data.basicInfo;   //基本信息获取
+            _this.tableData1 = data.data.processInfo;       //加工基本信息获取
+            _this.tableData2 = [];                          //加工基本信息获取,现在接口没有，给个空，有了再填上
+            setTimeout(function () {
+              for(let j = 0;j < _this.tableData1.length;j++){
+                _this.count = _this.count + parseFloat(_this.tableData1[j].rawNumber) * parseFloat(_this.tableData1[j].price);
+              }
+            })
+          }else {
+            CONSTANT.methods.tips(''+ data.error_msg || '获取订单一览失败!', '提示');
+          }
+        }).catch(function (res) {
+          CONSTANT.methods.tips(''+ res || '获取订单一览异常!', '提示');
+        });
+
+      },
+
+
+      handleSelectionChange(val) {//获取选择
+        console.log(this.uploaderFilesObj.files);
+        this.multipleSelection = val;
+        if(val.length!=0){
+          for(var i = 0;i<this.multipleSelection.length;i++){
+            this.count+=this.multipleSelection[i].price*this.multipleSelection[i].productNumber;
+          }
+        }
+        console.log(this.multipleSelection);
+      },
+      productNumberCount(){ //数量失去交点计算合计价格
+        for(var i = 0;i<this.multipleSelection.length;i++){
+          this.count += this.multipleSelection[i].price*this.multipleSelection[i].productNumber;
+        }
+      },
       removeArr(){//删除元素
-      	this.tableData1=this.multipleSelection;
-      	console.log(this.tableData1);
-      	console.log(this.multipleSelection);
+        this.tableData1=this.multipleSelection;
+        console.log(this.tableData1);
+        console.log(this.multipleSelection);
       },
       submitFun(params) {
         var _this = this;
@@ -286,42 +336,46 @@
         location.href = location.origin + '/#/orderList';
       },
       submit(){
-      	for(var i=0;i<this.tableData1.length;i++){
-      		delete this.tableData1[i].price;
-      	}
-          this.params.routineInfo = this.tableData1;
-          this.params.customInfo = this.tableData2;
-          console.log(this.params);
-          this.submitFun(this.params);
+        for(var i=0;i<this.tableData1.length;i++){
+          delete this.tableData1[i].price;
+        }
+        this.params.routineInfo = this.tableData1;
+        this.params.customInfo = this.tableData2;
+        console.log(this.params);
+        this.submitFun(this.params);
       },
 
       //改变数量的时候价格改变
       totleEMB(){
         this.count = 0;
-          for(let i = 0;i < this.tableData1.length;i++){
-            this.count = this.count+parseFloat(this.tableData1[i].rawNumber)*parseFloat(this.tableData1[i].price);
-          }
+        for(let i = 0;i < this.tableData1.length;i++){
+          this.count = this.count+parseFloat(this.tableData1[i].rawNumber)*parseFloat(this.tableData1[i].price);
+        }
 
       },
       //选中name的时候price也跟着改变
       changePrice(arr,val,index){
-          var _this = this;
-          var arrList = arr;
-          var value = val;
-          var index = index;
-          for(let i = 0;i < arrList.length;i++){
-             if(arrList[i].processName == value){
-               _this.tableData1[index].priceConfigId = arrList[i].id;
-               _this.tableData1[index].price = arrList[i].price;
-               _this.tableData1[index].rawSizeType = arrList[i].sizeType;
+        var _this = this;
+        var arrList = arr;
+        var value = val;
+        var index = index;
+        console.log(arrList)
+        for(let i = 0;i < arrList.length;i++){
+          if(arrList[i].processName == value){
+            console.log(arrList[i].id);
+            _this.tableData1[index].priceConfigId = arrList[i].id;
+            _this.tableData1[index].price = arrList[i].price;
+            _this.tableData1[index].rawSizeType = arrList[i].sizeType;
+            console.log(_this.tableData1[index].priceConfigId);
+            console.log(_this.tableData1[index]);
 
-               //循环计总价
-               _this.count = 0;
-               for(let j = 0;j < _this.tableData1.length;j++){
-                 _this.count = _this.count + parseFloat(_this.tableData1[j].rawNumber) * parseFloat(_this.tableData1[j].price);
-               }
-             }
+            //循环计总价
+            _this.count = 0;
+            for(let j = 0;j < _this.tableData1.length;j++){
+              _this.count = _this.count + parseFloat(_this.tableData1[i].rawNumber) * parseFloat(_this.tableData1[i].price);
+            }
           }
+        }
       },
       //获取price列表
       getPriceList(priceParams){
@@ -347,20 +401,20 @@
 
       //添加table1
       addBasicInfo(){
-          this.tableData1.push(
-            {
-              priceConfigId:"0",                 //价格设定ID
-              name:"",                          //名称
-              rawSizeType:"2",                   //原材料规格:1=600*600、2=800*800、3=600*900、4=600*1200
-              rawNumber:"0",                    //原材料片数，单位：片
-              productLength:"0",                //成品长，单位：mm
-              productWidth:"0",                 //成品宽，单位：mm
-              productNumber:"0",                //成品数量，单位片
-              remark:"备注",                     //备注
-              picture:[],                        //图片
-              price:0, 												 //价格
-            }
-          )
+        this.tableData1.push(
+          {
+            priceConfigId:"0",                 //价格设定ID
+            name:"",                          //名称
+            rawSizeType:"2",                   //原材料规格:1=600*600、2=800*800、3=600*900、4=600*1200
+            rawNumber:"0",                    //原材料片数，单位：片
+            productLength:"0",                //成品长，单位：mm
+            productWidth:"0",                 //成品宽，单位：mm
+            productNumber:"0",                //成品数量，单位片
+            remark:"备注",                     //备注
+            picture:[],                        //图片
+            price:0, 												 //价格
+          }
+        )
       },
 
       //添加table2
@@ -395,7 +449,7 @@
       }
     },
     mounted (){
-        this.getPriceList(this.priceParams);
+      this.getPriceList(this.priceParams);
     }
   }
 </script>
@@ -405,10 +459,10 @@
     color: #48576a;
   }
   .count{
-  	height: 40px;
-  	line-height: 40px;
-  	text-align: right;
-  	background: #62B9FF;
-  	padding-right: 130px;
+    height: 40px;
+    line-height: 40px;
+    text-align: right;
+    background: #62B9FF;
+    padding-right: 130px;
   }
 </style>
