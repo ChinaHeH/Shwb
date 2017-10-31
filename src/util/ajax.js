@@ -1128,3 +1128,78 @@ export function _Addpricebatch(params) {
     })
   });
 }
+
+//生成结算单
+export function _Addbalance(params) {
+  var jwtToken = localStorage.getItem('jwtToken');
+
+  if (!jwtToken) {
+    location.href = location.origin + '/#/login'
+  }
+  return new Promise(function (resolve, reject) {
+    axios({
+      method: 'post',
+      url: CONSTANT.api.Addbalance,
+      data: {
+        params: params
+      },
+      headers: {
+        'Authorization': jwtToken
+      }
+    }).then(function (response) {
+      resolve(response);
+    }).catch(function (response) {
+      reject(response);
+    })
+  });
+}
+
+//结算 完成
+export function _Finishbalance(params) {
+  var jwtToken = localStorage.getItem('jwtToken');
+
+  if (!jwtToken) {
+    location.href = location.origin + '/#/login'
+  }
+  return new Promise(function (resolve, reject) {
+    axios({
+      method: 'post',
+      url: CONSTANT.api.Finishbalance,
+      data: {
+        params: params
+      },
+      headers: {
+        'Authorization': jwtToken
+      }
+    }).then(function (response) {
+      resolve(response);
+    }).catch(function (response) {
+      reject(response);
+    })
+  });
+}
+
+//结算 下载pdf
+export function _Downloadbalance(params) {
+  var jwtToken = localStorage.getItem('jwtToken');
+
+  if (!jwtToken) {
+    location.href = location.origin + '/#/login'
+  }
+  return new Promise(function (resolve, reject) {
+    axios({
+      method: 'post',
+      url: CONSTANT.api.Downloadbalance,
+      data: {
+        params: params
+      },
+      headers: {
+        'Authorization': jwtToken
+      }
+    }).then(function (response) {
+      resolve(response);
+    }).catch(function (response) {
+      reject(response);
+    })
+  });
+}

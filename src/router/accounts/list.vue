@@ -3,7 +3,7 @@
 		<div class="header">
 			<el-form :inline="true" :model="formInline" class="demo-form-inline">
 			  <el-form-item label="客户名称">
-			    <el-select v-model="formInline.customerName" placeholder="请选择客户名称">
+			    <el-select @change="getOrderList" v-model="formInline.customerName" placeholder="请选择客户名称">
 			      <el-option v-for="item in customerList" :label="item.customerName" :value="item.customerName"></el-option>
 			    </el-select>
 			  </el-form-item>
@@ -36,8 +36,8 @@
 				</el-table-column>
 				<el-table-column label="操作">
 					<template slot-scope="scope">
-						<el-button v-if="scope.row.status==2" type="primary" @click="donwLoad(scope.$index,scope.row.id)">下载</el-button>
-						<el-button type="primary" v-if="scope.row.status==1" @click="save(scope.$index, scope.row.id)">完成</el-button>
+						<el-button v-if="scope.row.status==2" type="primary" @click="donwLoad(scope.row.id)">下载</el-button>
+						<el-button type="primary" v-if="scope.row.status==1" @click="save(scope.row.id)">完成</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -53,6 +53,8 @@
 	import {
 		_getCustomerList,
 		_Getbalancelist,
+		_Finishbalance,
+		_Downloadbalance
 	} from '../../util/ajax';
 	import {
 		Select,
@@ -89,6 +91,17 @@
 							});
 						}
 					},
+					params:{
+				        page_now:1,
+				        limit:10,
+				        sort_by:"",
+				        sort_type:"desc",
+				        search_by:{
+				            customerName:"",
+				        }
+				
+				    }
+
 				}
 			},
 			components: {
@@ -103,6 +116,10 @@
 				ElOption:Option
 			},
 			methods: {
+				getOrderList(){//选择客户，去拿客户结算一览
+					this.params.search_by.customerName= this.formInline.customerName;
+					this.Getbalancelist(this.params);
+				},
 				check() { //检索
 					this.Getbalancelist({
 						page_now: 1,
@@ -112,13 +129,35 @@
 				        }
 					});
 				},
-				donwLoad(index, id) { //下载
-					alert(index);
-					alert(id);
+				donwLoad(id) { //下载
+					this.Downloadbalance({id:id});
 				},
-				save(index, id) { //保存
-					alert(index);
-					alert(id);
+				save(id) { //保存
+					this.Finishbalance({id:id});
+				},
+				Downloadbalance(params){//下载pdf
+					var _this = this;
+					_Downloadbalance(params).then(function(response) {
+						console.log(response);
+						
+					}).catch(function(res) {
+						CONSTANT.methods.tips(res || '下载pdf失败!', '提示');
+					});
+				},
+				Finishbalance(params){//结算完成
+					var _this = this;
+					_Finishbalance(params).then(function(response) {
+						var data = response.data;
+						if(data.status) {
+							CONSTANT.methods.tips('结算完成!', '确定', function() {
+							window.location.reload();
+						});
+						} else {
+							CONSTANT.methods.tips(data.error_msg || '结算完成失败!', '提示');
+						}
+					}).catch(function(res) {
+						CONSTANT.methods.tips(res || '结算完成失败!', '提示');
+					});
 				},
 				getCustomerList(params){//获取客户名称列表
 					var _this = this;
@@ -141,6 +180,7 @@
 						console.log(data);
 						if(data.status) {
 							_this.tableData = data.data.list;
+							_this.pagination.total = data.data.total_num;
 						} else {
 							CONSTANT.methods.tips(data.error_msg || '获取结算一览失败!', '提示');
 						}
@@ -163,13 +203,7 @@
 			        }
 
 				});
-				this.Getbalancelist({
-						page_now: 1,
-						limit: 10,
-						search_by:{
-				            customerName:this.formInline.customerName
-				        }
-				});
+				this.Getbalancelist(this.params);
 			},
 			filters: {
 

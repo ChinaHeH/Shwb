@@ -12,12 +12,12 @@
 					<span class="count">{{formInline.count}}</span>元
 				</el-form-item>
 				<el-form-item prop="rebateType">
-					<el-radio-group @change="radioChange" v-model="formInline.rebateType">
+					<el-radio-group @change="radioChange" v-model="addParams.rebateType">
 						<el-radio label="1">按比率折扣
-							<el-input @blur="blurrebatePercent" type="number" style="width:100px" v-model="formInline.rebatePercent" placeholder="折扣比例"></el-input> %
+							<el-input @blur="blurrebatePercent" type="number" style="width:100px" v-model="addParams.rebatePercent" placeholder="折扣比例"></el-input> %
 						</el-radio>
 						<el-radio label="2">按金额折扣
-							<el-input @blur="blurrebateSum" type="number" style="width:100px" v-model="formInline.rebateSum" placeholder="折扣比例"></el-input> 元
+							<el-input @blur="blurrebateSum" type="number" style="width:100px" v-model="addParams.rebateSum" placeholder="折扣比例"></el-input> 元
 						</el-radio>
 					</el-radio-group>
 				</el-form-item>
@@ -34,7 +34,7 @@
 				<el-table-column type="index" label="标记" width="70">
 					<template slot-scope="scope">
 					  <!-- `checked` 为 true 或 false -->
-					  <el-checkbox @change="checkboxCount(scope.row.check,scope.row.orderSum)" v-model="scope.row.check"></el-checkbox>
+					  <el-checkbox @change="checkboxCount(scope.row.check,scope.row.orderSum,scope.row.id)" v-model="scope.row.check"></el-checkbox>
 					</template>
 				</el-table-column>
 				<el-table-column prop="orderNo" label="订单编号" width="150">
@@ -76,7 +76,7 @@
 	import {
 		CONSTANT
 	} from '../../util/constant';
-	import { _GetDingdanList,_getCustomerList } from '../../util/ajax';
+	import { _GetDingdanList,_getCustomerList,_Addbalance } from '../../util/ajax';
 	import {
 		Select,
 		Button,
@@ -111,56 +111,56 @@
 				},
 				customerList: [], //客户名称列表
 				tData: [ //订单列表
-					{
-						"id": "2", //订单id
-						"customerId": "1", //客户id
-						"contactName": "三星", //联系人
-						"contactPhone": "18501010101", //联系电话
-						"getGoodsType": "2", //取货方式：1=本方送货、2=厂家取货
-						"getGoodsAddress": "上海市徐汇区桂平路680号", //取货地址
-						"receiveGoodsType": "2", //送货方式：1=本方自提、2=厂家送货
-						"receiveGoodsAddress": "上海市徐汇区桂平路680号", //送货地址
-						"processDeadline": "2017-12-31", //交货地址
-						"remark": "取货湖区", //备注
-						"verifyStatus": "1", //审核状态
-						"payStatus": "1", //支付状态
-						"goodsStatus": "1", //货物状态
-						"orderSum": "43.60", //订单金额
-						"orderNo": "D20171019002", //订单编号
-						"createTime": "2017-10-19 18:51:29", //下单时间
-						"customerName": "星巴克",
-						"getGoodsTypeName": "厂家取货",
-						"receiveGoodsTypeName": "厂家送货",
-						"verifyStatusName": "未审核",
-						"payStatusName": "未结算",
-						"goodsStatusName": "待取货",
-						check:false //添加checkbox样式
-					},
-					{
-						"id": "2", //订单id
-						"customerId": "1", //客户id
-						"contactName": "三星", //联系人
-						"contactPhone": "18501010101", //联系电话
-						"getGoodsType": "2", //取货方式：1=本方送货、2=厂家取货
-						"getGoodsAddress": "上海市徐汇区桂平路680号", //取货地址
-						"receiveGoodsType": "2", //送货方式：1=本方自提、2=厂家送货
-						"receiveGoodsAddress": "上海市徐汇区桂平路680号", //送货地址
-						"processDeadline": "2017-12-31", //交货地址
-						"remark": "取货湖区", //备注
-						"verifyStatus": "1", //审核状态
-						"payStatus": "1", //支付状态
-						"goodsStatus": "1", //货物状态
-						"orderSum": "43.60", //订单金额
-						"orderNo": "D20171019002", //订单编号
-						"createTime": "2017-10-19 18:51:29", //下单时间
-						"customerName": "星巴克",
-						"getGoodsTypeName": "厂家取货",
-						"receiveGoodsTypeName": "厂家送货",
-						"verifyStatusName": "未审核",
-						"payStatusName": "未结算",
-						"goodsStatusName": "待取货",
-						check:false //添加checkbox样式
-					}
+//					{
+//						"id": "2", //订单id
+//						"customerId": "1", //客户id
+//						"contactName": "三星", //联系人
+//						"contactPhone": "18501010101", //联系电话
+//						"getGoodsType": "2", //取货方式：1=本方送货、2=厂家取货
+//						"getGoodsAddress": "上海市徐汇区桂平路680号", //取货地址
+//						"receiveGoodsType": "2", //送货方式：1=本方自提、2=厂家送货
+//						"receiveGoodsAddress": "上海市徐汇区桂平路680号", //送货地址
+//						"processDeadline": "2017-12-31", //交货地址
+//						"remark": "取货湖区", //备注
+//						"verifyStatus": "1", //审核状态
+//						"payStatus": "1", //支付状态
+//						"goodsStatus": "1", //货物状态
+//						"orderSum": "43.60", //订单金额
+//						"orderNo": "D20171019002", //订单编号
+//						"createTime": "2017-10-19 18:51:29", //下单时间
+//						"customerName": "星巴克",
+//						"getGoodsTypeName": "厂家取货",
+//						"receiveGoodsTypeName": "厂家送货",
+//						"verifyStatusName": "未审核",
+//						"payStatusName": "未结算",
+//						"goodsStatusName": "待取货",
+//						check:false //添加checkbox样式
+//					},
+//					{
+//						"id": "2", //订单id
+//						"customerId": "1", //客户id
+//						"contactName": "三星", //联系人
+//						"contactPhone": "18501010101", //联系电话
+//						"getGoodsType": "2", //取货方式：1=本方送货、2=厂家取货
+//						"getGoodsAddress": "上海市徐汇区桂平路680号", //取货地址
+//						"receiveGoodsType": "2", //送货方式：1=本方自提、2=厂家送货
+//						"receiveGoodsAddress": "上海市徐汇区桂平路680号", //送货地址
+//						"processDeadline": "2017-12-31", //交货地址
+//						"remark": "取货湖区", //备注
+//						"verifyStatus": "1", //审核状态
+//						"payStatus": "1", //支付状态
+//						"goodsStatus": "1", //货物状态
+//						"orderSum": "43.60", //订单金额
+//						"orderNo": "D20171019002", //订单编号
+//						"createTime": "2017-10-19 18:51:29", //下单时间
+//						"customerName": "星巴克",
+//						"getGoodsTypeName": "厂家取货",
+//						"receiveGoodsTypeName": "厂家送货",
+//						"verifyStatusName": "未审核",
+//						"payStatusName": "未结算",
+//						"goodsStatusName": "待取货",
+//						check:false //添加checkbox样式
+//					}
 
 				],
 				formInline: {
@@ -180,6 +180,20 @@
 						this.getDingdanList(this.params);
 					}
 				},
+				addParams:{ //生成结算提交参数
+			        rebateType:"",      //折扣类型：1=折扣比例、2=折扣金额
+			        rebatePercent:"",   //折扣比例
+			        rebateSum:"",      //折扣金额
+			        customerId:"",      //客户id
+			        orderInfo:[
+//			          {
+//			            orderId:2    //订单id
+//			          },{
+//			            orderId:4
+//			          }
+			        ]
+			    }
+
 			}
 		},
 		components: {
@@ -195,66 +209,87 @@
 			ElButton: Button,
 		},
 		methods: {
+			detail(id){//订单查看
+				location.href = location.origin + '/#/orderCheck/' + id;
+			},
 			formInlineInit(){//初始化合计折扣数据
 				this.formInline.count=0;
 				this.formInline.rebateType="";
 				this.formInline.rebatePercent=0;
 				this.formInline.rebateSum=0;
 				this.formInline.countAll=0;
+				this.tData=[];
 			},
 			getOrderList(){//选择客户，去拿客户对应的oder
 				console.log(this.formInline.customerName);
 				this.formInlineInit();
-				this.params.search_by= this.formInline.customerName;
+				for(var i =0;i<this.customerList.length;i++){ //获取用户id
+					if(this.formInline.customerName==this.customerList[i].customerName){
+						this.addParams.customerId = this.customerList[i].id;
+					}
+				}
+				this.params.search_by.customerName= this.formInline.customerName;
 				this.getDingdanList(this.params);
 			},
-			checkboxCount(isChekd,num){ //checkbox 计算金额
+			checkboxCount(isChekd,num,id){ //checkbox 计算金额
 				if(isChekd){
 					this.formInline.count+=Number(num);
+					//勾选就添加id
+					this.addParams.orderInfo.push({
+						orderId:id
+					})
 				}else{
 					this.formInline.count-=Number(num);
+					//取消就移除id
+					for (var i =0;i<this.addParams.orderInfo.length;i++) {
+						if(this.addParams.orderInfo[i].orderId==id){
+							this.addParams.orderInfo.splice(i, 1)
+						}
+					}
+					
 				}
-				if(this.formInline.rebateType){
-					if(this.formInline.rebateType=="1"){
-						if(this.formInline.rebatePercent!=0){
-							this.formInline.countAll=this.formInline.count-(this.formInline.count*this.formInline.rebatePercent/100);
+				console.log(this.addParams);
+				if(this.addParams.rebateType){
+					if(this.addParams.rebateType=="1"){
+						if(this.addParams.rebatePercent!=0){
+							this.formInline.countAll=this.formInline.count-(this.formInline.count*this.addParams.rebatePercent/100);
 						}else{
 							this.formInline.countAll=this.formInline.count;
 						}
 					}else{
-						this.formInline.countAll=this.formInline.count-this.formInline.rebateSum;
+						this.formInline.countAll=this.formInline.count-this.addParams.rebateSum;
 					}
 				}else{
 					this.formInline.countAll=this.formInline.count;
 				}
 			},
 			radioChange(){ //radio 
-				if(this.formInline.rebateType){
-					if(this.formInline.rebateType=="1"){
-						if(this.formInline.rebatePercent!=0){
-							this.formInline.countAll=this.formInline.count-(this.formInline.count*this.formInline.rebatePercent/100);
+				if(this.addParams.rebateType){
+					if(this.addParams.rebateType=="1"){
+						if(this.addParams.rebatePercent!=0){
+							this.formInline.countAll=this.formInline.count-(this.formInline.count*this.addParams.rebatePercent/100);
 						}else{
 							this.formInline.countAll=this.formInline.count;
 						}
 					}else{
-						this.formInline.countAll=this.formInline.count-this.formInline.rebateSum;
+						this.formInline.countAll=this.formInline.count-this.addParams.rebateSum;
 					}
 				}else{
 					this.formInline.countAll=this.formInline.count;
 				}
 			},
 			blurrebatePercent(){ //blurrebatePercent 折扣百分比
-				if(this.formInline.rebateType){
-					this.formInline.countAll=parseFloat(this.formInline.count-(this.formInline.count*this.formInline.rebatePercent/100));
+				if(this.addParams.rebateType==1){
+					this.formInline.countAll=parseFloat(this.formInline.count-(this.formInline.count*this.addParams.rebatePercent/100));
 				}
 			},
 			blurrebateSum(){ //折扣计算
-				if(this.formInline.rebateType){
-					this.formInline.countAll=parseFloat(this.formInline.count)-parseFloat(this.formInline.rebateSum||0);
+				if(this.addParams.rebateType==2){
+					this.formInline.countAll=parseFloat(this.formInline.count)-parseFloat(this.addParams.rebateSum||0);
 				}
 			},
 			balance() { //生成结算单
-
+				this.Addbalance(this.addParams);
 			},
 			getCustomerList(params) { //获取客户名称列表
 				var _this = this;
@@ -270,22 +305,27 @@
 					CONSTANT.methods.tips(res || '获取客户名称失败!', '提示');
 				});
 			},
+			Addbalance(addParams){ //生成结算单
+				var _this = this;
+				_Addbalance(addParams).then(function(response) {
+					var data = response.data;
+					if(data.status) {
+						CONSTANT.methods.tips('生成结算单成功!', '确定', function() {
+							location.href = location.origin + '/#/accountsDetial';
+						});
+					} else {
+						CONSTANT.methods.tips(data.error_msg || '生成结算单失败!', '提示');
+					}
+				}).catch(function(res) {
+					CONSTANT.methods.tips(res || '生成结算单失败!', '提示');
+				});
+			},
 			getDingdanList(params) {
 				var _this = this;
 				_GetDingdanList(params).then(function(response) {
 					console.log(response);
 					var data = response.data;
 					if(data.status) {
-						data.data.list.forEach(function(element) {
-							element.btns = [];
-							element.btns.push({
-								type: 'info',
-								label: '查看',
-								click: function(index, row) {
-									location.href = location.origin + '/#/customerinfo/' + row.id;
-								}
-							});
-						});
 						_this.tData = data.data.list;
 						_this.pagination.total = data.data.total_num;
 					} else {
@@ -311,6 +351,7 @@
 				}
 
 			});
+//			this.getDingdanList(this.params);
 		},
 		filters: {
 
