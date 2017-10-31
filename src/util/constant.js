@@ -55,6 +55,10 @@ export var CONSTANT = {
    DELETEORDER : location.origin + '/baite/web/deleteOrder',       //删除订单
    ADDORDER : location.origin + '/baite/web/addOrder',            //添加订单
    GRTORDERINFO : location.origin + '/baite/web/getOrder',            //获取查看获取订单信息
+   UPDATESTATE : location.origin + '/baite/web/updateGoodsStatus',            //订单编辑》》更新订单状态
+   UPDATEBASICINFO : location.origin + '/baite/web/updateOrder',              //订单编辑》》编辑基本信息
+   UPDATELISTINFO : location.origin + '/baite/web/updateProcessReq',              //订单编辑》》编辑加工信息
+
 
 
 

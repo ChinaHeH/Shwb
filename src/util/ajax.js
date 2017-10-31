@@ -877,6 +877,83 @@ export function _getDingdanInfo (params) {
   });
 }
 
+//编辑订单中的更新订单状态
+export function _getdingdanStatus (params) {
+  var jwtToken = localStorage.getItem('jwtToken');
+
+  if (!jwtToken) {
+    location.href = location.origin + '/#/login'
+  }
+  return new Promise(function (resolve, reject) {
+    axios({
+      method: 'post',
+      url: CONSTANT.api.UPDATESTATE,
+      data: {
+        params: params
+      },
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': jwtToken
+      }
+    }).then(function (response) {
+      resolve(response);
+    }).catch(function (response) {
+      reject(response);
+    })
+  });
+}
+
+//编辑订单中的更新订单基本信息
+export function _UpdataBasicInfo (params) {
+  var jwtToken = localStorage.getItem('jwtToken');
+
+  if (!jwtToken) {
+    location.href = location.origin + '/#/login'
+  }
+  return new Promise(function (resolve, reject) {
+    axios({
+      method: 'post',
+      url: CONSTANT.api.UPDATEBASICINFO,
+      data: {
+        params: params
+      },
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': jwtToken
+      }
+    }).then(function (response) {
+      resolve(response);
+    }).catch(function (response) {
+      reject(response);
+    })
+  });
+}
+
+//编辑订单中的更新加工信息的基本信息
+export function _UpdataListInfo (params) {
+  var jwtToken = localStorage.getItem('jwtToken');
+
+  if (!jwtToken) {
+    location.href = location.origin + '/#/login'
+  }
+  return new Promise(function (resolve, reject) {
+    axios({
+      method: 'post',
+      url: CONSTANT.api.UPDATELISTINFO,
+      data: {
+        params: params
+      },
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': jwtToken
+      }
+    }).then(function (response) {
+      resolve(response);
+    }).catch(function (response) {
+      reject(response);
+    })
+  });
+}
 
 // 获取结算一览
 export function _Getbalancelist (params) {

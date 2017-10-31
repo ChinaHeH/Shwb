@@ -29,21 +29,21 @@
 
       <el-form-item label="活动时间">
         <el-col :span="11">
-          <el-date-picker type="date" placeholder="开始日期" v-model="params.search_by.orderStartTime" style="width: 100%;"></el-date-picker>
+          <el-date-picker type="date" placeholder="开始日期" v-model="params.search_by.orderStartTime" @change="dateChange1" style="width: 100%;"></el-date-picker>
         </el-col>
         <el-col class="line" :span="2" style="text-align: center;">-</el-col>
         <el-col :span="11">
-          <el-date-picker type="date" placeholder="截止日期" v-model="params.search_by.orderEndTime" style="width: 100%;"></el-date-picker>
+          <el-date-picker type="date" placeholder="截止日期" v-model="params.search_by.orderEndTime" @change="dateChange2" style="width: 100%;"></el-date-picker>
         </el-col>
       </el-form-item>
 
       <el-form-item label="交货时间">
         <el-col :span="11">
-          <el-date-picker type="date" placeholder="开始日期" v-model="params.search_by.deliveryStartTime" style="width: 100%;"></el-date-picker>
+          <el-date-picker type="date" placeholder="开始日期" v-model="params.search_by.deliveryStartTime" @change="dateChange3" style="width: 100%;"></el-date-picker>
         </el-col>
         <el-col class="line" :span="2" style="text-align: center;">-</el-col>
         <el-col :span="11">
-          <el-date-picker type="date" placeholder="截止日期" v-model="params.search_by.deliveryEndTime" style="width: 100%;"></el-date-picker>
+          <el-date-picker type="date" placeholder="截止日期" v-model="params.search_by.deliveryEndTime" @change="dateChange4" style="width: 100%;"></el-date-picker>
         </el-col>
       </el-form-item>
 
@@ -211,7 +211,21 @@
       //到添加订单页面
       goAdd () {
         location.href = location.origin + '/#/orderAdd';
-      }
+      },
+
+      //格式化日期
+      dateChange1(val) {
+        this.params.search_by.orderStartTime = val;
+      },
+      dateChange2(val) {
+        this.params.search_by.orderEndTime = val;
+      },
+      dateChange3(val) {
+        this.params.search_by.deliveryStartTime = val;
+      },
+      dateChange4(val) {
+        this.params.search_by.deliveryEndTime = val;
+      },
     },
     mounted () {
       this.getDingdanList(this.params);

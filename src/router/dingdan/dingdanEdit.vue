@@ -51,7 +51,7 @@
     <!--<el-button type="primary" @click="removeArr">删除基本信息</el-button>-->
     <div style="margin-top: 20px;"></div>
 
-    <el-table stripe ref="multipleTable" :data="tableData1"  @selection-change="handleSelectionChange"  tooltip-effect="dark" :fit="true" style="width:100%">
+    <el-table stripe ref="multipleTable" :data="tableData1"  tooltip-effect="dark" :fit="true" style="width:100%">
       <!--<el-table-column  type="selection" width="50"></el-table-column>-->
       <el-table-column label="名称" width="150">
         <template slot-scope="scope">
@@ -87,7 +87,7 @@
       </el-table-column>
       <el-table-column label="成品数量／片" width="150">
         <template slot-scope="scope">
-          <el-input type="number" @blur="productNumberCount" v-model="scope.row.productNumber" placeholder="成品数量"></el-input>
+          <el-input type="number" v-model="scope.row.productNumber" placeholder="成品数量"></el-input>
         </template>
       </el-table-column>
       <el-table-column label="备注" width="150">
@@ -97,7 +97,7 @@
       </el-table-column>
       <el-table-column label="报价/元" width="150">
         <template slot-scope="scope">
-          <el-select v-model="scope.row.price" placeholder="报价" :disabled="true">
+          <el-select v-model="scope.row.priceConfigId" placeholder="报价" :disabled="true">
             <el-option v-for="item in priceList" :key="item.id" :label="item.price" :value="item.id"></el-option>
           </el-select>
         </template>
@@ -131,11 +131,8 @@
       </el-table-column>
       <el-table-column label="材料规格／mm" width="200">
         <template slot-scope="scope">
-          <el-select v-model="scope.row.rawSizeType" placeholder="请选择材料规格">
-            <el-option label="600*600" value="1"></el-option>
-            <el-option label="800*800" value="2"></el-option>
-            <el-option label="600*900" value="3"></el-option>
-            <el-option label="600*1200" value="4"></el-option>
+          <el-select v-model="scope.row.rawSizeType" placeholder="材料规格">
+            <el-option v-for="item in priceList" :key="item.sizeType" :label="item.sizeTypeName" :value="item.sizeType"></el-option>
           </el-select>
         </template>
       </el-table-column>
@@ -165,6 +162,35 @@
       </el-table-column>
     </el-table>
 
+    <!--<h3>订单状态</h3>-->
+    <!--&lt;!&ndash;<el-button type="primary">删除自定义信息</el-button>&ndash;&gt;-->
+    <!--<div style="margin-top: 20px;"></div>-->
+
+    <!--<el-form :inline="true" :model="slectParams" class="demo-ruleForm" label-width="100px">-->
+      <!--<el-form-item label="订单状态">-->
+        <!--<el-select v-model="slectParams.checkStatus" placeholder="审核状态">-->
+          <!--<el-option label="未审核" value="1"></el-option>-->
+          <!--<el-option label="已审核" value="2"></el-option>-->
+        <!--</el-select>-->
+      <!--</el-form-item>-->
+
+      <!--<el-form-item label="">-->
+        <!--<el-select v-model="slectParams.payStatus" placeholder="支付状态">-->
+          <!--<el-option label="未支付" value="1"></el-option>-->
+          <!--<el-option label="已支付" value="2"></el-option>-->
+        <!--</el-select>-->
+      <!--</el-form-item>-->
+
+      <!--<el-form-item label="">-->
+        <!--<el-select v-model="slectParams.getStatus" placeholder="运送状态" @change="updateStatue()">-->
+          <!--<el-option label="待取货" value="1"></el-option>-->
+          <!--<el-option label="生产中" value="2"></el-option>-->
+          <!--<el-option label="待送货" value="3"></el-option>-->
+          <!--<el-option label="已签收" value="4"></el-option>-->
+        <!--</el-select>-->
+      <!--</el-form-item>-->
+    <!--</el-form>-->
+
     <div style="margin-top: 20px;"></div>
     <el-button type="primary" @click="submit()">确认</el-button>
     <el-button type="primary" @click="cancel()">取消</el-button>
@@ -174,7 +200,7 @@
 <script>
   import {CONSTANT} from '../../util/constant';
   import Upload from '~packages/form/upload.vue';
-  import { _Getpricelist,_addDingdanForm} from '../../util/ajax';
+  import { _Getpricelist,_addDingdanForm,_getDingdanInfo,_getdingdanStatus,_UpdataBasicInfo,_UpdataListInfo} from '../../util/ajax';
   export default {
     data() {
       return {
@@ -219,6 +245,7 @@
         //提交订单的时候传给后台的参数
         params: {
           basicInfo:{
+            orderId:0,                               //订单id
             contactName:"",                           //联系人
             contactPhone:"",                          //联系电话
             getGoodsType:"",                          //取货方式：1=本方送货、2=厂家取货
@@ -258,7 +285,12 @@
 
           },
         ],
-        multipleSelection: []
+        multipleSelection: [],
+        slectParams:{                       //筛选信息
+          checkStatus:'',                   //审核状态verifyStatusName
+          payStatus:'',                     //支付状态 payStatusName
+          getStatus:''                      //取货状态 goodsStatusName
+        }
       }
     },
     components: {
@@ -282,35 +314,20 @@
             _this.params.basicInfo = data.data.basicInfo;   //基本信息获取
             _this.tableData1 = data.data.processInfo;       //加工基本信息获取
             _this.tableData2 = [];                          //加工基本信息获取,现在接口没有，给个空，有了再填上
+//            _this.slectParams.checkStatus = data.data.basicInfo.verifyStatus;
+//            _this.slectParams.payStatus = data.data.basicInfo.payStatus;
+//            _this.slectParams.getStatus = data.data.basicInfo.goodsStatus;
             setTimeout(function () {
               for(let j = 0;j < _this.tableData1.length;j++){
                 _this.count = _this.count + parseFloat(_this.tableData1[j].rawNumber) * parseFloat(_this.tableData1[j].price);
               }
-            })
+            },500)
           }else {
             CONSTANT.methods.tips(''+ data.error_msg || '获取订单一览失败!', '提示');
           }
         }).catch(function (res) {
           CONSTANT.methods.tips(''+ res || '获取订单一览异常!', '提示');
         });
-
-      },
-
-
-      handleSelectionChange(val) {//获取选择
-        console.log(this.uploaderFilesObj.files);
-        this.multipleSelection = val;
-        if(val.length!=0){
-          for(var i = 0;i<this.multipleSelection.length;i++){
-            this.count+=this.multipleSelection[i].price*this.multipleSelection[i].productNumber;
-          }
-        }
-        console.log(this.multipleSelection);
-      },
-      productNumberCount(){ //数量失去交点计算合计价格
-        for(var i = 0;i<this.multipleSelection.length;i++){
-          this.count += this.multipleSelection[i].price*this.multipleSelection[i].productNumber;
-        }
       },
       removeArr(){//删除元素
         this.tableData1=this.multipleSelection;
@@ -336,13 +353,15 @@
         location.href = location.origin + '/#/orderList';
       },
       submit(){
-        for(var i=0;i<this.tableData1.length;i++){
-          delete this.tableData1[i].price;
-        }
-        this.params.routineInfo = this.tableData1;
-        this.params.customInfo = this.tableData2;
-        console.log(this.params);
-        this.submitFun(this.params);
+//        for(var i=0;i<this.tableData1.length;i++){
+//          delete this.tableData1[i].price;
+//        }
+//        this.params.routineInfo = this.tableData1;
+//        this.params.customInfo = this.tableData2;
+//        console.log(this.params);
+//        this.submitFun(this.params);
+        this.updateBasicInfo();
+        this.updataListInfo();
       },
 
       //改变数量的时候价格改变
@@ -359,20 +378,16 @@
         var arrList = arr;
         var value = val;
         var index = index;
-        console.log(arrList)
         for(let i = 0;i < arrList.length;i++){
           if(arrList[i].processName == value){
-            console.log(arrList[i].id);
             _this.tableData1[index].priceConfigId = arrList[i].id;
             _this.tableData1[index].price = arrList[i].price;
             _this.tableData1[index].rawSizeType = arrList[i].sizeType;
-            console.log(_this.tableData1[index].priceConfigId);
-            console.log(_this.tableData1[index]);
 
             //循环计总价
             _this.count = 0;
             for(let j = 0;j < _this.tableData1.length;j++){
-              _this.count = _this.count + parseFloat(_this.tableData1[i].rawNumber) * parseFloat(_this.tableData1[i].price);
+              _this.count = _this.count + parseFloat(_this.tableData1[j].rawNumber) * parseFloat(_this.tableData1[j].price);
             }
           }
         }
@@ -392,11 +407,6 @@
         }).catch(function (res) {
           CONSTANT.methods.tips(res || '获取价格异常!', '提示');
         });
-      },
-
-      //添加图片
-      addPic(index,data){
-
       },
 
       //添加table1
@@ -446,10 +456,88 @@
       //格式化日期
       dateChange(val) {
         this.params.basicInfo.processDeadline = val;
+      },
+
+      //更新货物状态
+      //运送状态
+//      updateStatue(){
+//        var _this = this;
+//        var StateParams = {
+//          id: _this.$route.params.id,
+//          goodsStatus:_this.slectParams.getStatus       //货物状态：1=待取货、2=生产中、3=待送货、4=已签收
+//        };
+//        console.log(StateParams);
+//        _getdingdanStatus(StateParams).then(function (response) {
+//          console.log(response);
+//          var data = response.data;
+//
+//          if (data.status) {
+//            CONSTANT.methods.tips(data.error_msg || '订单状态已更新!', '提示');
+//          }else {
+//            CONSTANT.methods.tips(data.error_msg || '更新订单状态失败!', '提示');
+//          }
+//        }).catch(function (res) {
+//          CONSTANT.methods.tips(res || '更新订单状态异常!', '提示');
+//        });
+//      },
+
+      //更新表单中的基本信息
+      updateBasicInfo(){
+        var _this = this;
+        var BasicParams = {
+           orderId:parseInt(_this.$route.params.id),                               //订单id
+           contactName:_this.params.basicInfo.contactName,                      //联系人
+           contactPhone:_this.params.basicInfo.contactPhone,              //联系电话
+           getGoodsType:_this.params.basicInfo.getGoodsType,                        //取货方式
+           getGoodsAddress:_this.params.basicInfo.getGoodsAddress,   //取货地址
+           receiveGoodsType:_this.params.basicInfo.receiveGoodsType,                      //送货方式
+           receiveGoodsAddress:_this.params.basicInfo.receiveGoodsAddress, //送货地址
+           processDeadline:_this.params.basicInfo.processDeadline,               //交货时间
+           remark:_this.params.basicInfo.remark                       //备注
+        };
+
+        console.log(BasicParams);
+        _UpdataBasicInfo(BasicParams).then(function (response) {
+          console.log(response);
+          var data = response.data;               //拿到返回数据
+
+          if (data.status) {
+            console.log("提交基本信息成功");
+          }else {
+            CONSTANT.methods.tips(''+ data.error_msg || '获取订单一览失败!', '提示');
+          }
+        }).catch(function (res) {
+          CONSTANT.methods.tips(''+ res || '获取订单一览异常!', '提示');
+        });
+      },
+
+      //更新表单中的加工信息
+      updataListInfo(){
+        var _this = this;
+        var ListParams = {
+          orderId:parseInt(_this.$route.params.id),                               //订单id
+          routineInfo:_this.tableData1,
+          customInfo:_this.tableData2
+        };
+
+        console.log(ListParams);
+        _UpdataListInfo(ListParams).then(function (response) {
+          console.log(response);
+          var data = response.data;               //拿到返回数据
+
+          if (data.status) {
+            console.log("提交订单成功");
+          }else {
+            CONSTANT.methods.tips(''+ data.error_msg || '获取订单一览失败!', '提示');
+          }
+        }).catch(function (res) {
+          CONSTANT.methods.tips(''+ res || '获取订单一览异常!', '提示');
+        });
       }
     },
     mounted (){
-      this.getPriceList(this.priceParams);
+      this.getPriceList(this.priceParams);             //获取订单价格列表
+      this.getOederList();                             //获取订单列表
     }
   }
 </script>

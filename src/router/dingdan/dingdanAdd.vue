@@ -97,7 +97,7 @@
       </el-table-column>
       <el-table-column label="报价/元" width="150">
         <template slot-scope="scope">
-          <el-select v-model="scope.row.price" placeholder="报价" :disabled="true">
+          <el-select v-model="scope.row.priceConfigId" placeholder="报价" :disabled="true">
             <el-option v-for="item in priceList" :key="item.id" :label="item.price" :value="item.id"></el-option>
           </el-select>
         </template>
@@ -108,7 +108,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="操作" width="100">
+      <el-table-column label="操作" >
         <template slot-scope="scope">
           <el-button type="danger" @click="delTab1(scope.$index)">删除</el-button>
         </template>
