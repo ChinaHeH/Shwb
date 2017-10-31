@@ -260,32 +260,12 @@
         },
         //表格数据
 
-        tableData1: [
-          {
-            priceConfigId:"0",               //价格设定ID
-            name:"",                          //名称
-            rawSizeType:"",                   //原材料规格:1=600*600、2=800*800、3=600*900、4=600*1200
-            rawNumber:0,                     //原材料片数，单位：片
-            productLength:0,                //成品长，单位：mm
-            productWidth:0,                 //成品宽，单位：mm
-            productNumber:0,                //成品数量，单位片
-            remark:"备注",                     //备注
-            picture:[],                        //图片
-            price:0, 												 //价格
-          },
-        ],
+        tableData1: [],
 
-        tableData2:[
-          {
-            name:"直线切割",                  //名称
-            rawSizeType:"2",                //原材料规格:1=600*600、2=800*800、3=600*900、4=600*1200
-            rawNumber:"4",                  //原材料片数，单位：片
-            remark:"备注",                   //备注
-            picture:[]                       //图片
-
-          },
-        ],
+        tableData2:[],
         multipleSelection: [],
+        basicSuccess : false,
+        listSuccess : false,
         slectParams:{                       //筛选信息
           checkStatus:'',                   //审核状态verifyStatusName
           payStatus:'',                     //支付状态 payStatusName
@@ -362,6 +342,12 @@
 //        this.submitFun(this.params);
         this.updateBasicInfo();
         this.updataListInfo();
+        let that = this;
+        setTimeout(function () {
+          if(  that.basicSuccess && that.listSuccess){
+            location.href = location.origin + '/#/orderList';
+          }
+        },1000)
       },
 
       //改变数量的时候价格改变
@@ -503,6 +489,7 @@
 
           if (data.status) {
             console.log("提交基本信息成功");
+            _this.basicSuccess = true;
           }else {
             CONSTANT.methods.tips(''+ data.error_msg || '获取订单一览失败!', '提示');
           }
@@ -514,10 +501,40 @@
       //更新表单中的加工信息
       updataListInfo(){
         var _this = this;
+        var tableList1 = [];
+        var tableList2 = [];
+        if(_this.tableData1.length){
+          for(let i = 0; i < _this.tableData1.length;i++){
+            tableList1.push({
+                priceConfigId:_this.tableData1[i].priceConfigId,
+                name:_this.tableData1[i].name,
+                rawSizeType:_this.tableData1[i].rawSizeType,
+                rawNumber:_this.tableData1[i].rawNumber,
+                productLength:_this.tableData1[i].productLength,
+                productWidth:_this.tableData1[i].productWidth,
+                productNumber:_this.tableData1[i].productNumber,
+                remark:_this.tableData1[i].remark,
+                picture:_this.tableData1[i].picture
+            })
+          }
+        }
+
+        if(_this.tableData2.length){
+          for(let i = 0; i < _this.tableData2.length;i++){
+            tableList2.push({
+              name:_this.tableData2[i].name,
+              rawSizeType:_this.tableData2[i].rawSizeType,
+              rawNumber:_this.tableData2[i].rawNumber,
+              remark:_this.tableData2[i].remark,
+              picture:_this.tableData2[i].picture
+            })
+          }
+        }
+
         var ListParams = {
           orderId:parseInt(_this.$route.params.id),                               //订单id
-          routineInfo:_this.tableData1,
-          customInfo:_this.tableData2
+          routineInfo:tableList1,
+          customInfo:tableList2
         };
 
         console.log(ListParams);
@@ -527,6 +544,7 @@
 
           if (data.status) {
             console.log("提交订单成功");
+            _this.listSuccess = true;
           }else {
             CONSTANT.methods.tips(''+ data.error_msg || '获取订单一览失败!', '提示');
           }

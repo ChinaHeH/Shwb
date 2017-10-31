@@ -255,7 +255,7 @@
 
           },
         ],
-        multipleSelection: []
+        multipleSelection: [],
       }
     },
     components: {
