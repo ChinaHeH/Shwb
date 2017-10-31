@@ -27,8 +27,7 @@
 <script>
   import { Button } from 'element-ui';
   import {CONSTANT} from '../../util/constant';
-  import { _loginIn } from '../../util/ajax';
-  import { _forgetPassword } from '../../util/ajax';
+  import { _loginIn,_forgetPassword } from '../../util/ajax';
   import Form from '~packages/form/form.vue';
   export default {
     data () {
@@ -92,18 +91,18 @@
       //发送邮件
       sendEmail(){
         var _this = this;
-
+        var paramsFirst = {
+          userName:_this.rForm.username
+        };
+        console.log(paramsFirst);
         this.$refs.form1.$refs.ruleForm.validate(valid => {
           if (valid) {
-            _forgetPassword({userName:_this.$refs.form1.ruleForm.username}).then(function (response) {
+            _forgetPassword(paramsFirst).then(function (response) {
               console.log(response);
               var data = response.data;
 
               if (data.status) {
-//                window.EVENTVUE.$emit('userMenu', data.data);
-//                localStorage.setItem('menu', JSON.stringify(data.data.navigation));
-//                localStorage.setItem('jwtToken', data.data.jwtToken);
-//                location.href = location.origin + '/#/home';
+
               } else {
                 CONSTANT.methods.tips(data.error_msg || '登录失败!', '提示');
               }

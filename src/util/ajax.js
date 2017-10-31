@@ -762,7 +762,7 @@ export function _forgetPassword (user) {
         params: user
       },
       headers: {
-        'Content-type': application / json
+        'Content-type': 'application / json'
       }
     }).then(function (response) {
       resolve(response);
