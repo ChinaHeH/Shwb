@@ -1,6 +1,6 @@
 <template>
   <main class="uc-slider-list">
-    <uc-button type="primary" @click="goAdd">新增</uc-button>
+    <uc-button type="primary" @click="goAdd" v-show="quanxian == 3">新增</uc-button>
 
     <div style="margin: 20px;"></div>
     <el-form :inline="true" :model="params.search_by" class="demo-form-inline">
@@ -59,7 +59,7 @@
 
 <script>
   import {CONSTANT} from '../../util/constant';
-  import { _GetDingdanList,_deletedingdan,_checkdingdan} from '../../util/ajax';
+  import { _GetDingdanList,_deletedingdan,_checkdingdan,_returndingdan} from '../../util/ajax';
   import Table from '~packages/table/table.vue';
   import { Button } from 'element-ui';
 
@@ -111,6 +111,7 @@
             deliveryEndTime:'',          //交货结束时间
           },
         },
+        quanxian:'',                    //权限问题   百特admin     百特user     客户admin
 
 
 
@@ -164,24 +165,43 @@
                   location.href = location.origin + '/#/orderEdit/' + row.id;
                 }
               });
-              element.btns.push({
-                type: 'danger',
-                label: '删除',
-                click: function (index, row) {
-                  CONSTANT.methods.confirm('是否删除该订单？', '确定', function (value) {
-                    if (value === 'confirm') {
-                      _this.deletedingdan(row.id);
-                    }
-                  });
-                }
-              });
-              element.btns.push({
-                type: 'primary',
-                label: '审核',
-                click: function (index, row) {
-                  _this.Checkdingdan(row.id);
-                }
-              });
+
+              if(_this.quanxian == 3){
+                element.btns.push({
+                  type: 'danger',
+                  label: '删除',
+                  click: function (index, row) {
+                    CONSTANT.methods.confirm('是否删除该订单？', '确定', function (value) {
+                      if (value === 'confirm') {
+                        _this.deletedingdan(row.id);
+                      }
+                    });
+                  }
+                });
+              }
+
+              if(_this.quanxian == 1 || _this.quanxian == 2){
+                element.btns.push({
+                  type: 'primary',
+                  label: '审核',
+                  click: function (index, row) {
+                    _this.Checkdingdan(row.id);
+                  }
+                });
+
+
+                element.btns.push({
+                  type: 'primary',
+                  label: '回退',
+                  click: function (index, row) {
+                    CONSTANT.methods.confirm('是否退回该订单？', '确定', function (value) {
+                      if (value === 'confirm') {
+                        _this.tuihuidingdan(row.id);
+                      }
+                    });
+                  }
+                });
+              }
             });
             _this.tData = data.data.list;
             _this.pagination.total = data.data.total_num;
@@ -237,6 +257,28 @@
         });
       },
 
+      //退回订单
+      tuihuidingdan(id){
+        var _this = this;
+        var returnparams = {
+          id: id
+        };
+
+        _returndingdan(returnparams).then(function (response) {
+          var data = response.data;
+
+          if (data.status) {
+            CONSTANT.methods.tips('退回成功!', '确定', function () {
+              _this.getDingdanList (_this.params);
+            });
+          } else {
+            CONSTANT.methods.tips(data.error_msg || '退回订单失败!', '提示');
+          }
+        }).catch(function (response) {
+          CONSTANT.methods.tips(response || '退回订单异常!', '提示');
+        });
+      },
+
       //到添加订单页面
       goAdd () {
         location.href = location.origin + '/#/orderAdd';
@@ -255,9 +297,25 @@
       dateChange4(val) {
         this.params.search_by.deliveryEndTime = val;
       },
+
+      //getUser
+      getUser(){
+        var quanxianleibie = window.localStorage.roleName;
+        var _this = this;
+        if(quanxianleibie == '"百特admin"'){
+          _this.quanxian = 1;
+        }else if(quanxianleibie == '"百特user"'){
+          _this.quanxian = 2;
+        }else if(quanxianleibie == '"客户admin"'){
+          _this.quanxian = 3;
+        }
+      }
     },
+
+
     mounted () {
       this.getDingdanList(this.params);
+      this.getUser();
     }
   };
 </script>
