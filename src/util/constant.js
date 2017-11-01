@@ -55,17 +55,19 @@ export var CONSTANT = {
 	 //批量添加价格设定
 	 Addpricebatch :location.origin + '/baite/web/addPriceBatch',
     //*******************找回密码************************
-    //发送邮件
-   SENDEMAIL : location.origin + '/baite/web/sendResetPwdMail',
+
+   SENDEMAIL : location.origin + '/baite/web/sendResetPwdMail',    //发送邮件
+   CHANGEPASSWORD : location.origin + '/baite/web/resetpwd',       //修改新密码
    GETDINGDANLIST : location.origin + '/baite/web/getOrderList',   //订单列表
    DELETEORDER : location.origin + '/baite/web/deleteOrder',       //删除订单
    CHECHORDER : location.origin + '/baite/web/approveOrder',       //审核订单
    RETURNORDER : location.origin + '/baite/web/returnOrder',       //退回订单
-   ADDORDER : location.origin + '/baite/web/addOrder',            //添加订单
-   GRTORDERINFO : location.origin + '/baite/web/getOrder',            //获取查看获取订单信息
+   CHANGEPRICE : location.origin + '/baite/web/updateOrderPrice',  //更新订单价格
+   ADDORDER : location.origin + '/baite/web/addOrder',             //添加订单
+   GRTORDERINFO : location.origin + '/baite/web/getOrder',                    //获取查看获取订单信息
    UPDATESTATE : location.origin + '/baite/web/updateGoodsStatus',            //订单编辑》》更新订单状态
    UPDATEBASICINFO : location.origin + '/baite/web/updateOrder',              //订单编辑》》编辑基本信息
-   UPDATELISTINFO : location.origin + '/baite/web/updateProcessReq',              //订单编辑》》编辑加工信息
+   UPDATELISTINFO : location.origin + '/baite/web/updateProcessReq',          //订单编辑》》编辑加工信息
 
 
 

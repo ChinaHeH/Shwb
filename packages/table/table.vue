@@ -13,7 +13,7 @@
           <img :src="scope.row.logo" class="uc-table-thumbnails" @click="scaleImg('2', scope.row.logo)">
         </template>
       </el-table-column>
-      <el-table-column label="操作" v-if="operation" :width="260">
+      <el-table-column label="操作" v-if="operation" :width="380">
         <template scope="scope">
           <el-button
             size="small"

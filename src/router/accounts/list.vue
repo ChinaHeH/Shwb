@@ -139,7 +139,21 @@
 					var _this = this;
 					_Downloadbalance(params).then(function(response) {
 						console.log(response);
+						var content = response.data;
+
+						var data = new Blob([content],{type:"application/pdf"});
 						
+						var downloadUrl = window.URL.createObjectURL(data);
+						
+						var anchor = document.createElement("a");
+						
+						anchor.href = downloadUrl;
+						
+						anchor.download = "pdf.pdf";
+						
+						anchor.click();
+						
+						window.URL.revokeObjectURL(data); 
 					}).catch(function(res) {
 						CONSTANT.methods.tips(res || '下载pdf失败!', '提示');
 					});

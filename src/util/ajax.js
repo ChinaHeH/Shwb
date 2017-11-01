@@ -762,7 +762,30 @@ export function _forgetPassword (user) {
         params: user
       },
       headers: {
-        'Content-type': 'application / json'
+        'Content-type': 'application/json'
+      }
+    }).then(function (response) {
+      resolve(response);
+    }).catch(function (response) {
+      reject(response);
+    })
+  });
+}
+
+//发送重置忘记密码中的重置密码
+// CHANGEPASSWORD
+export function _changePassword (user) {
+
+  return new Promise(function (resolve, reject) {
+    axios({
+      method: 'post',
+      url: CONSTANT.api.CHANGEPASSWORD,
+      data: {
+        action:"baite/web/resetpwd",
+        params: user
+      },
+      headers: {
+        'Content-type': 'application/json'
       }
     }).then(function (response) {
       resolve(response);
@@ -902,6 +925,33 @@ export function _returndingdan (params) {
     })
   });
 }
+
+//更改价格
+export function _changePrice (params) {
+  var jwtToken = localStorage.getItem('jwtToken');
+
+  if (!jwtToken) {
+    location.href = location.origin + '/#/login'
+  }
+  return new Promise(function (resolve, reject) {
+    axios({
+      method: 'post',
+      url: CONSTANT.api.CHANGEPRICE,
+      data: {
+        params: params
+      },
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': jwtToken
+      }
+    }).then(function (response) {
+      resolve(response);
+    }).catch(function (response) {
+      reject(response);
+    })
+  });
+}
+
 
 //订单查看获取订单信息
 export function _getDingdanInfo (params) {
