@@ -200,18 +200,6 @@
 		          showTip: false,
 		          tips: '请选择上传图片'
         },
-        aaa: {//上传图片
-		          label: '上传图片',
-		          required: true,
-		          selectId: 'qiniu_uploader',
-          		dropId: 'qiniu_container',
-		          total: 9999999999,
-		          mimeTypes: [{title: 'Image files', extensions: 'jpg, jpeg, gif, png'}],
-		          multiSelection: false,
-		          files: [],
-		          showTip: false,
-		          tips: '请选择上传图片'
-        },
 				count:0,//合计
         //提交订单的时候传给后台的参数
         params: {
@@ -246,6 +234,7 @@
          ],
 
         tableData2:[
+<<<<<<< HEAD
           {
             name:"名称",                  //名称
             rawSizeType:"2",                //原材料规格:1=600*600、2=800*800、3=600*900、4=600*1200
@@ -254,6 +243,16 @@
             picture:[]                       //图片
 
           },
+=======
+//        {
+//          name:"",                  //名称
+//          rawSizeType:"",                //原材料规格:1=600*600、2=800*800、3=600*900、4=600*1200
+//          rawNumber:"",                  //原材料片数，单位：片
+//          remark:"",                   //备注
+//          picture:[]                       //图片
+//
+//        },
+>>>>>>> 00c9fb7e6bda2c562f3d4d433ccc3ade6684aebe
         ],
         multipleSelection: [],
       }
@@ -346,7 +345,7 @@
             {
               priceConfigId:"0",                 //价格设定ID
               name:"",                          //名称
-              rawSizeType:"2",                   //原材料规格:1=600*600、2=800*800、3=600*900、4=600*1200
+              rawSizeType:"",                   //原材料规格:1=600*600、2=800*800、3=600*900、4=600*1200
               rawNumber:"0",                    //原材料片数，单位：片
               productLength:"0",                //成品长，单位：mm
               productWidth:"0",                 //成品宽，单位：mm
@@ -362,10 +361,17 @@
       addZidingyiTable(){
         this.tableData2.push(
           {
+<<<<<<< HEAD
             name:"名称",                  //名称
             rawSizeType:"2",                //原材料规格:1=600*600、2=800*800、3=600*900、4=600*1200
             rawNumber:"4",                  //原材料片数，单位：片
             remark:"备注",                   //备注
+=======
+            name:"",                  //名称
+            rawSizeType:"",                //原材料规格:1=600*600、2=800*800、3=600*900、4=600*1200
+            rawNumber:"",                  //原材料片数，单位：片
+            remark:"",                   //备注
+>>>>>>> 00c9fb7e6bda2c562f3d4d433ccc3ade6684aebe
             picture:[]                       //图片
 
           },
