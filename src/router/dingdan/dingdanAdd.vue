@@ -188,6 +188,18 @@
             sizeType:""          //规格类别
           }
         },
+        aaa: {//上传图片
+          label: '上传图片',
+          required: true,
+          selectId: 'qiniu_uploader',
+          dropId: 'qiniu_container',
+          total: 9999999999,
+          mimeTypes: [{title: 'Image files', extensions: 'jpg, jpeg, gif, png'}],
+          multiSelection: false,
+          files: [],
+          showTip: false,
+          tips: '请选择上传图片'
+        },
         uploaderFilesObj: {//上传图片
 		          label: '上传图片',
 		          required: true,
