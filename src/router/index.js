@@ -22,6 +22,7 @@ import CustomerInfo from './Customer/info.vue';
 import CustomerEdit from './Customer/edit.vue';
 //*******************忘记密码*****************************
 import ForgetPassword from './Login/forgetPassword.vue';
+import ChangePassword from './Login/resetNewPassword.vue';
 //*******************订单管理*****************************
 import OrderList from './dingdan/dingdanList.vue';
 import OrderAdd from './dingdan/dingdanAdd.vue';
@@ -148,6 +149,12 @@ export default new Router({
       name: 'ForgetPassword',
       path: '/forgetPassword',
       component: ForgetPassword
+    },
+    //忘记密码的更改密码
+    {
+      name: 'changePassword',
+      path: '/changePassword',
+      component: ChangePassword
     },
     //客户查看页面
     { 

@@ -33,7 +33,7 @@
     data () {
       return {
         showStep:1,                         //默认显示第一个tab
-        email:"2392023773@qq.com",          //邮件
+        email:"",          //邮件
         //step1中的数据
         rForm: {
           username: '',
@@ -94,7 +94,7 @@
         var paramsFirst = {
           userName:_this.rForm.username
         };
-        console.log(paramsFirst);
+//        console.log(paramsFirst);
         this.$refs.form1.$refs.ruleForm.validate(valid => {
           if (valid) {
             _forgetPassword(paramsFirst).then(function (response) {
@@ -102,12 +102,14 @@
               var data = response.data;
 
               if (data.status) {
+                 _this.showStep = 2;
+                 _this.email = data.data.email
 
               } else {
-                CONSTANT.methods.tips(data.error_msg || '登录失败!', '提示');
+                CONSTANT.methods.tips(data.error_msg || '发送邮件失败!', '提示');
               }
             }).catch(function (res) {
-              CONSTANT.methods.tips(""+res || '登录异常!', '提示');
+              CONSTANT.methods.tips(""+res || '发送邮件异常!', '提示');
             });
 
           } else {

@@ -772,6 +772,29 @@ export function _forgetPassword (user) {
   });
 }
 
+//发送重置忘记密码中的重置密码
+// CHANGEPASSWORD
+export function _changePassword (user) {
+
+  return new Promise(function (resolve, reject) {
+    axios({
+      method: 'post',
+      url: CONSTANT.api.CHANGEPASSWORD,
+      data: {
+        action:"baite/web/resetpwd",
+        params: user
+      },
+      headers: {
+        'Content-type': 'application/json'
+      }
+    }).then(function (response) {
+      resolve(response);
+    }).catch(function (response) {
+      reject(response);
+    })
+  });
+}
+
 
 //订单一览的列表页
 export function _GetDingdanList (params){
