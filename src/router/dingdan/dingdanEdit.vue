@@ -182,8 +182,17 @@
           var data = response.data;               //拿到返回数据
 
           if (data.status) {
-            _this.tableData1 = data.data.processInfo;       //加工基本信息获取
-            _this.tableData2 = [];                          //加工基本信息获取,现在接口没有，给个空，有了再填上
+              var dataList = data.data.processInfo;
+//            _this.tableData1 = data.data.processInfo;       //加工基本信息获取
+//            _this.tableData2 = [];                          //加工基本信息获取,现在接口没有，给个空，有了再填上
+
+            for(let i = 0;i < dataList.length;i++){
+              if(dataList[i].processType == 1 || dataList[i].processType == "1"){
+                _this.tableData1.push(dataList[i]);
+              }else if(dataList[i].processType == 2 || dataList[i].processType == "2"){
+                _this.tableData2.push(dataList[i]);
+              }
+            }
 
             setTimeout(function () {
               for(let j = 0;j < _this.tableData1.length;j++){
@@ -276,7 +285,7 @@
       addZidingyiTable(){
         this.tableData2.push(
           {
-            name:"直线切割",                  //名称
+            name:"名称",                  //名称
             rawSizeType:"2",                //原材料规格:1=600*600、2=800*800、3=600*900、4=600*1200
             rawNumber:"4",                  //原材料片数，单位：片
             remark:"备注",                   //备注

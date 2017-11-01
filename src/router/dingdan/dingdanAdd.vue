@@ -247,7 +247,7 @@
 
         tableData2:[
           {
-            name:"直线切割",                  //名称
+            name:"名称",                  //名称
             rawSizeType:"2",                //原材料规格:1=600*600、2=800*800、3=600*900、4=600*1200
             rawNumber:"4",                  //原材料片数，单位：片
             remark:"备注",                   //备注
@@ -362,7 +362,7 @@
       addZidingyiTable(){
         this.tableData2.push(
           {
-            name:"直线切割",                  //名称
+            name:"名称",                  //名称
             rawSizeType:"2",                //原材料规格:1=600*600、2=800*800、3=600*900、4=600*1200
             rawNumber:"4",                  //原材料片数，单位：片
             remark:"备注",                   //备注

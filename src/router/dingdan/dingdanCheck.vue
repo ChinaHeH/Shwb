@@ -118,12 +118,12 @@
       <!--<el-table-column type="selection" width="55"></el-table-column>-->
       <el-table-column label="型号">
         <template slot-scope="scope">
-          <el-input v-model="scope.row.name" placeholder="请输入型号"></el-input>
+          <el-input v-model="scope.row.name" placeholder="请输入型号" :disabled="true"></el-input>
         </template>
       </el-table-column>
       <el-table-column label="材料规格／mm" width="200">
         <template slot-scope="scope">
-          <el-select v-model="scope.row.rawSizeType" placeholder="请选择材料规格">
+          <el-select v-model="scope.row.rawSizeType" placeholder="请选择材料规格" :disabled="true">
             <el-option label="600*600" value="1"></el-option>
             <el-option label="800*800" value="2"></el-option>
             <el-option label="600*900" value="3"></el-option>
@@ -134,25 +134,19 @@
 
       <el-table-column label="材料数量／片" width="200">
         <template slot-scope="scope">
-          <el-input type="number" v-model="scope.row.rawNumber" placeholder="材料数量"></el-input>
+          <el-input type="number" v-model="scope.row.rawNumber" placeholder="材料数量" :disabled="true"></el-input>
         </template>
       </el-table-column>
 
       <el-table-column label="备注">
         <template slot-scope="scope">
-          <el-input v-model="scope.row.remark" placeholder="备注"></el-input>
+          <el-input v-model="scope.row.remark" placeholder="备注" :disabled="true"></el-input>
         </template>
       </el-table-column>
 
       <el-table-column label="加工示意图" width="200">
         <template slot-scope="scope">
           <uc-upload :uploaderFilesObj="aaa" ref="uploadfile"></uc-upload>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="操作">
-        <template slot-scope="scope">
-          <el-button type="danger" @click="delTab2(scope.$index)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -269,10 +263,10 @@
 
         tableData2:[
           {
-            name:"直线切割",                  //名称
-            rawSizeType:"2",                //原材料规格:1=600*600、2=800*800、3=600*900、4=600*1200
-            rawNumber:"4",                  //原材料片数，单位：片
-            remark:"备注",                   //备注
+            name:"",                  //名称
+            rawSizeType:"",                //原材料规格:1=600*600、2=800*800、3=600*900、4=600*1200
+            rawNumber:"",                  //原材料片数，单位：片
+            remark:"",                   //备注
             picture:[]                       //图片
 
           },
@@ -304,8 +298,22 @@
           if (data.status) {
 
             _this.params.basicInfo = data.data.basicInfo;   //基本信息获取
-            _this.tableData1 = data.data.processInfo;       //加工基本信息获取
-            _this.tableData2 = [];                          //加工基本信息获取,现在接口没有，给个空，有了再填上
+//            _this.tableData1 = data.data.processInfo;       //加工基本信息获取
+//            _this.tableData2 = [];                          //加工基本信息获取,现在接口没有，给个空，有了再填上
+
+            var dataList = data.data.processInfo;
+//            _this.tableData1 = data.data.processInfo;       //加工基本信息获取
+//            _this.tableData2 = [];                          //加工基本信息获取,现在接口没有，给个空，有了再填上
+
+            for(let i = 0;i < dataList.length;i++){
+              if(dataList[i].processType == 1 || dataList[i].processType == "1"){
+                _this.tableData1.push(dataList[i]);
+              }else if(dataList[i].processType == 2 || dataList[i].processType == "2"){
+                _this.tableData2.push(dataList[i]);
+              }
+            }
+
+
             _this.slectParams.checkStatus = data.data.basicInfo.verifyStatusName;
             _this.slectParams.payStatus = data.data.basicInfo.payStatusName;
             _this.slectParams.getStatus = data.data.basicInfo.goodsStatusName;
