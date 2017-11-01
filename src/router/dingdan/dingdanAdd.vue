@@ -234,25 +234,13 @@
          ],
 
         tableData2:[
-<<<<<<< HEAD
           {
             name:"名称",                  //名称
             rawSizeType:"2",                //原材料规格:1=600*600、2=800*800、3=600*900、4=600*1200
             rawNumber:"4",                  //原材料片数，单位：片
             remark:"备注",                   //备注
             picture:[]                       //图片
-
-          },
-=======
-//        {
-//          name:"",                  //名称
-//          rawSizeType:"",                //原材料规格:1=600*600、2=800*800、3=600*900、4=600*1200
-//          rawNumber:"",                  //原材料片数，单位：片
-//          remark:"",                   //备注
-//          picture:[]                       //图片
-//
-//        },
->>>>>>> 00c9fb7e6bda2c562f3d4d433ccc3ade6684aebe
+          }
         ],
         multipleSelection: [],
       }
@@ -361,19 +349,11 @@
       addZidingyiTable(){
         this.tableData2.push(
           {
-<<<<<<< HEAD
-            name:"名称",                  //名称
-            rawSizeType:"2",                //原材料规格:1=600*600、2=800*800、3=600*900、4=600*1200
-            rawNumber:"4",                  //原材料片数，单位：片
-            remark:"备注",                   //备注
-=======
             name:"",                  //名称
             rawSizeType:"",                //原材料规格:1=600*600、2=800*800、3=600*900、4=600*1200
             rawNumber:"",                  //原材料片数，单位：片
             remark:"",                   //备注
->>>>>>> 00c9fb7e6bda2c562f3d4d433ccc3ade6684aebe
             picture:[]                       //图片
-
           },
         )
       },
