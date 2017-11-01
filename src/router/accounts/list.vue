@@ -141,7 +141,7 @@
 						console.log(response);
 						var content = response.data;
 
-						var data = new Blob([content],{type:"application/json, text/plain, */*"});
+						var data = new Blob([content],{type:"application/pdf"});
 						
 						var downloadUrl = window.URL.createObjectURL(data);
 						
