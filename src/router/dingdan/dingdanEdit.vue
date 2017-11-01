@@ -197,7 +197,7 @@
           CONSTANT.methods.tips(''+ res || '获取订单一览异常!', '提示');
         });
       },
-      
+
       //返回
       cancel(){
         location.href = location.origin + '/#/orderList';
