@@ -527,11 +527,11 @@
                   }else{
                   	_this.tableData2[_this.num].picture.push(_this.uploaderFiles.files[0].url);
                   }
-                  
+
                 }
               }
               console.log(_this.uploaderFiles.files[0].url);
-              
+
             },
             'Error': function (up, err, errTip) {
 
@@ -577,7 +577,7 @@
           this.scale.src = src.split('?imageView2')[0];
         }
       }
-      
+
     },
     mounted (){
     	this.getUptoken();
