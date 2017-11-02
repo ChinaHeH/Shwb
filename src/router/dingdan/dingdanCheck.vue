@@ -103,7 +103,18 @@
       </el-table-column>
       <el-table-column label="加工示意图" width="200">
         <template slot-scope="scope">
-          <uc-upload :uploaderFilesObj="uploaderFilesObj" ref="uploadfile" :disabled="true"></uc-upload>
+        	<div class='uc-upload'>
+					    <section>
+					      <div v-for="(item, index) in scope.row.picture">
+					        <img :src="item" @click="scaleImg(2, item)">
+					        <div :style="item.style"></div>
+					      </div>
+					    </section>
+					    <footer v-if="scale.show">
+					      <div @click="scaleImg('1')"></div>
+					      <img :src="scale.src">
+					    </footer>
+					  </div>
         </template>
       </el-table-column>
     </el-table>
@@ -146,7 +157,18 @@
 
       <el-table-column label="加工示意图" width="200">
         <template slot-scope="scope">
-          <uc-upload :uploaderFilesObj="aaa" ref="uploadfile"></uc-upload>
+        	<div class='uc-upload'>
+					    <section>
+					      <div v-for="(item, index) in scope.row.picture">
+					        <img :src="item" @click="scaleImg(2, item)">
+					        <div :style="item.style"></div>
+					      </div>
+					    </section>
+					    <footer v-if="scale.show">
+					      <div @click="scaleImg('1')"></div>
+					      <img :src="scale.src">
+					    </footer>
+					  </div>
         </template>
       </el-table-column>
     </el-table>
@@ -216,17 +238,9 @@
           showTip: false,
           tips: '请选择上传图片'
         },
-        aaa: {//上传图片
-          label: '上传图片',
-          required: true,
-          selectId: 'qiniu_uploader',
-          dropId: 'qiniu_container',
-          total: 9999999999,
-          mimeTypes: [{title: 'Image files', extensions: 'jpg, jpeg, gif, png'}],
-          multiSelection: false,
-          files: [],
-          showTip: false,
-          tips: '请选择上传图片'
+        scale: {
+          show: false,
+          src: require('../../images/default.png')
         },
         count:0,//合计
         //提交订单的时候传给后台的参数
@@ -333,6 +347,14 @@
       cancel(){
         location.href = location.origin + '/#/orderList';
       },
+      scaleImg (type, src) {
+        if (type === '1') {
+          this.scale.show = false;
+        } else {
+          this.scale.show = true;
+          this.scale.src = src.split('?imageView2')[0];
+        }
+      }
     },
     mounted (){
       this.getOederList();
@@ -350,5 +372,121 @@
     text-align: right;
     background: #62B9FF;
     padding-right: 130px;
+  }
+  .uc-upload{
+    >label{
+      vertical-align: middle;
+      font-size: 14px;
+      color: #48576a;
+      line-height: 1;
+      box-sizing: border-box;
+      float: none;
+      display: inline-block;
+      text-align: left;
+      padding: 0 0 10px;
+      &.required:before{
+        content: '*';
+        color: #ff4949;
+        margin-right: 4px;
+      }
+    }
+    >div{
+      position: relative;
+      background-color: #fff;
+      border-radius: 4px;
+      border: 1px solid #bfcbd9;
+      color: #1f2d3d;
+      height: 28px;
+      line-height: 28px;
+      padding: 3px 10px;
+      transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+      /*margin: 0 0 22px;*/
+      >span{
+        z-index: 1;
+        border-radius: 4px;
+        border: 1px solid #bfcbd9;
+        padding: 2px 5px;
+        cursor: pointer;
+      }
+      &.error{
+        border-color: red;
+      }
+    }
+    >span{
+      margin-top: -22px;
+      display: block;
+      color: red;
+      height: 22px;
+      line-height: 22px;
+      font-size: 12px;
+    }
+    >section{
+      overflow: hidden;
+      >div{
+        position: relative;
+        width: 100px;
+        height: 100px;
+        float: left;
+        margin: 0 10px 10px 0;
+        >i{
+          position: absolute;
+          top: 0;
+          right: 0;
+          background: black;
+          color: white;
+          font-size: 22px;
+          padding: 2px;
+          border-radius: 50%;
+          height: 26px;
+          width: 26px;
+          text-align: center;
+          opacity: .7;
+          cursor: pointer;
+        }
+        >img{
+          width: 100px;
+          height: 100px;
+        }
+        >div{
+          height: 0%;
+          position: absolute;
+          width: 100%;
+          bottom: 0;
+          left: 0;
+          background: black;
+          opacity: .2;
+          transition: all 0.5s;
+        }
+      }
+    }
+    >footer{
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      >div{
+        position: absolute;
+        display: block;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: black;
+        z-index: 120;
+        opacity: .4;
+      }
+      >img{
+        z-index: 121;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: 0 0;
+        max-width: 90%;
+        max-height: 90%;
+        transform: translateX(-50%) translateY(-50%);
+      }
+    }
   }
 </style>
