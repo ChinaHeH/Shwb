@@ -141,6 +141,30 @@
             sizeType:""          //规格类别
           }
         },
+        aaa: {//上传图片
+          label: '上传图片',
+          required: true,
+          selectId: 'qiniu_uploader',
+          dropId: 'qiniu_container',
+          total: 9999999999,
+          mimeTypes: [{title: 'Image files', extensions: 'jpg, jpeg, gif, png'}],
+          multiSelection: false,
+          files: [],
+          showTip: false,
+          tips: '请选择上传图片'
+        },
+        uploaderFilesObj: {//上传图片
+          label: '上传图片',
+          required: true,
+          selectId: 'qiniu_uploader',
+          dropId: 'qiniu_container',
+          total: 9999999999,
+          mimeTypes: [{title: 'Image files', extensions: 'jpg, jpeg, gif, png'}],
+          multiSelection: false,
+          files: [],
+          showTip: false,
+          tips: '请选择上传图片'
+        },
         count:0,//合计
         //提交订单的时候传给后台的参数
         params: {
