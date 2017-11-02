@@ -135,6 +135,8 @@
               let localLink = url + '?imageView2/1/w/100/h/100';
 
               // 上传类型如果的图片就更换已经上传好的图片
+
+              console.log(_this.uploaderFiles.files);                                  //拿到图片的url
               for (let item of _this.uploaderFiles.files) {
                 if (item.id === file.id) {
                   item.url = localLink;
