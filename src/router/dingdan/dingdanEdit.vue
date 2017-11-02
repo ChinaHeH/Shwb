@@ -103,7 +103,7 @@
       <el-table-column label="材料规格／mm" width="200">
         <template slot-scope="scope">
           <el-select v-model="scope.row.rawSizeType" placeholder="材料规格">
-            <el-option v-for="item in priceList" :key="item.sizeType" :label="item.sizeTypeName" :value="item.sizeType"></el-option>
+            <el-option v-for="item in priceNoRepeatList" :key="item.sizeType" :label="item.sizeTypeName" :value="item.sizeType"></el-option>
           </el-select>
         </template>
       </el-table-column>
@@ -162,7 +162,9 @@
   export default {
     data() {
       return {
-        priceList:[],                               //价格列表
+        priceList:[],               //价格列表
+        priceNoRepeatList:[],                               //价格列表
+        priceStatusList:[],
         priceParams:{ //传空拿送油的
           page_now:"",
           limit:'',
@@ -313,6 +315,23 @@
 
           if (data.status) {
             _this.priceList = data.data.list;         //价格列表
+
+            for(let i = 0;i < _this.priceList.length;i++){
+              _this.priceStatusList.push(parseInt(_this.priceList[i].sizeType))
+            }
+            console.log(_this.priceStatusList);
+
+
+            var tmp = {};
+
+            for (let k = 0, j = _this.priceStatusList.length; k < j; k++) {
+              if (!tmp[_this.priceStatusList[k]]) {
+                tmp[_this.priceStatusList[k]] = 1;
+                _this.priceNoRepeatList.push(_this.priceList[k]);
+              }
+            }
+
+            console.log(_this.priceNoRepeatList)
           }else {
             CONSTANT.methods.tips(data.error_msg || '获取价格失败!', '提示');
           }
