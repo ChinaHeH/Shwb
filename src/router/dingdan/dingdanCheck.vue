@@ -261,29 +261,29 @@
         //表格数据
 
         tableData1: [
-          {
-            priceConfigId:"0",               //价格设定ID
-            name:"",                          //名称
-            rawSizeType:"",                   //原材料规格:1=600*600、2=800*800、3=600*900、4=600*1200
-            rawNumber:0,                     //原材料片数，单位：片
-            productLength:0,                //成品长，单位：mm
-            productWidth:0,                 //成品宽，单位：mm
-            productNumber:0,                //成品数量，单位片
-            remark:"备注",                     //备注
-            picture:[],                        //图片
-            price:0, 												 //价格
-          },
+//        {
+//          priceConfigId:"0",               //价格设定ID
+//          name:"",                          //名称
+//          rawSizeType:"",                   //原材料规格:1=600*600、2=800*800、3=600*900、4=600*1200
+//          rawNumber:0,                     //原材料片数，单位：片
+//          productLength:0,                //成品长，单位：mm
+//          productWidth:0,                 //成品宽，单位：mm
+//          productNumber:0,                //成品数量，单位片
+//          remark:"备注",                     //备注
+//          picture:[],                        //图片
+//          price:0, 												 //价格
+//        },
         ],
 
         tableData2:[
-          {
-            name:"",                  //名称
-            rawSizeType:"",                //原材料规格:1=600*600、2=800*800、3=600*900、4=600*1200
-            rawNumber:"",                  //原材料片数，单位：片
-            remark:"",                   //备注
-            picture:[]                       //图片
-
-          },
+//        {
+//          name:"",                  //名称
+//          rawSizeType:"",                //原材料规格:1=600*600、2=800*800、3=600*900、4=600*1200
+//          rawNumber:"",                  //原材料片数，单位：片
+//          remark:"",                   //备注
+//          picture:[]                       //图片
+//
+//        },
         ],
         multipleSelection: [],
         slectParams:{                       //筛选信息
