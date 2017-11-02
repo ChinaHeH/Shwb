@@ -187,14 +187,27 @@
                 });
               }
 
+
+
               if(_this.quanxian == 1 || _this.quanxian == 2){
-                element.btns.push({
-                  type: 'primary',
-                  label: '审核',
-                  click: function (index, row) {
-                    _this.Checkdingdan(row.id);
+                  if(element.verifyStatus == 2 || element.verifyStatus == "2"){
+                    element.btns.push({
+                      type: 'primary',
+                      label: '已审核',
+                      click: function (index, row) {
+                        console.log("已审核")
+                      }
+                    });
+                  }else if(element.verifyStatus == 1 || element.verifyStatus == "1"){
+                    element.btns.push({
+                      type: 'primary',
+                      label: '审核',
+                      click: function (index, row) {
+                        _this.Checkdingdan(row.id);
+                      }
+                    });
                   }
-                });
+
 
 
                 element.btns.push({
