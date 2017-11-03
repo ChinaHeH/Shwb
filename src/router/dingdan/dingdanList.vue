@@ -122,10 +122,7 @@
           total: 0,
           currentPage: 1,
           click: page => {
-            this.getCustomerList({
-              page_now: page,
-              limit: 10
-            });
+            this.getDingdanListPage(page);
           }
         }
       };
@@ -139,6 +136,122 @@
       checkout() {
         this.getDingdanList (this.params);
       },
+
+      //查询分页列表
+      //获取订单列表
+      getDingdanListPage (pageNum){
+        var _this = this;
+        _this.params.page_now = pageNum;
+        _GetDingdanList(_this.params).then(function (response) {
+          console.log("******************************");
+          console.log(response);
+          var data = response.data;
+
+          if (data.status) {
+            data.data.list.forEach(function (element) {
+              element.btns = [];
+              element.btns.push({
+                type: 'info',
+                label: '查看',
+                click: function (index, row) {
+                  location.href = location.origin + '/#/orderCheck/' + row.id;
+                }
+              });
+
+              if(_this.quanxian == 3){
+                element.btns.push({
+                  type: 'warning',
+                  label: '编辑订单信息',
+                  click: function (index, row) {
+                    location.href = location.origin + '/#/orderEdit/' + row.id;
+                  }
+                });
+                element.btns.push({
+                  type: 'warning',
+                  label: '编辑基本信息',
+                  click: function (index, row) {
+                    location.href = location.origin + '/#/orderBasicEdit/' + row.id;
+                  }
+                });
+                element.btns.push({
+                  type: 'danger',
+                  label: '删除',
+                  click: function (index, row) {
+                    CONSTANT.methods.confirm('是否删除该订单？', '确定', function (value) {
+                      if (value === 'confirm') {
+                        _this.deletedingdan(row.id);
+                      }
+                    });
+                  }
+                });
+              }
+
+
+
+              if(_this.quanxian == 1 || _this.quanxian == 2){
+                if(element.verifyStatus == 2 || element.verifyStatus == "2"){
+                  element.btns.push({
+                    type: 'primary',
+                    label: '已审核',
+                    click: function (index, row) {
+                      console.log("已审核")
+                    }
+                  });
+                }else if(element.verifyStatus == 1 || element.verifyStatus == "1"){
+                  element.btns.push({
+                    type: 'primary',
+                    label: '审核',
+                    click: function (index, row) {
+                      _this.Checkdingdan(row.id);
+                    }
+                  });
+                }
+
+
+
+                element.btns.push({
+                  type: 'primary',
+                  label: '回退',
+                  click: function (index, row) {
+                    CONSTANT.methods.confirm('是否退回该订单？', '确定', function (value) {
+                      if (value === 'confirm') {
+                        _this.tuihuidingdan(row.id);
+                      }
+                    });
+                  }
+                });
+
+                element.btns.push({
+                  type: 'warning',
+                  label: '更新状态',
+                  click: function (index, row) {
+                    location.href = location.origin + '/#/orderUpdateStatus/' + row.id;
+                  }
+                });
+              }
+
+
+              if(_this.quanxian == 1 || _this.quanxian == 2){
+                element.btns.push({
+                  type: 'warning',
+                  label: '更新订单价格',
+                  click: function (index, row) {
+                    location.href = location.origin + '/#/orderUpdatePrice/' + row.id;
+                  }
+                });
+              }
+
+            });
+            _this.tData = data.data.list;
+            _this.pagination.total = data.data.total_num;
+          }else {
+            CONSTANT.methods.tips(data.error_msg || '获取订单一览失败!', '提示');
+          }
+        }).catch(function (res) {
+          CONSTANT.methods.tips(res || '获取订单一览异常!', '提示');
+        });
+      },
+
 
       //获取订单列表
       getDingdanList (params){

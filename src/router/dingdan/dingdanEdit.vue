@@ -79,7 +79,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="操作" width="100">
+      <el-table-column label="操作" >
         <template slot-scope="scope">
           <el-button type="danger" :disabled="scope.$index==0"   @click="delTab1(scope.$index)">删除</el-button>
         </template>
@@ -596,7 +596,7 @@
           this.scale.src = src.split('?imageView2')[0];
         }
       },
-      
+
 
     },
     mounted (){
