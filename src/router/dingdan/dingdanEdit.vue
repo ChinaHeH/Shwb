@@ -397,7 +397,7 @@
       },
 
 
-      //更新表单中的加工信息
+      //提交表单中的加工信息，定义了一个方法
       updataListInfo(){
         var _this = this;
         var tableList1 = [];
