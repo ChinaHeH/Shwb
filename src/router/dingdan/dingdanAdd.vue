@@ -149,7 +149,10 @@
       <el-table-column label="材料规格／mm" width="200">
         <template slot-scope="scope">
           <el-select v-model="scope.row.rawSizeType" placeholder="材料规格">
-            <el-option v-for="item in priceNoRepeatList" :key="item.sizeType" :label="item.sizeTypeName" :value="item.sizeType"></el-option>
+            <el-option  :key="1" :label="'600*600'" :value="1"></el-option>
+            <el-option  :key="2" :label="'800*800'" :value="2"></el-option>
+            <el-option  :key="3" :label="'600*900'" :value="3"></el-option>
+            <el-option  :key="4" :label="'600*1200'" :value="4"></el-option>
           </el-select>
         </template>
       </el-table-column>
