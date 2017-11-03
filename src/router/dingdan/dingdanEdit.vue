@@ -595,13 +595,15 @@
           this.scale.show = true;
           this.scale.src = src.split('?imageView2')[0];
         }
-      }
+      },
+      
 
     },
     mounted (){
     	this.getUptoken();
       this.getPriceList(this.priceParams);             //获取订单价格列表
       this.getOederList();                             //获取订单列表
+
     },
     watch: {
       'uptoken' (newVal) {
