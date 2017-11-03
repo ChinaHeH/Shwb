@@ -81,7 +81,7 @@
 
       <el-table-column label="操作" width="100">
         <template slot-scope="scope">
-          <el-button type="danger" @click="delTab1(scope.$index)">删除</el-button>
+          <el-button type="danger" :disabled="scope.$index==0"   @click="delTab1(scope.$index)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -147,7 +147,7 @@
 
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button type="danger" @click="delTab2(scope.$index)">删除</el-button>
+          <el-button type="danger" :disabled="scope.$index==0" @click="delTab2(scope.$index)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -255,6 +255,15 @@
               }else if(dataList[i].processType == 2 || dataList[i].processType == "2"){
                 _this.tableData2.push(dataList[i]);
               }
+            }
+            if(_this.tableData2.length == 0){
+                _this.tableData2.push({
+                  name:"",
+                  rawSizeType:"",
+                  rawNumber:"",
+                  remark:"",
+                  picture:[]
+                })
             }
 
             setTimeout(function () {
@@ -421,6 +430,9 @@
           }
         }
 
+        if(tableList2.length == 0||(tableList2.length == 1 && (tableList2[0].name == "" &&　tableList2[0].rawSizeType == "" &&　tableList2[0].rawNumber == ""))){
+          tableList2 = [];
+        }
         var ListParams = {
           orderId:parseInt(_this.$route.params.id),                               //订单id
           routineInfo:tableList1,
@@ -436,10 +448,14 @@
             console.log("提交订单成功");
             location.href = location.origin + '/#/orderList';
           }else {
-            CONSTANT.methods.tips(''+ data.error_msg || '获取订单一览失败!', '提示');
+            if(data.error_code == 201){
+              CONSTANT.methods.tips("自定义信息材料规格或数量不完整，请补充", '提示');
+            }else {
+              CONSTANT.methods.tips(data.error_msg || '编辑订单失败!', '提示');
+            }
           }
         }).catch(function (res) {
-          CONSTANT.methods.tips(''+ res || '获取订单一览异常!', '提示');
+          CONSTANT.methods.tips(''+ res || '编辑订单异常!', '提示');
         });
       },
 			initQiniu () {

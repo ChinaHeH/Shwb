@@ -127,7 +127,7 @@
 
       <el-table-column label="操作" >
         <template slot-scope="scope">
-          <el-button type="danger" v-if="scope.$index!=0" @click="delTab1(scope.$index)">删除</el-button>
+          <el-button type="danger" :disabled="scope.$index==0" @click="delTab1(scope.$index)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -193,7 +193,7 @@
 
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button type="danger" v-if="scope.$index!=0"  @click="delTab2(scope.$index)">删除</el-button>
+          <el-button type="danger" :disabled="scope.$index==0"  @click="delTab2(scope.$index)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -314,7 +314,11 @@
           if (data.status) {
             location.href = location.origin + '/#/orderList';
           }else {
-            CONSTANT.methods.tips(data.error_msg || '添加订单失败!', '提示');
+              if(data.error_code == 201){
+                CONSTANT.methods.tips("自定义信息材料规格或数量不完整，请补充", '提示');
+              }else {
+                CONSTANT.methods.tips(data.error_msg || '添加订单失败!', '提示');
+              }
           }
         }).catch(function (res) {
           CONSTANT.methods.tips(res || '添加订单异常!', '提示');
@@ -324,13 +328,17 @@
         location.href = location.origin + '/#/orderList';
       },
       submit(){
+        var _this = this;
       	for(var i=0;i<this.tableData1.length;i++){
       		delete this.tableData1[i].price;
       	}
-          this.params.routineInfo = this.tableData1;
-          this.params.customInfo = this.tableData2;
-          console.log(this.params);
-          this.submitFun(this.params);
+        if((_this.tableData2.length == 1 && (_this.tableData2[0].name == "" &&　_this.tableData2[0].rawSizeType == "" &&　_this.tableData2[0].rawNumber == "")) || _this.tableData2.length == 0){
+          _this.tableData2 = [];
+        }
+        _this.params.routineInfo = _this.tableData1;
+        _this.params.customInfo = _this.tableData2;
+          console.log(_this.params);
+          this.submitFun(_this.params);
       },
 
       //改变数量的时候价格改变
