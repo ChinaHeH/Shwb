@@ -103,7 +103,7 @@
           selectId: 'logo_uploader',
           dropId: 'logo_container',
           total: 1,
-          mimeTypes: [{title: 'Image files', extensions: 'jpg, jpeg, gif, png'}],
+          mimeTypes: [{title: 'Image files', extensions: 'jpg,jpeg,gif,png'}],
           multiSelection: false,
           files: [],
           showTip: false,

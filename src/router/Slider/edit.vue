@@ -40,7 +40,7 @@
           selectId: 'qiniu_uploader',
           dropId: 'qiniu_container',
           total: 1,
-          mimeTypes: [{title: 'Image files', extensions: 'jpg, jpeg, gif, png'}],
+          mimeTypes: [{title: 'Image files', extensions: 'jpg,jpeg,gif,png'}],
           multiSelection: false,
           files: [],
           showTip: false,

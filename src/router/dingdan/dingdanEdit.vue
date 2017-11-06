@@ -191,7 +191,7 @@
 		          selectId: 'qiniu_uploader',
           		dropId: 'qiniu_container',
 		          total: 9999999999,
-		          mimeTypes: [{title: 'Image files', extensions: 'jpg, jpeg, gif, png'}],
+		          mimeTypes: [{title: 'Image files', extensions: 'jpg,jpeg,gif,png'}],
 		          multiSelection: false,
 		          files: [],
 		          showTip: false,
