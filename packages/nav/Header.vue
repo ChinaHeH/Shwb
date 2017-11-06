@@ -62,6 +62,7 @@
         _logout().then(function () {
           localStorage.clear();
           location.href = location.origin + '/#/login';
+          
           console.log('exit success');
         });
       }
