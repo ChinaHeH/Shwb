@@ -272,7 +272,7 @@
             productLength:0,                //成品长，单位：mm
             productWidth:0,                 //成品宽，单位：mm
             productNumber:0,                //成品数量，单位片
-            remark:"备注",                     //备注
+            remark:"",                     //备注
             picture:[],                        //图片
             delname:"",
             price:0, 												 //价格
@@ -692,8 +692,8 @@
       overflow: hidden;
       >div{
         position: relative;
-        width: 100px;
-        height: 100px;
+        width: 50px;
+        height: 50px;
         float: left;
         margin: 0 10px 10px 0;
         >i{
@@ -712,8 +712,8 @@
           cursor: pointer;
         }
         >img{
-          width: 100px;
-          height: 100px;
+          width: 50px;
+          height: 50px;
         }
         >div{
           height: 0%;
