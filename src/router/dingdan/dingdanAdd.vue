@@ -54,23 +54,25 @@
 
     <el-table stripe ref="multipleTable" :data="tableData1"  tooltip-effect="dark" :fit="true" style="width:100%">
       <!--<el-table-column  type="selection" width="50"></el-table-column>-->
-      <el-table-column label="名称" width="150">
+      <el-table-column label="型号" width="150">
         <template slot-scope="scope">
-          <el-select v-model="scope.row.name" placeholder="选择名称" @change = "changePrice(priceList,scope.row.name,scope.$index)">
-            <el-option v-for="item in priceList" :key="item.processName" :label="item.processName" :value="item.processName"></el-option>
-          </el-select>
-        </template>
-      </el-table-column>
-      <el-table-column label="材料规格／mm" width="150">
-        <template slot-scope="scope">
-          <el-select v-model="scope.row.rawSizeType" :disabled="true" placeholder="">
+        	<el-input v-model="scope.row.name" placeholder="请输入型号"></el-input>
+          <!--<el-select v-model="scope.row.rawSizeType" :disabled="true" placeholder="">
             <el-option label="600*600" value="1"></el-option>
             <el-option label="800*800" value="2"></el-option>
             <el-option label="600*900" value="3"></el-option>
             <el-option label="600*1200" value="4"></el-option>
+          </el-select>-->
+        </template>
+      </el-table-column>
+      <el-table-column label="材料规格／mm" width="150">
+        <template slot-scope="scope">
+          <el-select v-model="scope.row.delname" placeholder="选择名称" @change = "changePrice(priceList,scope.row.delname,scope.$index)">
+            <el-option v-for="item in priceList" :key="item.name" :label="item.name" :value="item.name"></el-option>
           </el-select>
         </template>
       </el-table-column>
+      
       <el-table-column label="材料数量／片" width="150">
         <template slot-scope="scope">
           <el-input type="number" v-model="scope.row.rawNumber" placeholder="材料数量" @change="totleEMB()"></el-input>
@@ -96,13 +98,13 @@
           <el-input v-model="scope.row.remark" placeholder="备注"></el-input>
         </template>
       </el-table-column>
-      <el-table-column label="报价/元" width="150">
+      <!--<el-table-column label="报价/元" width="150">
         <template slot-scope="scope">
           <el-select v-model="scope.row.priceConfigId" placeholder="报价" :disabled="true">
             <el-option v-for="item in priceList" :key="item.id" :label="item.price" :value="item.id"></el-option>
           </el-select>
         </template>
-      </el-table-column>
+      </el-table-column>-->
       <el-table-column label="加工示意图" width="200">
         <template slot-scope="scope">
 	        	<div class='uc-upload'>
@@ -146,13 +148,10 @@
           <el-input v-model="scope.row.name" placeholder="请输入型号"></el-input>
         </template>
       </el-table-column>
-      <el-table-column label="材料规格／mm" width="200">
+      <el-table-column label="材料规格／mm" width="150">
         <template slot-scope="scope">
-          <el-select v-model="scope.row.rawSizeType" placeholder="材料规格">
-            <el-option  :key="1" :label="'600*600'" :value="1"></el-option>
-            <el-option  :key="2" :label="'800*800'" :value="2"></el-option>
-            <el-option  :key="3" :label="'600*900'" :value="3"></el-option>
-            <el-option  :key="4" :label="'600*1200'" :value="4"></el-option>
+          <el-select v-model="scope.row.delname" placeholder="选择名称" @change = "changePrice2(priceList,scope.row.delname,scope.$index)">
+            <el-option v-for="item in priceList" :key="item.name" :label="item.name" :value="item.name"></el-option>
           </el-select>
         </template>
       </el-table-column>
@@ -275,12 +274,14 @@
             productNumber:0,                //成品数量，单位片
             remark:"备注",                     //备注
             picture:[],                        //图片
+            delname:"",
             price:0, 												 //价格
           },
          ],
 
         tableData2:[
           {
+          	delname:"",
             name:"",                  //名称
             rawSizeType:"",                //原材料规格:1=600*600、2=800*800、3=600*900、4=600*1200
             rawNumber:"",                  //原材料片数，单位：片
@@ -355,8 +356,10 @@
           var arrList = arr;
           var value = val;
           var index = index;
+          
+          console.log(arrList)
           for(let i = 0;i < arrList.length;i++){
-             if(arrList[i].processName == value){
+             if(arrList[i].name == value){
                _this.tableData1[index].priceConfigId = arrList[i].id;
                _this.tableData1[index].price = arrList[i].price;
                _this.tableData1[index].rawSizeType = arrList[i].sizeType;
@@ -366,6 +369,20 @@
                for(let j = 0;j < _this.tableData1.length;j++){
                  _this.count = _this.count + parseFloat(_this.tableData1[j].rawNumber) * parseFloat(_this.tableData1[j].price);
                }
+             }
+          }
+      },
+      changePrice2(arr,val,index){
+          var _this = this;
+          var arrList = arr;
+          var value = val;
+          var index = index;
+          
+          console.log(arrList)
+          for(let i = 0;i < arrList.length;i++){
+             if(arrList[i].name == value){
+               _this.tableData2[index].priceConfigId = arrList[i].id;
+               _this.tableData2[index].rawSizeType = arrList[i].sizeType;
              }
           }
       },
