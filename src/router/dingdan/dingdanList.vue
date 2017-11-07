@@ -1,6 +1,7 @@
 <template>
   <main class="uc-slider-list">
     <uc-button type="primary" @click="goAdd" v-show="quanxian == 3">新增</uc-button>
+    <uc-button type="primary" @click="checkout()">检索</uc-button>
 
     <div style="margin: 20px;"></div>
     <el-form :inline="true" :model="params.search_by" class="demo-form-inline">
@@ -47,9 +48,9 @@
         </el-col>
       </el-form-item>
 
-      <el-form-item>
-        <el-button type="primary" @click="checkout()">检索</el-button>
-      </el-form-item>
+      <!--<el-form-item>-->
+        <!--<el-button type="primary" @click="checkout()">检索</el-button>-->
+      <!--</el-form-item>-->
 
     </el-form>
 
