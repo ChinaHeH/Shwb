@@ -18,26 +18,26 @@
         </el-col>
       </el-form-item>
 
-      <el-form-item label="取货地址">
-        <el-input v-model="params.basicInfo.getGoodsAddress" placeholder="取货地址"></el-input>
-      </el-form-item>
-
-      <el-form-item label="收货地址">
-        <el-input v-model="params.basicInfo.receiveGoodsAddress" placeholder="收货地址"></el-input>
-      </el-form-item>
-
       <el-form-item label="取货方式">
-        <el-select v-model="params.basicInfo.getGoodsType" placeholder="取货方式">
+        <el-select v-model="params.basicInfo.getGoodsType" placeholder="取货方式" @change="isShowGetAddress(params.basicInfo.getGoodsType)">
           <el-option label="本方送货" value="1"></el-option>
           <el-option label="厂家取货" value="2"></el-option>
         </el-select>
       </el-form-item>
 
+      <el-form-item label="取货地址" v-show="showGetAddress">
+        <el-input v-model="params.basicInfo.getGoodsAddress" placeholder="取货地址"></el-input>
+      </el-form-item>
+
       <el-form-item label="送货方式">
-        <el-select v-model="params.basicInfo.receiveGoodsType" placeholder="送货方式">
+        <el-select v-model="params.basicInfo.receiveGoodsType" placeholder="送货方式" @change="isShowSendAddress(params.basicInfo.receiveGoodsType)">
           <el-option label="本方自提" value="1"></el-option>
           <el-option label="厂家送货" value="2"></el-option>
         </el-select>
+      </el-form-item>
+
+      <el-form-item label="收货地址" v-show="showSendAddress">
+        <el-input v-model="params.basicInfo.receiveGoodsAddress" placeholder="收货地址"></el-input>
       </el-form-item>
 
       <div style="clear: both;"></div>
@@ -275,6 +275,9 @@
           }
         ],
         multipleSelection: [],
+        showGetAddress:false,
+        showSendAddress:false
+
       }
     },
     components: {
@@ -323,8 +326,24 @@
         }
         _this.params.routineInfo = _this.tableData1;
         _this.params.customInfo = _this.tableData2;
+        if(_this.params.basicInfo.contactName == ''){
+          CONSTANT.methods.tips('请添加联系人', '提示');
+        }else if(_this.params.basicInfo.contactPhone == ''){
+          CONSTANT.methods.tips('请添加联系方式', '提示');
+        }else if(_this.params.basicInfo.processDeadline == ''){
+          CONSTANT.methods.tips('请添加交货时间', '提示');
+        }else if(_this.params.basicInfo.getGoodsType == ''){
+          CONSTANT.methods.tips('请添加收货方式', '提示');
+        }else if(_this.params.basicInfo.getGoodsType == 2 && _this.params.basicInfo.getGoodsAddress == ''){
+          CONSTANT.methods.tips('请添加收货地址', '提示');
+        }else if(_this.params.basicInfo.receiveGoodsType == ''){
+          CONSTANT.methods.tips('请添加送货方式', '提示');
+        }else if(_this.params.basicInfo.receiveGoodsType == 2 && _this.params.basicInfo.receiveGoodsAddress == ''){
+          CONSTANT.methods.tips('请添加送货地址', '提示');
+        }else {
           console.log(_this.params);
           this.submitFun(_this.params);
+        }
       },
 
       //改变数量的时候价格改变
@@ -589,6 +608,23 @@
           this.scale.show = true;
           this.scale.src = src.split('?imageView2')[0];
         }
+      },
+
+      //改变取货方式
+      isShowGetAddress(value){
+          if(value == 2){
+              this.showGetAddress = true;
+          }else {
+            this.showGetAddress = false;
+          }
+      },
+      //改变送货方式
+      isShowSendAddress(value){
+          if(value == 2){
+              this.showSendAddress = true;
+          }else {
+            this.showSendAddress = false;
+          }
       }
       
     },
