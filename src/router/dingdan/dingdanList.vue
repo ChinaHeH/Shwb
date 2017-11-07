@@ -191,15 +191,7 @@
 
 
               if(_this.quanxian == 1 || _this.quanxian == 2){
-                if(element.verifyStatus == 2 || element.verifyStatus == "2"){
-                  element.btns.push({
-                    type: 'primary',
-                    label: '已审核',
-                    click: function (index, row) {
-                      console.log("已审核")
-                    }
-                  });
-                }else if(element.verifyStatus == 1 || element.verifyStatus == "1"){
+               if(element.verifyStatus == 1 || element.verifyStatus == "1"){
                   element.btns.push({
                     type: 'primary',
                     label: '审核',
@@ -207,25 +199,22 @@
                       _this.Checkdingdan(row.id);
                     }
                   });
+                 element.btns.push({
+                   type: 'primary',
+                   label: '回退',
+                   click: function (index, row) {
+                     CONSTANT.methods.confirm('是否退回该订单？', '确定', function (value) {
+                       if (value === 'confirm') {
+                         _this.tuihuidingdan(row.id);
+                       }
+                     });
+                   }
+                 });
                 }
-
-
-
-                element.btns.push({
-                  type: 'primary',
-                  label: '回退',
-                  click: function (index, row) {
-                    CONSTANT.methods.confirm('是否退回该订单？', '确定', function (value) {
-                      if (value === 'confirm') {
-                        _this.tuihuidingdan(row.id);
-                      }
-                    });
-                  }
-                });
 
                 element.btns.push({
                   type: 'warning',
-                  label: '更新状态',
+                  label: '更新货物状态',
                   click: function (index, row) {
                     location.href = location.origin + '/#/orderUpdateStatus/' + row.id;
                   }
@@ -307,15 +296,7 @@
 
 
               if(_this.quanxian == 1 || _this.quanxian == 2){
-                  if(element.verifyStatus == 2 || element.verifyStatus == "2"){
-                    element.btns.push({
-                      type: 'primary',
-                      label: '已审核',
-                      click: function (index, row) {
-                        console.log("已审核")
-                      }
-                    });
-                  }else if(element.verifyStatus == 1 || element.verifyStatus == "1"){
+                  if(element.verifyStatus == 1 || element.verifyStatus == "1"){
                     element.btns.push({
                       type: 'primary',
                       label: '审核',
@@ -323,25 +304,22 @@
                         _this.Checkdingdan(row.id);
                       }
                     });
-                  }
-
-
-
-                element.btns.push({
-                  type: 'primary',
-                  label: '回退',
-                  click: function (index, row) {
-                    CONSTANT.methods.confirm('是否退回该订单？', '确定', function (value) {
-                      if (value === 'confirm') {
-                        _this.tuihuidingdan(row.id);
+                    element.btns.push({
+                      type: 'primary',
+                      label: '回退',
+                      click: function (index, row) {
+                        CONSTANT.methods.confirm('是否退回该订单？', '确定', function (value) {
+                          if (value === 'confirm') {
+                            _this.tuihuidingdan(row.id);
+                          }
+                        });
                       }
                     });
                   }
-                });
 
                 element.btns.push({
                   type: 'warning',
-                  label: '更新状态',
+                  label: '更新货物状态',
                   click: function (index, row) {
                     location.href = location.origin + '/#/orderUpdateStatus/' + row.id;
                   }
