@@ -234,6 +234,9 @@
 
             });
             _this.tData = data.data.list;
+            for(let i = 0;i<_this.tData.length; i++){
+            	_this.tData[i].goodsStatusName=`${_this.tData[i].verifyStatusName},${_this.tData[i].payStatusName},${_this.tData[i].goodsStatusName}`
+            }
             _this.pagination.total = data.data.total_num;
           }else {
             CONSTANT.methods.tips(data.error_msg || '获取订单一览失败!', '提示');
@@ -339,6 +342,9 @@
 
             });
             _this.tData = data.data.list;
+            for(let i = 0;i<_this.tData.length; i++){
+            	_this.tData[i].goodsStatusName=`${_this.tData[i].verifyStatusName},${_this.tData[i].payStatusName},${_this.tData[i].goodsStatusName}`
+            }
             _this.pagination.total = data.data.total_num;
           }else {
             CONSTANT.methods.tips(data.error_msg || '获取订单一览失败!', '提示');

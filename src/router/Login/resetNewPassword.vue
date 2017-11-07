@@ -2,12 +2,12 @@
   <main class="uc-login">
     <div>
       <header>重置</header>
-
+      
       <div class="step1">
         <uc-form class="form" :rForm="thirdrForm" :dForm="thirddForm" :rrules="ruleForm" ref="form2" v-show="canChange"></uc-form>
         <el-button type="primary" class="btn" @click="confirm()" v-show="canChange">确认修改</el-button>
       </div>
-
+			
     </div>
 
   </main>
