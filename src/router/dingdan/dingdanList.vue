@@ -5,9 +5,9 @@
     <div style="margin: 20px;"></div>
     <el-form :inline="true" :model="params.search_by" class="demo-form-inline">
 
-      <el-form-item label="客户">
-        <el-input v-model="params.search_by.customerName" placeholder="客户"></el-input>
-      </el-form-item>
+      <!--<el-form-item label="客户">-->
+        <!--<el-input v-model="params.search_by.customerName" placeholder="客户"></el-input>-->
+      <!--</el-form-item>-->
 
       <el-form-item label="订单状态">
         <el-select v-model="params.search_by.verifyStatus" placeholder="审核状态">
@@ -27,7 +27,7 @@
         </el-select>
       </el-form-item>
 
-      <el-form-item label="活动时间">
+      <el-form-item label="下单时间">
         <el-col :span="11">
           <el-date-picker type="date" placeholder="开始日期" v-model="params.search_by.orderStartTime" @change="dateChange1" style="width: 100%;"></el-date-picker>
         </el-col>
@@ -66,14 +66,11 @@
   export default {
     data () {
       var cData = [{
-        label: '名称',
-        key: 'contactName'
+        label: '客户名称',
+        key: 'customerName'
       },{
         label: '订单编号',
         key: 'orderNo'
-      },{
-        label: '客户名称',
-        key: 'customerName'
       },{
         label: '联系人',
         key: 'contactName'
@@ -159,20 +156,24 @@
               });
 
               if(_this.quanxian == 3){
-                element.btns.push({
-                  type: 'warning',
-                  label: '编辑订单信息',
-                  click: function (index, row) {
-                    location.href = location.origin + '/#/orderEdit/' + row.id;
+                  if(element.verifyStatus == 1 || element.verifyStatus == "1"){
+                    element.btns.push({
+                      type: 'info',
+                      label: '编辑订单信息',
+                      click: function (index, row) {
+                        location.href = location.origin + '/#/orderEdit/' + row.id;
+                      }
+                    });
+                    element.btns.push({
+                      type: 'info',
+                      label: '编辑基本信息',
+                      click: function (index, row) {
+                        location.href = location.origin + '/#/orderBasicEdit/' + row.id;
+                      }
+                    });
                   }
-                });
-                element.btns.push({
-                  type: 'warning',
-                  label: '编辑基本信息',
-                  click: function (index, row) {
-                    location.href = location.origin + '/#/orderBasicEdit/' + row.id;
-                  }
-                });
+
+
                 element.btns.push({
                   type: 'danger',
                   label: '删除',
@@ -273,20 +274,22 @@
               });
 
               if(_this.quanxian == 3){
-                element.btns.push({
-                  type: 'warning',
-                  label: '编辑订单信息',
-                  click: function (index, row) {
-                    location.href = location.origin + '/#/orderEdit/' + row.id;
-                  }
-                });
-                element.btns.push({
-                  type: 'warning',
-                  label: '编辑基本信息',
-                  click: function (index, row) {
-                    location.href = location.origin + '/#/orderBasicEdit/' + row.id;
-                  }
-                });
+                if(element.verifyStatus == 1 || element.verifyStatus == "1"){
+                  element.btns.push({
+                    type: 'info',
+                    label: '编辑订单信息',
+                    click: function (index, row) {
+                      location.href = location.origin + '/#/orderEdit/' + row.id;
+                    }
+                  });
+                  element.btns.push({
+                    type: 'info',
+                    label: '编辑基本信息',
+                    click: function (index, row) {
+                      location.href = location.origin + '/#/orderBasicEdit/' + row.id;
+                    }
+                  });
+                }
                 element.btns.push({
                   type: 'danger',
                   label: '删除',

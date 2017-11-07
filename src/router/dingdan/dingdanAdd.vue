@@ -49,20 +49,12 @@
 
     <h3>加工信息-基本信息</h3>
     <el-button type="primary" @click="addBasicInfo()">添加基本信息</el-button>
-    <!--<el-button type="primary" @click="removeArr">删除基本信息</el-button>-->
     <div style="margin-top: 20px;"></div>
 
     <el-table stripe ref="multipleTable" :data="tableData1"  tooltip-effect="dark" :fit="true" style="width:100%">
-      <!--<el-table-column  type="selection" width="50"></el-table-column>-->
       <el-table-column label="型号" width="150">
         <template slot-scope="scope">
         	<el-input v-model="scope.row.name" placeholder="请输入型号"></el-input>
-          <!--<el-select v-model="scope.row.rawSizeType" :disabled="true" placeholder="">
-            <el-option label="600*600" value="1"></el-option>
-            <el-option label="800*800" value="2"></el-option>
-            <el-option label="600*900" value="3"></el-option>
-            <el-option label="600*1200" value="4"></el-option>
-          </el-select>-->
         </template>
       </el-table-column>
       <el-table-column label="材料规格／mm" width="150">
@@ -98,13 +90,6 @@
           <el-input v-model="scope.row.remark" placeholder="备注"></el-input>
         </template>
       </el-table-column>
-      <!--<el-table-column label="报价/元" width="150">
-        <template slot-scope="scope">
-          <el-select v-model="scope.row.priceConfigId" placeholder="报价" :disabled="true">
-            <el-option v-for="item in priceList" :key="item.id" :label="item.price" :value="item.id"></el-option>
-          </el-select>
-        </template>
-      </el-table-column>-->
       <el-table-column label="加工示意图" width="200">
         <template slot-scope="scope">
 	        	<div class='uc-upload'>
