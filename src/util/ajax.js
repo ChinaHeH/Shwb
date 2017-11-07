@@ -781,6 +781,7 @@ export function _getAparamsToSend (user) {
       method: 'post',
       url: CONSTANT.api.SECDEMAILSECOND,
       data: {
+        action:"baite/web/authResetMail",
         params: user
       },
       headers: {
@@ -797,6 +798,9 @@ export function _getAparamsToSend (user) {
 // 点击发送按钮
 export function _changePassword (user) {
   var jwtToken = localStorage.getItem('jwtToken');
+  if(!jwtToken){
+    location.href = location.origin + '/#/ForgetPassword'
+  }
 
   return new Promise(function (resolve, reject) {
     axios({

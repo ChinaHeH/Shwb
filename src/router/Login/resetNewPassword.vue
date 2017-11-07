@@ -22,6 +22,9 @@
     data () {
       return {
         canChange:false,                      //显示修改框
+        activeParams:{                         //刚进来的时候传给后台的params
+          active:''
+        },
         //step3中的数据
         thirdrForm: {
           password: ''
@@ -60,6 +63,8 @@
         _this.params.password = _this.thirdrForm.password;
 
           console.log(_this.params);
+        var jwtToken = localStorage.getItem('jwtToken');
+        console.log(jwtToken);
 
         this.$refs.form2.$refs.ruleForm.validate(valid => {
           if (valid) {
@@ -84,7 +89,15 @@
       //获取一个参数
       getParams(){
         var _this = this;
-        _getAparamsToSend().then(function (response) {
+        var active = window.location.href;
+        var activeIndex = active.indexOf("=")+1;
+        console.log(activeIndex);
+        var activeParams = active.substring(activeIndex);
+        console.log(activeParams);
+        _this.activeParams.active = activeParams;
+
+        //**************************************
+        _getAparamsToSend(_this.activeParams).then(function (response) {
           console.log(response);
           var data = response.data;
 
