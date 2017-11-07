@@ -773,8 +773,30 @@ export function _forgetPassword (user) {
 }
 
 //发送重置忘记密码中的重置密码
-// CHANGEPASSWORD
+//忘记密码重置的时候一进来就获取一个参数
+export function _getAparamsToSend (user) {
+
+  return new Promise(function (resolve, reject) {
+    axios({
+      method: 'post',
+      url: CONSTANT.api.SECDEMAILSECOND,
+      data: {
+        params: user
+      },
+      headers: {
+        'Content-type': 'application/json'
+      }
+    }).then(function (response) {
+      resolve(response);
+    }).catch(function (response) {
+      reject(response);
+    })
+  });
+}
+
+// 点击发送按钮
 export function _changePassword (user) {
+  var jwtToken = localStorage.getItem('jwtToken');
 
   return new Promise(function (resolve, reject) {
     axios({
@@ -785,6 +807,7 @@ export function _changePassword (user) {
         params: user
       },
       headers: {
+        'Authorization': jwtToken,
         'Content-type': 'application/json'
       }
     }).then(function (response) {

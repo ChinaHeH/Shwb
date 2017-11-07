@@ -12,6 +12,8 @@
         <p class="msg">邮件已发送至</p>
         <p class="email">{{email}}</p>
         <p class="msg">请查收并确认</p>
+
+        <!--<div @click="go()">   忘记密码的修改密码？</div>-->
       </div>
 
       <div class="step1" v-if="showStep == 3">
@@ -116,6 +118,9 @@
             console.log('error submit!!');
           }
         });
+      },
+      go(){
+        location.href = location.origin + '/#/changePassword';
       }
     }
   };

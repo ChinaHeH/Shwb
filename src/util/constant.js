@@ -57,7 +57,10 @@ export var CONSTANT = {
     //*******************找回密码************************
 
    SENDEMAIL : location.origin + '/baite/web/sendResetPwdMail',    //发送邮件
-   CHANGEPASSWORD : location.origin + '/baite/web/resetpwd',       //修改新密码
+   CHANGEPASSWORD : location.origin + '/baite/web/resetpwd',       //修改新密码(点击按钮发送的)
+   SECDEMAILSECOND : location.origin + '/baite/web/authResetMail',   //进到修改新密码那，一进去就请求接口，拿回一个参数
+
+    //*******************订单的一大堆************************
    GETDINGDANLIST : location.origin + '/baite/web/getOrderList',   //订单列表
    DELETEORDER : location.origin + '/baite/web/deleteOrder',       //删除订单
    CHECHORDER : location.origin + '/baite/web/approveOrder',       //审核订单

@@ -5,7 +5,6 @@
       <uc-form class="form" :rForm="rForm" :dForm="dForm" :rrules="rules" ref="form1"></uc-form>
       <p>
         <router-link to="/forgetPassword">   忘记密码？</router-link>
-
       </p>
       <el-button type="primary" class="btn" @click="formSubmit()">登录</el-button>
     </div>

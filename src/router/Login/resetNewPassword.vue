@@ -4,8 +4,8 @@
       <header>重置</header>
 
       <div class="step1">
-        <uc-form class="form" :rForm="thirdrForm" :dForm="thirddForm" :rrules="ruleForm" ref="form2"></uc-form>
-        <el-button type="primary" class="btn" @click="confirm()">确认修改</el-button>
+        <uc-form class="form" :rForm="thirdrForm" :dForm="thirddForm" :rrules="ruleForm" ref="form2" v-show="canChange"></uc-form>
+        <el-button type="primary" class="btn" @click="confirm()" v-show="canChange">确认修改</el-button>
       </div>
 
     </div>
@@ -16,11 +16,12 @@
 <script>
   import { Button } from 'element-ui';
   import {CONSTANT} from '../../util/constant';
-  import { _changePassword } from '../../util/ajax';
+  import { _changePassword , _getAparamsToSend} from '../../util/ajax';
   import Form from '~packages/form/form.vue';
   export default {
     data () {
       return {
+        canChange:false,                      //显示修改框
         //step3中的数据
         thirdrForm: {
           password: ''
@@ -58,7 +59,7 @@
         var _this = this;
         _this.params.password = _this.thirdrForm.password;
 
-          console.log(_this.params)
+          console.log(_this.params);
 
         this.$refs.form2.$refs.ruleForm.validate(valid => {
           if (valid) {
@@ -79,8 +80,27 @@
             console.log('error submit!!');
           }
         });
+      },
+      //获取一个参数
+      getParams(){
+        var _this = this;
+        _getAparamsToSend().then(function (response) {
+          console.log(response);
+          var data = response.data;
 
+          if (data.status) {
+            localStorage.setItem('jwtToken', data.data.token);
+            _this.canChange = true;
+          } else {
+            CONSTANT.methods.tips(data.error_msg || '认证信息失败!', '提示');
+          }
+        }).catch(function (res) {
+          CONSTANT.methods.tips(res || '认证信息异常!', '提示');
+        });
       }
+    },
+    mounted (){
+        this.getParams();
     }
   };
 </script>
