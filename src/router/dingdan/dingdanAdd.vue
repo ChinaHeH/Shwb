@@ -43,7 +43,7 @@
       <div style="clear: both;"></div>
 
       <el-form-item label="留言">
-        <el-input type="textarea" v-model="params.basicInfo.remark" placeholder="留言" style="width:100%"></el-input>
+        <el-input type="textarea" v-model="params.basicInfo.remark" placeholder="留言" style="width:400px"></el-input>
       </el-form-item>
     </el-form>
 
