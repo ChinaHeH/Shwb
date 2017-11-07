@@ -10,7 +10,7 @@
     <div @mouseleave.prevent="menu.show=false">
       <div class="user-info" @mouseover="menu.show=true" >
         <img src="../../src/images/header/default.jpg">
-        <span>{{userinfo.role}}：{{userinfo.name}}</span>
+        <span>{{userinfo.roleName}}：{{userinfo.userName}}</span>
       </div>
       <ul v-if="menu.show">
         <li>

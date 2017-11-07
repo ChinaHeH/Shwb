@@ -63,7 +63,8 @@
             _loginIn({userName: _this.$refs.form1.ruleForm.username, password: password}).then(function (response) {
               var data = response.data;
               if (data.status) {
-                window.EVENTVUE.$emit('userMenu', data.data);
+//              window.EVENTVUE.$emit('userMenu', data.data);
+                localStorage.setItem('userMenu', JSON.stringify(data.data));
                 localStorage.setItem('menu', JSON.stringify(data.data.navigation));
                 localStorage.setItem('roleName', JSON.stringify(data.data.roleName));
                 localStorage.setItem('jwtToken', data.data.jwtToken);

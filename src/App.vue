@@ -25,8 +25,8 @@
         name: '首页',
         show: false,
         userinfo: {
-          role: '超级管理员',
-          name: 'admin'
+          roleName: '',
+          userName: ''
         }
       };
     },
@@ -52,14 +52,16 @@
     mounted () {
 //      this.getMenu();
       window.EVENTVUE = new Vue();
-      window.EVENTVUE.$on('userMenu', resData => {
-        // this.menu = resData.navigation;
-        this.userinfo.role = resData.roleName;
-        this.userinfo.name = resData.userName;
-      });
-      console.log("asdasd")
-      console.log(this.menu);
+//    window.EVENTVUE.$on('userMenu', resData => {
+//      // this.menu = resData.navigation;
+//      this.userinfo.role = resData.roleName;
+//      this.userinfo.name = resData.userName;
+//    });
+      
+      this.userinfo = JSON.parse(localStorage.getItem('userMenu'));
       this.menu = JSON.parse(localStorage.getItem('menu'));
+      console.log("asdasd")
+      console.log(this.userinfo);
       if (!this.menu || this.menu.length <= 0) {
         location.href = location.origin + '/#/login';
       }
@@ -68,6 +70,9 @@
       '$route.path': function (newVal, oldVal) {
         var _this = this;
       	this.menu = JSON.parse(localStorage.getItem('menu'));
+      	this.userinfo = JSON.parse(localStorage.getItem('userMenu'));
+      	console.log("userinfo")
+      console.log(this.userinfo);
         if (!_this.menu) return;
         _this.menu.forEach(function (element) {
           if (element.children && element.children.length > 0 && element.expansion) {
