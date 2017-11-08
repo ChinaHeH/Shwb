@@ -464,8 +464,8 @@
       overflow: hidden;
       >div{
         position: relative;
-        width: 100px;
-        height: 100px;
+        width: 50px;
+        height: 50px;
         float: left;
         margin: 0 10px 10px 0;
         >i{
@@ -484,8 +484,8 @@
           cursor: pointer;
         }
         >img{
-          width: 100px;
-          height: 100px;
+          width: 50px;
+          height: 50px;
         }
         >div{
           height: 0%;

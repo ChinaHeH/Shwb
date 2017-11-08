@@ -37,6 +37,7 @@
             placeholder: '请输入密码'
           }
         ],
+        quanxian:"",
         rules: {
           username: [
             { required: true, message: '请输入用户名', trigger: 'blur' }
@@ -51,6 +52,9 @@
     components: {
       ElButton: Button,
       UcForm: Form
+    },
+    mounted(){
+    	
     },
     methods: {
       formSubmit () {
@@ -68,7 +72,15 @@
                 localStorage.setItem('menu', JSON.stringify(data.data.navigation));
                 localStorage.setItem('roleName', JSON.stringify(data.data.roleName));
                 localStorage.setItem('jwtToken', data.data.jwtToken);
-                location.href = location.origin + '/#/orderList';
+                _this.getUser();
+                if(_this.quanxian==1){
+                	location.href = location.origin + '/#/orderList';
+                }else if(_this.quanxian == 2){
+                	location.href = location.origin + '/#/customerList';
+                }else{
+                	location.href = location.origin + '/#/orderList';
+                }
+                
               } else {
                 CONSTANT.methods.tips(data.error_msg || '登录失败!', '提示');
               }
@@ -80,6 +92,17 @@
             console.log('error submit!!');
           }
         });
+      },
+      getUser(){
+        var quanxianleibie = window.localStorage.roleName;
+        var _this = this;
+        if(quanxianleibie == '"百特admin"'){
+          _this.quanxian = 1;
+        }else if(quanxianleibie == '"百特user"'){
+          _this.quanxian = 2;
+        }else if(quanxianleibie == '"客户admin"'){
+          _this.quanxian = 3;
+        }
       }
     }
   };
