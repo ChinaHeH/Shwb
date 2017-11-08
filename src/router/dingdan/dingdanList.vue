@@ -160,16 +160,16 @@
                   if(element.verifyStatus == 1 || element.verifyStatus == "1"){
                     element.btns.push({
                       type: 'info',
-                      label: '编辑订单信息',
+                      label: '修改基本信息',
                       click: function (index, row) {
-                        location.href = location.origin + '/#/orderEdit/' + row.id;
+                        location.href = location.origin + '/#/orderBasicEdit/' + row.id;
                       }
                     });
                     element.btns.push({
                       type: 'info',
-                      label: '编辑基本信息',
+                      label: '修改加工需求',
                       click: function (index, row) {
-                        location.href = location.origin + '/#/orderBasicEdit/' + row.id;
+                        location.href = location.origin + '/#/orderEdit/' + row.id;
                       }
                     });
                   }
@@ -270,16 +270,16 @@
                 if(element.verifyStatus == 1 || element.verifyStatus == "1"){
                   element.btns.push({
                     type: 'info',
-                    label: '编辑订单信息',
+                    label: '修改基本信息',
                     click: function (index, row) {
-                      location.href = location.origin + '/#/orderEdit/' + row.id;
+                      location.href = location.origin + '/#/orderBasicEdit/' + row.id;
                     }
                   });
                   element.btns.push({
                     type: 'info',
-                    label: '编辑基本信息',
+                    label: '修改加工需求',
                     click: function (index, row) {
-                      location.href = location.origin + '/#/orderBasicEdit/' + row.id;
+                      location.href = location.origin + '/#/orderEdit/' + row.id;
                     }
                   });
                 }
