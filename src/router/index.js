@@ -23,6 +23,8 @@ import CustomerEdit from './Customer/edit.vue';
 //*******************忘记密码*****************************
 import ForgetPassword from './Login/forgetPassword.vue';
 import ChangePassword from './Login/resetNewPassword.vue';
+//*******************修改密码*****************************
+ import REPASSWORD from './ChangePassword/rePassword.vue';
 //*******************订单管理*****************************
 import OrderList from './dingdan/dingdanList.vue';
 import OrderAdd from './dingdan/dingdanAdd.vue';
@@ -205,8 +207,12 @@ export default new Router({
       path: '/orderUpdatePrice/:id',
       component: UPDATEPRICE
     },
-
-
+    //修改密码
+    {
+      name:'rePassword',
+      path:'/rePassword',
+      component:REPASSWORD
+    },
     //结算一览页面
     {
     	name:'accountsDetial',

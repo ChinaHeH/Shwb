@@ -22,6 +22,10 @@
           <router-link tag="span" to="/personupdate">编辑个人信息</router-link>
         </li>
         <li>
+          <i class="fa fa-lock" aria-hidden="true"></i>
+          <router-link tag="span" to="/rePassword">修改密码</router-link>
+        </li>
+        <li>
           <i class="fa fa-cog" aria-hidden="true"></i>
           <span>设置</span>
         </li>
