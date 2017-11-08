@@ -23,8 +23,8 @@
 				</el-table-column>
 				<el-table-column label="折扣" width="180">
 					<template slot-scope="scope">
-						<sapn v-if="scope.row.rebateType==1">￥{{scope.row.rebateSum}}</sapn>
-						<span v-if="scope.row.rebateType==2">{{scope.row.rebatePercent}}%</span>
+						<sapn v-if="scope.row.rebateType==1">{{scope.row.rebatePercent}}</sapn>
+						<span v-if="scope.row.rebateType==2">￥{{scope.row.rebateSum}}</span>
 					</template>
 				</el-table-column>
 				<el-table-column label="结算金额" width="180">
