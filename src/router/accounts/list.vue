@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="header">
+		<!--<div class="header">
 			<el-form :inline="true" :model="formInline" class="demo-form-inline">
 			  <el-form-item label="客户名称">
 			    <el-select @change="getOrderList" v-model="formInline.customerName" placeholder="请选择客户名称">
@@ -11,7 +11,7 @@
 			    <el-button type="primary" @click="check">检索</el-button>
 			  </el-form-item>
 			</el-form>
-		</div>
+		</div>-->
 		<div class="body">
 			<el-table :data="tableData" stripe style="width: 100%">
 				<el-table-column prop="customerName" label="客户名称" width="180">
@@ -117,7 +117,7 @@
 			},
 			methods: {
 				getOrderList(){//选择客户，去拿客户结算一览
-					this.params.search_by.customerName= this.formInline.customerName;
+//					this.params.search_by.customerName= this.formInline.customerName;
 					this.Getbalancelist(this.params);
 				},
 				check() { //检索
@@ -207,16 +207,16 @@
 				}
 			},
 			mounted() {
-				this.getCustomerList({//获取客户列表不做任何限制
-					page_now:"",
-					limit:"",
-					search_by:{            //搜索条件
-			            status:"",         //状态:1=启用、2=禁用
-			            customerName:"",  //客户名（模糊）
-			            address:""        //地址（模糊）
-			        }
-
-				});
+//				this.getCustomerList({//获取客户列表不做任何限制
+//					page_now:"",
+//					limit:"",
+//					search_by:{            //搜索条件
+//			            status:"",         //状态:1=启用、2=禁用
+//			            customerName:"",  //客户名（模糊）
+//			            address:""        //地址（模糊）
+//			        }
+//
+//				});
 				this.Getbalancelist(this.params);
 			},
 			filters: {
@@ -227,7 +227,7 @@
 </script>
 <style lang="scss" scoped>
 	.body{
-		margin-top: 20px;
+		/*margin-top: 20px;*/
 	}
 	.uc-slider-list {
 		>button {
