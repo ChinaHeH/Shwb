@@ -84,11 +84,27 @@
 						currentPage: 1,
 						size:10,
 						click: page => {
-							this.Getbalancelist({
-								page_now: page,
-								limit: 10,
-								value:this.value
-							});
+							if(this.quanxian==1){
+								this.Getbalancelist({
+									page_now: page,
+									limit: 10,
+									sort_by:"",
+							        sort_type:"desc",
+							        search_by:{
+							            customerName:"",
+							        }
+								});
+							}else{
+								this.Getbalancelist({
+									page_now: page,
+									limit: 10,
+									sort_by:"",
+							        sort_type:"desc",
+							        search_by:{
+							        }
+								});
+							}
+							
 						}
 					},
 					params:{
@@ -97,10 +113,21 @@
 				        sort_by:"",
 				        sort_type:"desc",
 				        search_by:{
+//				            customerName:"",
+				        }
+				
+				   },
+				   paramsAdmin:{
+				        page_now:1,
+				        limit:10,
+				        sort_by:"",
+				        sort_type:"desc",
+				        search_by:{
 				            customerName:"",
 				        }
 				
-				    }
+				   },
+				   quanxian:"",
 
 				}
 			},
@@ -116,6 +143,17 @@
 				ElOption:Option
 			},
 			methods: {
+				getUser(){
+			        var quanxianleibie = window.localStorage.roleName;
+			        var _this = this;
+			        if(quanxianleibie == '"百特admin"'){
+			          _this.quanxian = 1;
+			        }else if(quanxianleibie == '"百特user"'){
+			          _this.quanxian = 2;
+			        }else if(quanxianleibie == '"客户admin"'){
+			          _this.quanxian = 3;
+			        }
+			    },
 				getOrderList(){//选择客户，去拿客户结算一览
 //					this.params.search_by.customerName= this.formInline.customerName;
 					this.Getbalancelist(this.params);
@@ -125,7 +163,7 @@
 						page_now: 1,
 						limit: 10,
 						search_by:{
-				            customerName:this.formInline.customerName
+//				            customerName:this.formInline.customerName
 				        }
 					});
 				},
@@ -217,7 +255,13 @@
 //			        }
 //
 //				});
-				this.Getbalancelist(this.params);
+				this.getUser();
+				if(this.quanxian==1){
+					this.Getbalancelist(this.paramsAdmin);
+				}else{
+					this.Getbalancelist(this.params);
+				}
+				
 			},
 			filters: {
 
