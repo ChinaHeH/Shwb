@@ -17,14 +17,6 @@
         </el-col>
       </el-form-item>
 
-      <el-form-item label="取货地址">
-        <el-input v-model="params.basicInfo.getGoodsAddress" placeholder="取货地址"></el-input>
-      </el-form-item>
-
-      <el-form-item label="收货地址">
-        <el-input v-model="params.basicInfo.receiveGoodsAddress" placeholder="收货地址"></el-input>
-      </el-form-item>
-
       <el-form-item label="取货方式">
         <el-select v-model="params.basicInfo.getGoodsType" placeholder="取货方式">
           <el-option label="本方送货" value="1"></el-option>
@@ -32,11 +24,19 @@
         </el-select>
       </el-form-item>
 
+      <el-form-item label="取货地址" v-show="params.basicInfo.getGoodsType == 2">
+        <el-input v-model="params.basicInfo.getGoodsAddress" placeholder="取货地址"></el-input>
+      </el-form-item>
+
       <el-form-item label="送货方式">
         <el-select v-model="params.basicInfo.receiveGoodsType" placeholder="送货方式">
           <el-option label="本方自提" value="1"></el-option>
           <el-option label="厂家送货" value="2"></el-option>
         </el-select>
+      </el-form-item>
+
+      <el-form-item label="收货地址" v-show="params.basicInfo.receiveGoodsType == 2">
+        <el-input v-model="params.basicInfo.receiveGoodsAddress" placeholder="收货地址"></el-input>
       </el-form-item>
 
       <div style="clear: both;"></div>
@@ -129,19 +129,35 @@
         };
 
         console.log(BasicParams);
-        _UpdataBasicInfo(BasicParams).then(function (response) {
-          console.log(response);
-          var data = response.data;               //拿到返回数据
+        if(BasicParams.contactName == ''){
+          CONSTANT.methods.tips('请添加联系人', '提示');
+        }else if(BasicParams.contactPhone == ''){
+          CONSTANT.methods.tips('请添加联系方式', '提示');
+        }else if(BasicParams.processDeadline == ''){
+          CONSTANT.methods.tips('请添加交货时间', '提示');
+        }else if(BasicParams.getGoodsType == ''){
+          CONSTANT.methods.tips('请添加收货方式', '提示');
+        }else if(BasicParams.getGoodsType == 2 && BasicParams.getGoodsAddress == ''){
+          CONSTANT.methods.tips('请添加收货地址', '提示');
+        }else if(BasicParams.receiveGoodsType == ''){
+          CONSTANT.methods.tips('请添加送货方式', '提示');
+        }else if(BasicParams.receiveGoodsType == 2 && BasicParams.receiveGoodsAddress == ''){
+          CONSTANT.methods.tips('请添加送货地址', '提示');
+        }else {
+          _UpdataBasicInfo(BasicParams).then(function (response) {
+            console.log(response);
+            var data = response.data;               //拿到返回数据
 
-          if (data.status) {
-            console.log("提交基本信息成功");
-            location.href = location.origin + '/#/orderList';
-          }else {
-            CONSTANT.methods.tips(''+ data.error_msg || '获取订单一览失败!', '提示');
-          }
-        }).catch(function (res) {
-          CONSTANT.methods.tips(''+ res || '获取订单一览异常!', '提示');
-        });
+            if (data.status) {
+              console.log("提交基本信息成功");
+              location.href = location.origin + '/#/orderList';
+            }else {
+              CONSTANT.methods.tips(''+ data.error_msg || '提交基本信息失败!', '提示');
+            }
+          }).catch(function (res) {
+            CONSTANT.methods.tips(''+ res || '提交基本信息异常!', '提示');
+          });
+        }
       },
 
     },

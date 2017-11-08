@@ -3,46 +3,52 @@
     <el-form :inline="true" :model="params" class="demo-ruleForm" label-width="100px">
       <h3>订单基本信息</h3>
 
-      <el-form-item label="联系人">
-        <el-input v-model="params.basicInfo.contactName" placeholder="联系人" :disabled="true"></el-input>
+      <el-form-item label="联系人 :">
+        {{params.basicInfo.contactName}}
+        <!--<el-input v-model="params.basicInfo.contactName" placeholder="联系人" :disabled="true"></el-input>-->
       </el-form-item>
 
-      <el-form-item label="联系电话">
-        <el-input v-model="params.basicInfo.contactPhone" placeholder="联系电话" :disabled="true"></el-input>
+      <el-form-item label="联系电话 :">
+        {{params.basicInfo.contactPhone}}
+        <!--<el-input v-model="params.basicInfo.contactPhone" placeholder="联系电话" :disabled="true"></el-input>-->
       </el-form-item>
 
-      <el-form-item label="交货时间">
-        <el-col :span="11">
-          <el-date-picker type="date" placeholder="截止交货日期" v-model="params.basicInfo.processDeadline" :disabled="true"></el-date-picker>
-        </el-col>
+      <el-form-item label="交货时间 :">
+        {{params.basicInfo.processDeadline}}
+        <!--<el-col :span="11">-->
+          <!--<el-date-picker type="date" placeholder="截止交货日期" v-model="params.basicInfo.processDeadline" :disabled="true"></el-date-picker>-->
+        <!--</el-col>-->
       </el-form-item>
 
-      <el-form-item label="取货地址">
-        <el-input v-model="params.basicInfo.getGoodsAddress" placeholder="取货地址" :disabled="true"></el-input>
+      <el-form-item label="取货方式 :">
+        {{params.basicInfo.getGoodsType | getGoodTypes}}
+        <!--<el-select v-model="params.basicInfo.getGoodsType" placeholder="取货方式" :disabled="true">-->
+        <!--<el-option label="本方送货" value="1"></el-option>-->
+        <!--<el-option label="厂家取货" value="2"></el-option>-->
+        <!--</el-select>-->
       </el-form-item>
 
-      <el-form-item label="收货地址">
-        <el-input v-model="params.basicInfo.receiveGoodsAddress" placeholder="收货地址" :disabled="true"></el-input>
+      <el-form-item label="取货地址 :" v-show="params.basicInfo.getGoodsType == 2">
+        {{params.basicInfo.getGoodsAddress}}
+        <!--<el-input v-model="params.basicInfo.getGoodsAddress" placeholder="取货地址" :disabled="true"></el-input>-->
       </el-form-item>
 
-      <el-form-item label="取货方式">
-        <el-select v-model="params.basicInfo.getGoodsType" placeholder="取货方式" :disabled="true">
-          <el-option label="本方送货" value="1"></el-option>
-          <el-option label="厂家取货" value="2"></el-option>
-        </el-select>
+      <el-form-item label="送货方式 :">
+        {{params.basicInfo.receiveGoodsType | sendGoodsTypes}}
+        <!--<el-select v-model="params.basicInfo.receiveGoodsType" placeholder="送货方式" :disabled="true">-->
+        <!--<el-option label="本方自提" value="1"></el-option>-->
+        <!--<el-option label="厂家送货" value="2"></el-option>-->
+        <!--</el-select>-->
       </el-form-item>
 
-      <el-form-item label="送货方式">
-        <el-select v-model="params.basicInfo.receiveGoodsType" placeholder="送货方式" :disabled="true">
-          <el-option label="本方自提" value="1"></el-option>
-          <el-option label="厂家送货" value="2"></el-option>
-        </el-select>
+      <el-form-item label="收货地址 :"  v-show="params.basicInfo.receiveGoodsType == 2">
+        {{params.basicInfo.receiveGoodsAddress}}
+        <!--<el-input v-model="params.basicInfo.receiveGoodsAddress" placeholder="收货地址" :disabled="true"></el-input>-->
       </el-form-item>
 
-      <div style="clear: both;"></div>
-
-      <el-form-item label="留言">
-        <el-input type="textarea" v-model="params.basicInfo.remark" placeholder="留言" style="width:100%" :disabled="true"></el-input>
+      <el-form-item label="留言 :" v-if="params.basicInfo.remark">
+        {{params.basicInfo.remark}}
+        <!--<el-input type="textarea" v-model="params.basicInfo.remark" placeholder="留言" style="width:100%" :disabled="true"></el-input>-->
       </el-form-item>
     </el-form>
 
@@ -54,54 +60,61 @@
       <!--<el-table-column  type="selection" width="50"></el-table-column>-->
       <el-table-column label="名称" width="150">
         <template slot-scope="scope">
-          <el-select v-model="scope.row.name" placeholder="单长边外倒45度" :disabled="true">
-            <el-option v-for="item in priceList" :key="item.processName" :label="item.name" :value="item.processName"></el-option>
-          </el-select>
+          {{scope.row.name}}
+          <!--<el-select v-model="scope.row.name" placeholder="单长边外倒45度" :disabled="true">-->
+            <!--<el-option v-for="item in priceList" :key="item.processName" :label="item.name" :value="item.processName"></el-option>-->
+          <!--</el-select>-->
         </template>
       </el-table-column>
       <el-table-column label="材料规格／mm" width="150">
         <template slot-scope="scope">
-          <el-select v-model="scope.row.rawSizeType" :disabled="true" placeholder="">
-            <el-option label="600*600" value="1"></el-option>
-            <el-option label="800*800" value="2"></el-option>
-            <el-option label="600*900" value="3"></el-option>
-            <el-option label="600*1200" value="4"></el-option>
-          </el-select>
+          {{scope.row.rawSizeTypeName}}
+          <!--<el-select v-model="scope.row.rawSizeType" :disabled="true" placeholder="">-->
+            <!--<el-option label="600*600" value="1"></el-option>-->
+            <!--<el-option label="800*800" value="2"></el-option>-->
+            <!--<el-option label="600*900" value="3"></el-option>-->
+            <!--<el-option label="600*1200" value="4"></el-option>-->
+          <!--</el-select>-->
         </template>
       </el-table-column>
       <el-table-column label="材料数量／片" width="150">
         <template slot-scope="scope">
-          <el-input type="number" v-model="scope.row.rawNumber" placeholder="材料数量" :disabled="true"></el-input>
+          {{scope.row.rawNumber}}
+          <!--<el-input type="number" v-model="scope.row.rawNumber" placeholder="材料数量" :disabled="true"></el-input>-->
         </template>
       </el-table-column>
       <el-table-column label="成品长度／mm" width="150">
         <template slot-scope="scope">
-          <el-input type="number" v-model="scope.row.productLength" placeholder="长度" :disabled="true"></el-input>
+          {{scope.row.productLength}}
+          <!--<el-input type="number" v-model="scope.row.productLength" placeholder="长度" :disabled="true"></el-input>-->
         </template>
       </el-table-column>
       <el-table-column label="成品宽度／mm" width="150">
         <template slot-scope="scope">
-          <el-input type="number" v-model="scope.row.productWidth" placeholder="宽度" :disabled="true"></el-input>
+          {{scope.row.productWidth}}
+          <!--<el-input type="number" v-model="scope.row.productWidth" placeholder="宽度" :disabled="true"></el-input>-->
         </template>
       </el-table-column>
       <el-table-column label="成品数量／片" width="150">
         <template slot-scope="scope">
-          <el-input type="number" v-model="scope.row.productNumber" placeholder="成品数量" :disabled="true"></el-input>
+          {{scope.row.productNumber}}
+          <!--<el-input type="number" v-model="scope.row.productNumber" placeholder="成品数量" :disabled="true"></el-input>-->
         </template>
       </el-table-column>
       <el-table-column label="备注" width="150">
         <template slot-scope="scope">
-          <el-input v-model="scope.row.remark" placeholder="备注" :disabled="true"></el-input>
+          {{scope.row.remark}}
+          <!--<el-input v-model="scope.row.remark" placeholder="备注" :disabled="true"></el-input>-->
         </template>
       </el-table-column>
-      <el-table-column label="报价/元" width="150">
-        <template slot-scope="scope">
-          <el-select v-model="scope.row.price" placeholder="报价" :disabled="true">
-            <el-option v-for="item in priceList" :key="item.id" :label="item.price" :value="item.id"></el-option>
-          </el-select>
-        </template>
-      </el-table-column>
-      <el-table-column label="加工示意图" width="200">
+      <!--<el-table-column label="报价/元" width="150">-->
+        <!--<template slot-scope="scope">-->
+          <!--<el-select v-model="scope.row.price" placeholder="报价" :disabled="true">-->
+            <!--<el-option v-for="item in priceList" :key="item.id" :label="item.price" :value="item.id"></el-option>-->
+          <!--</el-select>-->
+        <!--</template>-->
+      <!--</el-table-column>-->
+      <el-table-column label="加工示意图">
         <template slot-scope="scope">
         	<div class='uc-upload'>
 					    <section>
@@ -129,33 +142,37 @@
       <!--<el-table-column type="selection" width="55"></el-table-column>-->
       <el-table-column label="型号">
         <template slot-scope="scope">
-          <el-input v-model="scope.row.name" placeholder="请输入型号" :disabled="true"></el-input>
+          {{scope.row.name}}
+          <!--<el-input v-model="scope.row.name" placeholder="请输入型号" :disabled="true"></el-input>-->
         </template>
       </el-table-column>
-      <el-table-column label="材料规格／mm" width="200">
+      <el-table-column label="材料规格／mm">
         <template slot-scope="scope">
-          <el-select v-model="scope.row.rawSizeType" placeholder="请选择材料规格" :disabled="true">
-            <el-option label="600*600" value="1"></el-option>
-            <el-option label="800*800" value="2"></el-option>
-            <el-option label="600*900" value="3"></el-option>
-            <el-option label="600*1200" value="4"></el-option>
-          </el-select>
+          {{scope.row.rawSizeTypeName}}
+          <!--<el-select v-model="scope.row.rawSizeType" placeholder="请选择材料规格" :disabled="true">-->
+            <!--<el-option label="600*600" value="1"></el-option>-->
+            <!--<el-option label="800*800" value="2"></el-option>-->
+            <!--<el-option label="600*900" value="3"></el-option>-->
+            <!--<el-option label="600*1200" value="4"></el-option>-->
+          <!--</el-select>-->
         </template>
       </el-table-column>
 
-      <el-table-column label="材料数量／片" width="200">
+      <el-table-column label="材料数量／片">
         <template slot-scope="scope">
-          <el-input type="number" v-model="scope.row.rawNumber" placeholder="材料数量" :disabled="true"></el-input>
+          {{scope.row.rawNumber}}
+          <!--<el-input type="number" v-model="scope.row.rawNumber" placeholder="材料数量" :disabled="true"></el-input>-->
         </template>
       </el-table-column>
 
       <el-table-column label="备注">
         <template slot-scope="scope">
-          <el-input v-model="scope.row.remark" placeholder="备注" :disabled="true"></el-input>
+          {{scope.row.remark}}
+          <!--<el-input v-model="scope.row.remark" placeholder="备注" :disabled="true"></el-input>-->
         </template>
       </el-table-column>
 
-      <el-table-column label="加工示意图" width="200">
+      <el-table-column label="加工示意图">
         <template slot-scope="scope">
         	<div class='uc-upload'>
 					    <section>
@@ -179,26 +196,29 @@
 
     <el-form :inline="true" :model="slectParams" class="demo-ruleForm" label-width="100px">
       <el-form-item label="订单状态">
-        <el-select v-model="slectParams.checkStatus" placeholder="审核状态" :disabled="true">
-          <el-option label="未审核" value="1"></el-option>
-          <el-option label="已审核" value="2"></el-option>
-        </el-select>
+        {{slectParams.checkStatus}}
+        <!--<el-select v-model="slectParams.checkStatus" placeholder="审核状态" :disabled="true">-->
+          <!--<el-option label="未审核" value="1"></el-option>-->
+          <!--<el-option label="已审核" value="2"></el-option>-->
+        <!--</el-select>-->
       </el-form-item>
 
       <el-form-item label="">
-        <el-select v-model="slectParams.payStatus" placeholder="支付状态" :disabled="true">
-          <el-option label="未支付" value="1"></el-option>
-          <el-option label="已支付" value="2"></el-option>
-        </el-select>
+        {{slectParams.payStatus}}
+        <!--<el-select v-model="slectParams.payStatus" placeholder="支付状态" :disabled="true">-->
+          <!--<el-option label="未支付" value="1"></el-option>-->
+          <!--<el-option label="已支付" value="2"></el-option>-->
+        <!--</el-select>-->
       </el-form-item>
 
       <el-form-item label="">
-        <el-select v-model="slectParams.getStatus" placeholder="运送状态" :disabled="true">
-          <el-option label="生产中" value="1"></el-option>
-          <el-option label="待送货" value="2"></el-option>
-          <el-option label="已送货" value="3"></el-option>
-          <el-option label="待取货" value="4"></el-option>
-        </el-select>
+        {{slectParams.getStatus}}
+        <!--<el-select v-model="slectParams.getStatus" placeholder="运送状态" :disabled="true">-->
+          <!--<el-option label="生产中" value="1"></el-option>-->
+          <!--<el-option label="待送货" value="2"></el-option>-->
+          <!--<el-option label="已送货" value="3"></el-option>-->
+          <!--<el-option label="待取货" value="4"></el-option>-->
+        <!--</el-select>-->
       </el-form-item>
 
     </el-form>
@@ -358,7 +378,27 @@
     },
     mounted (){
       this.getOederList();
-    }
+    },
+    filters:{
+      getGoodTypes:function (value) {
+        if(value == 1){
+          value = "本方送货";
+          return value;
+        }else if(value == 2){
+          value = "厂家取货";
+          return value;
+        }
+      },
+      sendGoodsTypes:function (value) {
+        if(value == 1){
+            value = "厂家送货";
+            return value;
+        }else if(value == 2){
+            value = "本方自提";
+          return value;
+        }
+      }
+    },
   }
 </script>
 <style scoped>
