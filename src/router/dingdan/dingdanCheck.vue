@@ -58,7 +58,7 @@
 
     <el-table stripe ref="multipleTable" :data="tableData1"  tooltip-effect="dark" :fit="true" style="width:100%">
       <!--<el-table-column  type="selection" width="50"></el-table-column>-->
-      <el-table-column label="名称" width="150">
+      <el-table-column label="型号" width="150">
         <template slot-scope="scope">
           {{scope.row.name}}
           <!--<el-select v-model="scope.row.name" placeholder="单长边外倒45度" :disabled="true">-->

@@ -8,33 +8,32 @@
 
     <el-table stripe ref="multipleTable" :data="tableData1"  tooltip-effect="dark" :fit="true" style="width:100%">
       <!--<el-table-column  type="selection" width="50"></el-table-column>-->
-      <el-table-column label="名称" width="150">
+      <el-table-column label="型号" width="150">
         <template slot-scope="scope">
-          <el-select v-model="scope.row.name" placeholder="单长边外倒45度" @change = "changePrice(priceList,scope.row.name,scope.$index)">
-            <el-option v-for="item in priceList" :key="item.processName" :label="item.name" :value="item.processName"></el-option>
-          </el-select>
+          <el-input v-model="scope.row.name" placeholder="请输入型号"></el-input>
         </template>
       </el-table-column>
+
       <el-table-column label="材料规格／mm" width="150">
         <template slot-scope="scope">
-          <el-select v-model="scope.row.rawSizeType" :disabled="true" placeholder="">
-            <el-option label="600*600" value="1"></el-option>
-            <el-option label="800*800" value="2"></el-option>
-            <el-option label="600*900" value="3"></el-option>
-            <el-option label="600*1200" value="4"></el-option>
+          <el-select v-model="scope.row.rawSizeType" placeholder="选择名称" @change = "changePrice(priceList,scope.row.delname,scope.$index)">
+            <el-option v-for="item in priceList" :key="item.sizeType" :label="item.name" :value="item.sizeType"></el-option>
           </el-select>
         </template>
       </el-table-column>
+
       <el-table-column label="材料数量／片" width="150">
         <template slot-scope="scope">
           <el-input type="number" v-model="scope.row.rawNumber" placeholder="材料数量" @change="totleEMB()"></el-input>
         </template>
       </el-table-column>
+
       <el-table-column label="成品长度／mm" width="150">
         <template slot-scope="scope">
           <el-input type="number" v-model="scope.row.productLength" placeholder="长度"></el-input>
         </template>
       </el-table-column>
+
       <el-table-column label="成品宽度／mm" width="150">
         <template slot-scope="scope">
           <el-input type="number" v-model="scope.row.productWidth" placeholder="宽度"></el-input>
@@ -50,13 +49,13 @@
           <el-input v-model="scope.row.remark" placeholder="备注"></el-input>
         </template>
       </el-table-column>
-      <el-table-column label="报价/元" width="150">
-        <template slot-scope="scope">
-          <el-select v-model="scope.row.priceConfigId" placeholder="报价" :disabled="true">
-            <el-option v-for="item in priceList" :key="item.id" :label="item.price" :value="item.id"></el-option>
-          </el-select>
-        </template>
-      </el-table-column>
+      <!--<el-table-column label="报价/元" width="150">-->
+        <!--<template slot-scope="scope">-->
+          <!--<el-select v-model="scope.row.priceConfigId" placeholder="报价" :disabled="true">-->
+            <!--<el-option v-for="item in priceList" :key="item.id" :label="item.price" :value="item.id"></el-option>-->
+          <!--</el-select>-->
+        <!--</template>-->
+      <!--</el-table-column>-->
       <el-table-column label="加工示意图" width="200">
         <template slot-scope="scope">
         	<div class='uc-upload'>
@@ -298,13 +297,16 @@
       },
 
       //选中name的时候price也跟着改变
+      //选中name的时候price也跟着改变
       changePrice(arr,val,index){
         var _this = this;
         var arrList = arr;
         var value = val;
         var index = index;
+
+        console.log(arrList)
         for(let i = 0;i < arrList.length;i++){
-          if(arrList[i].processName == value){
+          if(arrList[i].name == value){
             _this.tableData1[index].priceConfigId = arrList[i].id;
             _this.tableData1[index].price = arrList[i].price;
             _this.tableData1[index].rawSizeType = arrList[i].sizeType;
