@@ -443,11 +443,11 @@
       getUser(){
         var quanxianleibie = window.localStorage.roleName;
         var _this = this;
-        if(quanxianleibie == '"百特admin"'){
+        if(quanxianleibie == '"百特admin"' || quanxianleibie == '百特admin'){
           _this.quanxian = 1;
-        }else if(quanxianleibie == '"百特user"'){
+        }else if(quanxianleibie == '"百特用户"' || quanxianleibie == '百特用户'){
           _this.quanxian = 2;
-        }else if(quanxianleibie == '"客户admin"'){
+        }else if(quanxianleibie == '"客户admin"' || quanxianleibie == '客户admin'){
           _this.quanxian = 3;
         }
       }
