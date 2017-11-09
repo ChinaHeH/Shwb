@@ -32,7 +32,7 @@
 		</div>
 		<div class="body">
 			<el-table :data="tableData" stripe style="width: 100%">
-				<el-table-column type="index" label="编号" width="145">
+				<el-table-column type="index" label="编号" width="100">
 				</el-table-column>
 				<el-table-column prop="processName" label="工艺名称" width="180">
 				</el-table-column>
@@ -46,12 +46,12 @@
 						{{scope.row.sizeType | sizeType}}
 					</template>
 				</el-table-column>
-				<el-table-column label="价格" width="180">
+				<el-table-column label="价格" width="120">
 					<template slot-scope="scope">
 						￥{{scope.row.price}}
 					</template>
 				</el-table-column>
-				<el-table-column label="操作" width="250">
+				<el-table-column label="操作">
 					<template scope="scope">
 						<el-button size="small" type="primary" @click="detail(scope.row.id)">查看</el-button>
 						<el-button size="small" type="warning" @click="edit(scope.row.id)">编辑</el-button>
