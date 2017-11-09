@@ -329,8 +329,8 @@
                 });
               }
 
-
-              if(_this.quanxian == 1 || _this.quanxian == 2){
+//              || _this.quanxian == 2
+              if(_this.quanxian == 1){
                 element.btns.push({
                   type: 'warning',
                   label: '更新订单价格',
