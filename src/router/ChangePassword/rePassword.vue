@@ -69,22 +69,25 @@
 
         this.$refs.form1.$refs.ruleForm.validate(valid => {
           if (valid) {
-              console.log(_this.$refs.form1.ruleForm.password)
-              console.log(_this.$refs.form1.ruleForm.newPassword)
-              console.log(_this.$refs.form1.ruleForm.reNewPassword)
+//            console.log(_this.$refs.form1.ruleForm.password)
+//            console.log(_this.$refs.form1.ruleForm.newPassword)
+//            console.log(_this.$refs.form1.ruleForm.reNewPassword)
             if(_this.$refs.form1.ruleForm.newPassword != _this.$refs.form1.ruleForm.reNewPassword){
               CONSTANT.methods.tips('您两次输入的新密码不一致!', '提示');
             }else {
-              var oldpassword = CONSTANT.methods.MD5Methods(_this.$refs.form1.ruleForm.password);
-              var newpassword = CONSTANT.methods.MD5Methods(_this.$refs.form1.ruleForm.newPassword);
-
+              console.log(JSON.parse(localStorage.getItem('userMenu')).userName)
+              var oldpassword = CONSTANT.methods.MD5Methods({username:JSON.parse(localStorage.getItem('userMenu')).userName,password:_this.$refs.form1.ruleForm.password});
+              var newpassword = CONSTANT.methods.MD5Methods({username:JSON.parse(localStorage.getItem('userMenu')).userName,password:_this.$refs.form1.ruleForm.newPassword});
               _xiugaimima({oldPassword:oldpassword,password:newpassword}).then(function (response) {
                 var data = response.data;
                 console.log("***************************");
                 console.log(data);
                 if (data.status) {
-
-
+					CONSTANT.methods.tips(data.error_msg || '修改密码成功!', '确定',function(){
+						_this.$refs.form1.ruleForm.password="";
+						_this.$refs.form1.ruleForm.newPassword="";
+						_this.$refs.form1.ruleForm.reNewPassword="";
+					});
                 } else {
                   CONSTANT.methods.tips(data.error_msg || '修改密码失败!', '提示');
                 }
