@@ -14,7 +14,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="材料规格／mm" width="150">
+      <el-table-column label="材料规格／mm" width="300">
         <template slot-scope="scope">
           <el-select v-model="scope.row.delname" placeholder="选择名称" @change = "changePrice(priceList,scope.row.delname,scope.$index)">
             <el-option v-for="item in priceList" :key="item.name" :label="item.name" :value="item.name"></el-option>

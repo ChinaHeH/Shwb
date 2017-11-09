@@ -45,7 +45,7 @@
           {{scope.row.name}}
         </template>
       </el-table-column>
-      <el-table-column label="材料规格／mm" width="150">
+      <el-table-column label="材料规格／mm" width="300">
         <template slot-scope="scope">
           {{scope.row.rawSizeTypeName}}
         </template>

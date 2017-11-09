@@ -83,7 +83,7 @@
           <!--<el-input type="number" v-model="scope.row.rawNumber" placeholder="材料数量" :disabled="true"></el-input>-->
         </template>
       </el-table-column>
-      <el-table-column label="成品长度／mm" width="150">
+      <el-table-column label="成品长度／mm" width="300">
         <template slot-scope="scope">
           {{scope.row.productLength}}
           <!--<el-input type="number" v-model="scope.row.productLength" placeholder="长度" :disabled="true"></el-input>-->
