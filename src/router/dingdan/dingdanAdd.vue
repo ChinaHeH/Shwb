@@ -71,13 +71,11 @@
           <el-input type="number" v-model="scope.row.rawNumber" placeholder="材料数量" @change="totleEMB()"></el-input>
         </template>
       </el-table-column>
-
       <el-table-column label="成品长度／mm" width="150">
         <template slot-scope="scope">
           <el-input type="number" v-model="scope.row.productLength" placeholder="长度"></el-input>
         </template>
       </el-table-column>
-
       <el-table-column label="成品宽度／mm" width="150">
         <template slot-scope="scope">
           <el-input type="number" v-model="scope.row.productWidth" placeholder="宽度"></el-input>
@@ -138,8 +136,7 @@
       </el-table-column>
       <el-table-column label="材料规格／mm" width="150">
         <template slot-scope="scope">
-          <el-select v-model="scope.row.delname" placeholder="选择名称">
-            <!--@change = "changePrice2(priceList,scope.row.delname,scope.$index)"-->
+          <el-select v-model="scope.row.delname" placeholder="选择名称" @change = "changePrice2(priceList,scope.row.delname,scope.$index)">
             <el-option v-for="item in priceList" :key="item.name" :label="item.name" :value="item.name"></el-option>
           </el-select>
         </template>

@@ -16,8 +16,8 @@
 
       <el-table-column label="材料规格／mm" width="150">
         <template slot-scope="scope">
-          <el-select v-model="scope.row.rawSizeType" placeholder="选择名称" @change = "changePrice(priceList,scope.row.delname,scope.$index)">
-            <el-option v-for="item in priceList" :key="item.sizeType" :label="item.name" :value="item.sizeType"></el-option>
+          <el-select v-model="scope.row.delname" placeholder="选择名称" @change = "changePrice(priceList,scope.row.delname,scope.$index)">
+            <el-option v-for="item in priceList" :key="item.name" :label="item.name" :value="item.name"></el-option>
           </el-select>
         </template>
       </el-table-column>
@@ -245,8 +245,6 @@
 
           if (data.status) {
               var dataList = data.data.processInfo;
-//            _this.tableData1 = data.data.processInfo;       //加工基本信息获取
-//            _this.tableData2 = [];                          //加工基本信息获取,现在接口没有，给个空，有了再填上
 
             for(let i = 0;i < dataList.length;i++){
               if(dataList[i].processType == 1 || dataList[i].processType == "1"){
@@ -254,6 +252,10 @@
               }else if(dataList[i].processType == 2 || dataList[i].processType == "2"){
                 _this.tableData2.push(dataList[i]);
               }
+            }
+
+            for(var j = 0; j < _this.tableData1.length;j++){
+              _this.tableData1[j].delname = _this.tableData1[j].rawSizeTypeName;
             }
             if(_this.tableData2.length == 0){
                 _this.tableData2.push({
@@ -304,7 +306,8 @@
         var value = val;
         var index = index;
 
-        console.log(arrList)
+        console.log(arrList);
+        console.log(value);
         for(let i = 0;i < arrList.length;i++){
           if(arrList[i].name == value){
             _this.tableData1[index].priceConfigId = arrList[i].id;
