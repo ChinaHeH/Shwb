@@ -455,6 +455,22 @@
           }else {
             if(data.error_code == 201){
               CONSTANT.methods.tips("自定义信息材料规格或数量不完整，请补充", '提示');
+            }else if(data.error_code == 101){
+              if(data.error_msg == "priceConfigId 为空"){
+                CONSTANT.methods.tips("材料规格信息不完整，请填写", '提示');
+              }else if(data.error_msg == "name 为空"){
+                CONSTANT.methods.tips("型号信息不完整，请填写", '提示');
+              }else if(data.error_msg == "rawNumber 为空"){
+                CONSTANT.methods.tips("材料数量信息不完整，请填写", '提示');
+              }else if(data.error_msg == "productLength 为空"){
+                CONSTANT.methods.tips("成品长度信息不完整，请填写", '提示');
+              }else if(data.error_msg == "productWidth 为空"){
+                CONSTANT.methods.tips("成品宽度信息不完整，请填写", '提示');
+              }else if(data.error_msg == "productNumber 为空"){
+                CONSTANT.methods.tips("成品数量信息不完整，请填写", '提示');
+              }
+
+
             }else {
               CONSTANT.methods.tips(data.error_msg || '编辑订单失败!', '提示');
             }
