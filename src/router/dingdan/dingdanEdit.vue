@@ -94,11 +94,12 @@
       </el-table-column>
       <el-table-column label="材料规格／mm" width="200">
         <template slot-scope="scope">
-          <el-select v-model="scope.row.rawSizeType" placeholder="材料规格">
-            <el-option  :key="1" :label="'600*600'" :value="1"></el-option>
-            <el-option  :key="2" :label="'800*800'" :value="2"></el-option>
-            <el-option  :key="3" :label="'600*900'" :value="3"></el-option>
-            <el-option  :key="4" :label="'600*1200'" :value="4"></el-option>
+          <el-select v-model="scope.row.typeName" placeholder="材料规格">
+            <el-option v-for="item in priceList" :key="item.name" :label="item.name" :value="item.name"></el-option>
+            <!--<el-option  :key="1" :label="'600*600'" :value="1"></el-option>-->
+            <!--<el-option  :key="2" :label="'800*800'" :value="2"></el-option>-->
+            <!--<el-option  :key="3" :label="'600*900'" :value="3"></el-option>-->
+            <!--<el-option  :key="4" :label="'600*1200'" :value="4"></el-option>-->
           </el-select>
         </template>
       </el-table-column>
@@ -376,7 +377,8 @@
             rawSizeType:"2",                //原材料规格:1=600*600、2=800*800、3=600*900、4=600*1200
             rawNumber:"4",                  //原材料片数，单位：片
             remark:"备注",                   //备注
-            picture:[]                       //图片
+            picture:[],                       //图片
+            priceConfigId:''
 
           },
         )
@@ -425,12 +427,21 @@
 
         if(_this.tableData2.length){
           for(let i = 0; i < _this.tableData2.length;i++){
+            for(let j = 0; j < _this.priceList.length;j++){
+              if(_this.tableData2[i].typeName ==  _this.priceList[j].name){
+                _this.tableData1[i].rawSizeType = _this.priceList[j].sizeType;
+                _this.tableData1[i].priceConfigId = _this.priceList[j].id;
+              }
+            }
+          }
+          for(let i = 0; i < _this.tableData2.length;i++){
             tableList2.push({
               name:_this.tableData2[i].name,
               rawSizeType:_this.tableData2[i].rawSizeType,
               rawNumber:_this.tableData2[i].rawNumber,
               remark:_this.tableData2[i].remark,
-              picture:_this.tableData2[i].picture || []
+              picture:_this.tableData2[i].picture || [],
+              priceConfigId:_this.tableData2[i].priceConfigId
             })
           }
         }
