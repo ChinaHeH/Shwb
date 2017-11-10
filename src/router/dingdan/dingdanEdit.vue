@@ -16,7 +16,7 @@
 
       <el-table-column label="材料规格／mm" width="300">
         <template slot-scope="scope">
-          <el-select v-model="scope.row.delname" placeholder="选择名称" @change = "changePrice(priceList,scope.row.delname,scope.$index)">
+          <el-select v-model="scope.row.typeName" placeholder="选择名称" @change = "changePrice(priceList,scope.row.delname,scope.$index)">
             <el-option v-for="item in priceList" :key="item.name" :label="item.name" :value="item.name"></el-option>
           </el-select>
         </template>
@@ -49,13 +49,6 @@
           <el-input v-model="scope.row.remark" placeholder="备注"></el-input>
         </template>
       </el-table-column>
-      <!--<el-table-column label="报价/元" width="150">-->
-        <!--<template slot-scope="scope">-->
-          <!--<el-select v-model="scope.row.priceConfigId" placeholder="报价" :disabled="true">-->
-            <!--<el-option v-for="item in priceList" :key="item.id" :label="item.price" :value="item.id"></el-option>-->
-          <!--</el-select>-->
-        <!--</template>-->
-      <!--</el-table-column>-->
       <el-table-column label="加工示意图" width="200">
         <template slot-scope="scope">
         	<div class='uc-upload'>
@@ -409,6 +402,13 @@
         var tableList2 = [];
         if(_this.tableData1.length){
           for(let i = 0; i < _this.tableData1.length;i++){
+            for(let j = 0; j < _this.priceList.length;j++){
+                if(_this.tableData1[i].typeName ==  _this.priceList[j].name){
+                  _this.tableData1[i].rawSizeType = _this.priceList[j].sizeType
+                }
+            }
+          }
+          for(let i = 0; i < _this.tableData1.length;i++){
             tableList1.push({
                 priceConfigId:_this.tableData1[i].priceConfigId,
                 name:_this.tableData1[i].name,
@@ -418,7 +418,7 @@
                 productWidth:_this.tableData1[i].productWidth,
                 productNumber:_this.tableData1[i].productNumber,
                 remark:_this.tableData1[i].remark,
-                picture:_this.tableData1[i].picture
+                picture:_this.tableData1[i].picture || []
             })
           }
         }
@@ -430,7 +430,7 @@
               rawSizeType:_this.tableData2[i].rawSizeType,
               rawNumber:_this.tableData2[i].rawNumber,
               remark:_this.tableData2[i].remark,
-              picture:_this.tableData2[i].picture
+              picture:_this.tableData2[i].picture || []
             })
           }
         }
