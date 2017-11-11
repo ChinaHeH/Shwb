@@ -1349,7 +1349,8 @@ export function _Downloadbalance(params) {
       },
       headers: {
         'Authorization': jwtToken
-      }
+      },
+      responseType:'blob'
     }).then(function (response) {
       resolve(response);
     }).catch(function (response) {

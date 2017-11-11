@@ -176,22 +176,22 @@
 				Downloadbalance(params){//下载pdf
 					var _this = this;
 					_Downloadbalance(params).then(function(response) {
-						console.log(response);
 						var content = response.data;
-
-						var data = new Blob([content],{type:"application/pdf"});
-						
-						var downloadUrl = window.URL.createObjectURL(data);
+						var fileName = response.headers['content-disposition'].split("filename=")[1].substring(1,13);
+						fileName.replace('\"',"");
+						var downloadUrl = window.URL.createObjectURL(content);
+						console.log(response.headers);
+						console.log(fileName);
 						
 						var anchor = document.createElement("a");
 						
 						anchor.href = downloadUrl;
 						
-						anchor.download = "pdf.pdf";
+//						anchor.download = fileName+".pdf";
+						anchor.download = fileName;
 						
 						anchor.click();
-						
-						window.URL.revokeObjectURL(data); 
+//						window.URL.revokeObjectURL(downloadUrl); 
 					}).catch(function(res) {
 						CONSTANT.methods.tips(res || '下载pdf失败!', '提示');
 					});
