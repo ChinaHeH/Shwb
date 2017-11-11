@@ -36,8 +36,11 @@
 				</el-table-column>
 				<el-table-column label="操作">
 					<template slot-scope="scope">
-						<el-button v-if="scope.row.status==2" type="primary" @click="donwLoad(scope.row.id)">下载</el-button>
-						<el-button type="primary" v-if="scope.row.status==1" @click="save(scope.row.id)">完成</el-button>
+						<el-button v-if="scope.row.status==1" type="primary" @click="save(scope.row.id)">完成</el-button>
+						<el-button v-if="scope.row.status==2" type="primary">已完成</el-button>
+						<el-button type="danger" @click="donwLoad(scope.row.id)">下载</el-button>
+						<!--<el-button v-if="scope.row.status==2" type="primary" @click="donwLoad(scope.row.id)">下载</el-button>
+						<el-button type="primary" v-if="scope.row.status==1" @click="save(scope.row.id)">完成</el-button>-->
 					</template>
 				</el-table-column>
 			</el-table>
@@ -144,7 +147,7 @@
 			},
 			methods: {
 				getUser(){
-			        var quanxianleibie = window.localStorage.roleName;
+			        var quanxianleibie = window.sessionStorage.roleName;
 			        var _this = this;
 			        if(quanxianleibie == '"百特admin"'){
 			          _this.quanxian = 1;
@@ -187,7 +190,6 @@
 						
 						anchor.href = downloadUrl;
 						
-//						anchor.download = fileName+".pdf";
 						anchor.download = fileName;
 						
 						anchor.click();

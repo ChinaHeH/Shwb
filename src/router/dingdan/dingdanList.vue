@@ -441,7 +441,7 @@
 
       //getUser
       getUser(){
-        var quanxianleibie = window.localStorage.roleName;
+        var quanxianleibie = window.sessionStorage.roleName;
         var _this = this;
         if(quanxianleibie == '"百特admin"' || quanxianleibie == '百特admin'){
           _this.quanxian = 1;

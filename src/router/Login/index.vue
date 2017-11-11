@@ -68,10 +68,10 @@
               var data = response.data;
               if (data.status) {
 //              window.EVENTVUE.$emit('userMenu', data.data);
-                localStorage.setItem('userMenu', JSON.stringify(data.data));
-                localStorage.setItem('menu', JSON.stringify(data.data.navigation));
-                localStorage.setItem('roleName', JSON.stringify(data.data.roleName));
-                localStorage.setItem('jwtToken', data.data.jwtToken);
+                sessionStorage.setItem('userMenu', JSON.stringify(data.data));
+                sessionStorage.setItem('menu', JSON.stringify(data.data.navigation));
+                sessionStorage.setItem('roleName', JSON.stringify(data.data.roleName));
+                sessionStorage.setItem('jwtToken', data.data.jwtToken);
                 _this.getUser();
                 if(_this.quanxian==1){
                 	location.href = location.origin + '/#/orderList';
@@ -94,7 +94,7 @@
         });
       },
       getUser(){
-        var quanxianleibie = window.localStorage.roleName;
+        var quanxianleibie = window.sessionStorage.roleName;
         var _this = this;
         if(quanxianleibie == '"百特admin"'){
           _this.quanxian = 1;

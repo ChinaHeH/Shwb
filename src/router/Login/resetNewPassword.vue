@@ -63,7 +63,7 @@
         _this.params.password = _this.thirdrForm.password;
 
           console.log(_this.params);
-        var jwtToken = localStorage.getItem('jwtToken');
+        var jwtToken = sessionStorage.getItem('jwtToken');
         console.log(jwtToken);
 
         this.$refs.form2.$refs.ruleForm.validate(valid => {
@@ -102,7 +102,7 @@
           var data = response.data;
 
           if (data.status) {
-            localStorage.setItem('jwtToken', data.data.token);
+            sessionStorage.setItem('jwtToken', data.data.token);
             _this.canChange = true;
           } else {
             CONSTANT.methods.tips(data.error_msg || '认证信息失败!', '提示');

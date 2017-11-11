@@ -64,7 +64,7 @@
       },
       logout () {
         _logout().then(function () {
-          localStorage.clear();
+          sessionStorage.clear();
           location.href = location.origin + '/#/login';
           
           console.log('exit success');

@@ -75,9 +75,9 @@
             if(_this.$refs.form1.ruleForm.newPassword != _this.$refs.form1.ruleForm.reNewPassword){
               CONSTANT.methods.tips('您两次输入的新密码不一致!', '提示');
             }else {
-              console.log(JSON.parse(localStorage.getItem('userMenu')).userName)
-              var oldpassword = CONSTANT.methods.MD5Methods({username:JSON.parse(localStorage.getItem('userMenu')).userName,password:_this.$refs.form1.ruleForm.password});
-              var newpassword = CONSTANT.methods.MD5Methods({username:JSON.parse(localStorage.getItem('userMenu')).userName,password:_this.$refs.form1.ruleForm.newPassword});
+              console.log(JSON.parse(sessionStorage.getItem('userMenu')).userName)
+              var oldpassword = CONSTANT.methods.MD5Methods({username:JSON.parse(sessionStorage.getItem('userMenu')).userName,password:_this.$refs.form1.ruleForm.password});
+              var newpassword = CONSTANT.methods.MD5Methods({username:JSON.parse(sessionStorage.getItem('userMenu')).userName,password:_this.$refs.form1.ruleForm.newPassword});
               _xiugaimima({oldPassword:oldpassword,password:newpassword}).then(function (response) {
                 var data = response.data;
                 console.log("***************************");

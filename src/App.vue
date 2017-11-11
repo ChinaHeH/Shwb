@@ -41,13 +41,13 @@
         _getMenu().then(function (res) {
           var data = res.data;
 
-          localStorage.setItem('menu', JSON.stringify(data.menu));
+          sessionStorage.setItem('menu', JSON.stringify(data.menu));
           _this.menu = data.menu;
         });
       }
     },
 //  updated(){
-//  	 this.menu = JSON.parse(localStorage.getItem('menu'));
+//  	 this.menu = JSON.parse(sessionStorage.getItem('menu'));
 //  },
     mounted () {
 //      this.getMenu();
@@ -58,8 +58,8 @@
 //      this.userinfo.name = resData.userName;
 //    });
       
-      this.userinfo = JSON.parse(localStorage.getItem('userMenu'));
-      this.menu = JSON.parse(localStorage.getItem('menu'));
+      this.userinfo = JSON.parse(sessionStorage.getItem('userMenu'));
+      this.menu = JSON.parse(sessionStorage.getItem('menu'));
       console.log("asdasd")
       console.log(this.userinfo);
       if (!this.menu || this.menu.length <= 0) {
@@ -69,8 +69,8 @@
     watch: {
       '$route.path': function (newVal, oldVal) {
         var _this = this;
-      	this.menu = JSON.parse(localStorage.getItem('menu'));
-      	this.userinfo = JSON.parse(localStorage.getItem('userMenu'));
+      	this.menu = JSON.parse(sessionStorage.getItem('menu'));
+      	this.userinfo = JSON.parse(sessionStorage.getItem('userMenu'));
       	console.log("userinfo")
       console.log(this.userinfo);
         if (!_this.menu) return;

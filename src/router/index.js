@@ -51,11 +51,11 @@ Vue.use(Router);
 export default new Router({
   mode: 'hash',
   routes: [
-//  {
-//    name: 'Home',
-//    path: '/',
-//    component: Login
-//  },
+    {
+      name: 'Home',
+      path: '/',
+      component: Login
+    },
 //  {
 //    name: 'Test',
 //    path: '/home',
