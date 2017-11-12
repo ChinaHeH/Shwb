@@ -460,6 +460,11 @@
     }
   };
 </script>
+<style>
+  .el-table .cell{
+    text-align: center!important;
+  }
+</style>
 <style lang="scss" scoped>
   .uc-slider-list{
   >button{

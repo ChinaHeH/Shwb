@@ -8,7 +8,7 @@
           <img :src="scope.row.picture" class="uc-table-thumbnails" @click="scaleImg('2', scope.row.picture)">
         </template>
       </el-table-column>
-      <el-table-column v-if="type === 'logo'" label="客户logo缩略图">
+      <el-table-column v-if="type === 'logo'" label="客户logo缩略图" :width="200">
         <template  scope="scope">
           <img :src="scope.row.logo" class="uc-table-thumbnails" @click="scaleImg('2', scope.row.logo)">
         </template>

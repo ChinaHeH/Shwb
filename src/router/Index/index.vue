@@ -133,6 +133,11 @@
     }
   };
 </script>
+<style>
+  .el-table .cell{
+    text-align: center!important;
+  }
+</style>
 <style lang="scss">
   .home{
     min-width: 1200px;
