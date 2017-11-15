@@ -38,7 +38,7 @@ export function _loginIn (user) {
 }
 //  退出登录
 export function _logout () {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -63,7 +63,7 @@ export function _logout () {
 
 //  获取个人信息
 export function _getUserInfo () {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -87,7 +87,7 @@ export function _getUserInfo () {
 }
 //  修改个人信息
 export function _updateUserInfo (user) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -114,7 +114,7 @@ export function _updateUserInfo (user) {
 }
 //  获取七牛上传uptoken
 export function _getQiniuUptoken () {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -138,7 +138,7 @@ export function _getQiniuUptoken () {
 }
 // 新增轮播图
 export function _addSlideshow (params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -163,7 +163,7 @@ export function _addSlideshow (params) {
 }
 // 获取轮播图list
 export function _getSlideShowList (params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -188,7 +188,7 @@ export function _getSlideShowList (params) {
 }
 // 根据id获取轮播图信息
 export function _getSlideShow (params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -213,7 +213,7 @@ export function _getSlideShow (params) {
 }
 // 修改轮播图
 export function _updateSlideshow (params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -238,7 +238,7 @@ export function _updateSlideshow (params) {
 }
 // 删除轮播图
 export function _deleteSlideshow (params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -263,7 +263,7 @@ export function _deleteSlideshow (params) {
 }
 // 获取首页公司简介信息
 export function _getCompanyProfile () {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -287,7 +287,7 @@ export function _getCompanyProfile () {
 }
 // 编辑首页公司简介信息
 export function _updateCompanyProfile (params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -312,7 +312,7 @@ export function _updateCompanyProfile (params) {
 }
 // 获取首页信息
 export function _getHomePage () {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -336,7 +336,7 @@ export function _getHomePage () {
 }
 // 获取用户列表
 export function _getUserList (params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -361,7 +361,7 @@ export function _getUserList (params) {
 }
 // 新增用户
 export function _addUser (params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -386,7 +386,7 @@ export function _addUser (params) {
 }
 // 获取用户详情
 export function _getUser (params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -411,7 +411,7 @@ export function _getUser (params) {
 }
 // 编辑用户
 export function _updateUser (params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -436,7 +436,7 @@ export function _updateUser (params) {
 }
 // 禁用用户
 export function _disableUser (params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -461,7 +461,7 @@ export function _disableUser (params) {
 }
 // 启用用户
 export function _enableUser (params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -485,7 +485,7 @@ export function _enableUser (params) {
 
 }
 export function _deleteUser (params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -510,7 +510,7 @@ export function _deleteUser (params) {
 }
 // 获取客户一览
 export function _getCustomerList (params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -535,7 +535,7 @@ export function _getCustomerList (params) {
 }
 // 新增客户
 export function _addCustomer (params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -560,7 +560,7 @@ export function _addCustomer (params) {
 }
 // 查看客户详情
 export function _getCustomer (params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -585,7 +585,7 @@ export function _getCustomer (params) {
 }
 // 编辑客户详情
 export function _updateCustomer (params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -610,7 +610,7 @@ export function _updateCustomer (params) {
 }
 // 禁用客户详情
 export function _disableCustomer (params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -635,7 +635,7 @@ export function _disableCustomer (params) {
 }
 // 启用客户详情
 export function _enableCustomer (params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -660,7 +660,7 @@ export function _enableCustomer (params) {
 }
 // 删除客户详情
 export function _deleteCustomer (params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -751,7 +751,7 @@ export function _testJava () {
 
 //修改密码，直接修改密码的那种
 export function _xiugaimima (params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -822,7 +822,7 @@ export function _getAparamsToSend (user) {
 
 // 点击发送按钮
 export function _changePassword (user) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
   if(!jwtToken){
     location.href = location.origin + '/#/ForgetPassword'
   }
@@ -850,7 +850,7 @@ export function _changePassword (user) {
 
 //订单一览的列表页
 export function _GetDingdanList (params){
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -876,7 +876,7 @@ export function _GetDingdanList (params){
 
 //添加订单一览
 export function _addDingdanForm (params){
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -902,7 +902,7 @@ export function _addDingdanForm (params){
 
 //删除订单一览中列表
 export function _deletedingdan (params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -928,7 +928,7 @@ export function _deletedingdan (params) {
 
 //审核订单
 export function _checkdingdan (params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -954,7 +954,7 @@ export function _checkdingdan (params) {
 
 //退回订单
 export function _returndingdan (params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -980,7 +980,7 @@ export function _returndingdan (params) {
 
 //更改价格
 export function _changePrice (params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -1007,7 +1007,7 @@ export function _changePrice (params) {
 
 //订单查看获取订单信息
 export function _getDingdanInfo (params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -1033,7 +1033,7 @@ export function _getDingdanInfo (params) {
 
 //编辑订单中的更新订单状态
 export function _getdingdanStatus (params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -1059,7 +1059,7 @@ export function _getdingdanStatus (params) {
 
 //编辑订单中的更新订单基本信息
 export function _UpdataBasicInfo (params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -1085,7 +1085,7 @@ export function _UpdataBasicInfo (params) {
 
 //编辑订单中的更新加工信息的基本信息
 export function _UpdataListInfo (params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -1111,7 +1111,7 @@ export function _UpdataListInfo (params) {
 
 // 获取结算一览
 export function _Getbalancelist (params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -1135,7 +1135,7 @@ export function _Getbalancelist (params) {
 }
 //获取价格一览 
 export function _Getpricelist(params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -1160,7 +1160,7 @@ export function _Getpricelist(params) {
 
 //添加价格 _addPrice
 export function _addPrice(params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -1185,7 +1185,7 @@ export function _addPrice(params) {
 
 //删除价格
 export function _Deleteprice(params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -1210,7 +1210,7 @@ export function _Deleteprice(params) {
 
 //获取价格设定信息
 export function _Getprice(params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -1235,7 +1235,7 @@ export function _Getprice(params) {
 
 //更新价格
 export function _Updateprice(params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -1260,7 +1260,7 @@ export function _Updateprice(params) {
 
 //更新价格
 export function _Addpricebatch(params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -1285,7 +1285,7 @@ export function _Addpricebatch(params) {
 
 //生成结算单
 export function _Addbalance(params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -1310,7 +1310,7 @@ export function _Addbalance(params) {
 
 //结算 完成
 export function _Finishbalance(params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
@@ -1335,7 +1335,7 @@ export function _Finishbalance(params) {
 
 //结算 下载pdf
 export function _Downloadbalance(params) {
-  var jwtToken = localStorage.getItem('jwtToken');
+  var jwtToken = sessionStorage.getItem('jwtToken');
 
   if (!jwtToken) {
     location.href = location.origin + '/#/login'
