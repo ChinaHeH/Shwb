@@ -95,15 +95,15 @@
   display: flex;
   >s{
     display: inline-block;
-    width: 155px;
+    width: 170px;
     height: 55px;
     padding: 0;
     margin-right: 0;
     background-color: #fff;
-    background-image: url(../../src/images/header/logo.png);
+    background-image: url(../../src/images/header/baite_logo.jpg);
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: 150px auto;
+    background-size: 160px auto;
     border-bottom: 1px solid #cfd8dc;
   }
   >i{

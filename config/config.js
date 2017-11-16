@@ -2,7 +2,7 @@
 
 module.exports = {
   port: '4005',
-  title: 'project-baite',
+  title: '上海百特',
   vendor: [
     'vue',
     'vue-router'
