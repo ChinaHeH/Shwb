@@ -1,10 +1,16 @@
 <template>
   <uc-scrollbar class="slider">
     <ul>
-      <li v-for="item in menu1">
+      <li v-for="(item,index) in menu1">
         <template v-if="item.children && item.children.length > 0">
           <div @click="showSecondMenu(item)" :class="item.expansion ? 'expansion' : ''">
-            <i class="fa fa-home fa-3" aria-hidden="true"></i>
+            <i v-if="index == 0" class="fa fa-file-text fa-3" aria-hidden="true"></i>
+            <i v-else-if="index == 4" class="fa fa-home fa-3" aria-hidden="true"></i>
+            <i v-else-if="index == 5" class="fa fa-user fa-3" aria-hidden="true"></i>
+            <i v-else-if="index == 6" class="fa fa-database fa-3" aria-hidden="true"></i>
+            <i v-else-if="index == 7" class="fa fa-book fa-3" aria-hidden="true"></i>
+            <i v-else-if="index == 8" class="fa fa-gear fa-3" aria-hidden="true"></i>
+            <i v-else="index == 1 || index == 2 || index == 3" class="fa fa-gear fa-3" aria-hidden="true"></i>
             <label>{{item.name}}</label>
             <i class="fa fa-angle-down fa-2" aria-hidden="true" v-if="item.children && item.children.length > 0"></i>
           </div>

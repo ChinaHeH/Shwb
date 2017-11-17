@@ -137,8 +137,20 @@
 		          if (data.status) {
 		          	CONSTANT.methods.tips('批量添加价格设定成功!', '确定', function(){
 								location.href = location.origin + '/#/priceList';
-				    });
-		          } else {
+				        });
+		          }else if(data.error_code == 101){
+		              if(data.error_msg == "processName 为空" || data.error_msg == '"processName 为空"'){
+                    CONSTANT.methods.tips('工艺名称不能为空!', '提示');
+                  } else if(data.error_msg == "stoneType 为空" || data.error_msg == '"stoneType 为空"'){
+                    CONSTANT.methods.tips('石料类别不能为空!', '提示');
+                  }else if(data.error_msg == "sizeType 为空" || data.error_msg == '"sizeType 为空"'){
+                    CONSTANT.methods.tips('规格类别不能为空!', '提示');
+                  }else if(data.error_msg == "price 为空" || data.error_msg == '"price 为空"'){
+                    CONSTANT.methods.tips('价格不能为空!', '提示');
+                  }else {
+                    CONSTANT.methods.tips(data.error_msg || ''+data.error_msg, '提示');
+                  }
+              }else {
 		            CONSTANT.methods.tips(data.error_msg || '批量添加价格设定异常!', '提示');
 		          }
 		        }).catch(function (res) {
