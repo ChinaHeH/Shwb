@@ -656,7 +656,7 @@
 </script>
 <style>
   .el-table .cell{
-    text-align: center!important;
+    text-align: left!important;
   }
 </style>
 <style scoped>

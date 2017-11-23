@@ -27,7 +27,7 @@
         <!--</li>-->
         <li>
           <i class="fa fa-cog" aria-hidden="true"></i>
-          <router-link tag="span" to="/rePassword">设置</router-link>
+          <router-link tag="span" to="/rePassword">重置密码</router-link>
         </li>
         <li @click="logout">
           <i class="fa fa-sign-out" aria-hidden="true"></i>
