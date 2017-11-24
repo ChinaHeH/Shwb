@@ -43,7 +43,8 @@
           value: data.roleName
         }, {
           label: '账户状态',
-          value: data.status === 1 ? '启用' : '禁用'
+          // value: data.status === 1 ? '启用' : '禁用'
+          value: data.statusName
         }, {
           label: '邮箱',
           value: data.email
