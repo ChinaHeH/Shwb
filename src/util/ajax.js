@@ -312,20 +312,20 @@ export function _updateCompanyProfile (params) {
 }
 // 获取首页信息
 export function _getHomePage () {
-  var jwtToken = sessionStorage.getItem('jwtToken');
-
-  if (!jwtToken) {
-    location.href = location.origin + '/#/login'
-  }
+//var jwtToken = sessionStorage.getItem('jwtToken');
+//
+//if (!jwtToken) {
+//  location.href = location.origin + '/#/login'
+//}
   return new Promise(function (resolve, reject) {
     axios({
       method: 'post',
       url: CONSTANT.api.GETHOMEPAGE,
       data: {
       },
-      headers: {
-        'Authorization': jwtToken
-      }
+//    headers: {
+//      'Authorization': jwtToken
+//    }
     }).then(function (response) {
       resolve(response);
     }).catch(function (response) {

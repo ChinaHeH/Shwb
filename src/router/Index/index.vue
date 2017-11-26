@@ -106,6 +106,8 @@
           ele = '.merchant';
         } else if (type === 4) {
           ele = '.footer';
+        }else if (type === 6) {
+           location.href = location.origin + '/#/login'
         }
         var anchor = this.$el.querySelector(ele);
 
@@ -204,6 +206,9 @@
           }
           >.lb-pic{
             flex: 1;
+            .el-carousel{
+            		text-align: center;
+            }
           }
         }
 
