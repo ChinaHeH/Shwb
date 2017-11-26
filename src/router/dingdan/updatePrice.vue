@@ -142,7 +142,7 @@
 
       <el-table-column label="价格">
         <template slot-scope="scope">
-          <el-input type="input" v-model="scope.row.price" placeholder="请输入价格" @change = "totalNmu()"></el-input>
+          <el-input type="number" min="0" v-model="scope.row.price" placeholder="请输入价格" @change = "totalNmu()"></el-input>
         </template>
       </el-table-column>
     </el-table>
@@ -283,13 +283,15 @@
           var _this = this;
           _this.count = 0;
           for(let i = 0;i < _this.tableData1.length;i++){
-              if(_this.tableData1[i].price == ""){
-                _this.tableData1[i].price == 0;
+              if(_this.tableData1[i].price == "" || _this.tableData1[i].price < 0){
+                _this.tableData1[i].price = 0;
               }
               _this.count = _this.count + parseFloat(_this.tableData1[i].price)*parseFloat(_this.tableData1[i].rawNumber);
           }
           for(let j = 0;j < _this.tableData2.length;j++){
-              if(_this.tableData2[j].price == ""){
+              console.log("***********************")
+              console.log(_this.tableData2[j].price)
+              if(_this.tableData2[j].price == "" || parseFloat(_this.tableData1[j].price) < 0){
                 _this.tableData2[j].price = 0;
               }
               _this.count = _this.count + parseFloat(_this.tableData2[j].price)*parseFloat(_this.tableData2[j].rawNumber);
@@ -317,6 +319,19 @@
           value = "本方自提";
           return value;
         }
+      },
+      numPrice:function(value){
+          if(isNaN(parseFloat(value))){
+            value = 0;
+            return value;
+          }else {
+              if(parseFloat(value) < 0){
+                  value = 0;
+                  return value
+              }else {
+                  return value;
+              }
+          }
       }
     }
   }

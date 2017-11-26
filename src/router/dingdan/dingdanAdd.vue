@@ -68,22 +68,22 @@
       
       <el-table-column label="材料数量／片" width="150">
         <template slot-scope="scope">
-          <el-input type="number" v-model="scope.row.rawNumber" placeholder="材料数量" @change="totleEMB()"></el-input>
+          <el-input type="number" min="0" v-model="scope.row.rawNumber" placeholder="材料数量" @change="totleEMB()"></el-input>
         </template>
       </el-table-column>
       <el-table-column label="成品长度／mm" width="150">
         <template slot-scope="scope">
-          <el-input type="number" v-model="scope.row.productLength" placeholder="长度"></el-input>
+          <el-input type="number" min="0" v-model="scope.row.productLength" placeholder="长度"></el-input>
         </template>
       </el-table-column>
       <el-table-column label="成品宽度／mm" width="150">
         <template slot-scope="scope">
-          <el-input type="number" v-model="scope.row.productWidth" placeholder="宽度"></el-input>
+          <el-input type="number" min="0" v-model="scope.row.productWidth" placeholder="宽度"></el-input>
         </template>
       </el-table-column>
       <el-table-column label="成品数量／片" width="150">
         <template slot-scope="scope">
-          <el-input type="number" v-model="scope.row.productNumber" placeholder="成品数量"></el-input>
+          <el-input type="number" min="0" v-model="scope.row.productNumber" placeholder="成品数量"></el-input>
         </template>
       </el-table-column>
       <el-table-column label="备注" width="150">
@@ -144,7 +144,7 @@
 
       <el-table-column label="材料数量／片" width="200">
         <template slot-scope="scope">
-          <el-input type="number" v-model="scope.row.rawNumber" placeholder="材料数量"></el-input>
+          <el-input type="number" min="0" v-model="scope.row.rawNumber" placeholder="材料数量"></el-input>
         </template>
       </el-table-column>
 
