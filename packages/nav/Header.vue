@@ -2,7 +2,7 @@
   <header class="uc-header">
     <s></s>
     <i>
-      <i class="fa fa-list fa-2x" aria-hidden="true"></i>
+      <!--<i class="fa fa-list fa-2x" aria-hidden="true"></i>-->
       <i class="fa fa-chevron-left fa-1x" aria-hidden="true" @click="backHistory"></i>
       <label>当前位置：{{name1}}</label>
     </i>

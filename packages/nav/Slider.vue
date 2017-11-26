@@ -6,7 +6,7 @@
           <div @click="showSecondMenu(item)" :class="item.expansion ? 'expansion' : ''">
             <i v-if="index == 0" class="fa fa-file-text fa-3" aria-hidden="true"></i>
             <i v-else-if="index == 4" class="fa fa-home fa-3" aria-hidden="true"></i>
-            <i v-else-if="index == 5" class="fa fa-user fa-3" aria-hidden="true"></i>
+            <i v-else-if="index == 5" class="fa fa-user fa-3" aria-hidden="true" style="margin-left: 2.5px;"></i>
             <i v-else-if="index == 6" class="fa fa-database fa-3" aria-hidden="true"></i>
             <i v-else-if="index == 7" class="fa fa-book fa-3" aria-hidden="true"></i>
             <i v-else-if="index == 8" class="fa fa-gear fa-3" aria-hidden="true"></i>
